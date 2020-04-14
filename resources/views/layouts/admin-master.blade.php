@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" class="fixed left-sidebar-top">
+<html lang="en" class="fixed accounts sign-in left-sidebar-top">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>@yield('title', 'Lara-Ecom | Admin Dashboard ')</title>
+    <title>@yield('title', 'Lara-Ecomm | Admin Panel ')</title>
     <!--load progress bar-->
     <script src="{{ asset('assets/admin/vendor/pace/pace.min.js') }}"></script>
     <link href="{{ asset('assets/admin/vendor/pace/pace-theme-minimal.css') }}" rel="stylesheet" />
@@ -29,25 +29,48 @@
 <body>
 
 <div class="wrap">
-    <!-- page HEADER -->
-    <!-- ========================================================= -->
-    @includeIf('admin.components.partials.header')
-    <!-- page BODY -->
-    <!-- ========================================================= -->
-    <div class="page-body">
-        <!-- LEFT SIDEBAR -->
+        <!-- page HEADER -->
         <!-- ========================================================= -->
-        @includeIf('admin.components.partials.left-sidebar')
-        <!-- CONTENT -->
-        <!-- ========================================================= -->
-        @yield('content')
-        <!-- RIGHT SIDEBAR -->
+        @yield('header')
+
+        <!-- page BODY -->
+        <div class="page-body">
+            <!-- LEFT SIDEBAR -->
+            @yield('left-sidebar')
+            <!-- ========================================================= -->
+
+            <!-- CONTENT -->
+            @yield('content')
+            <!-- ========================================================= -->
+
+            <!-- RIGHT SIDEBAR -->
+            {{--If Right Sidebar is required to include here ...--}}
+            @yield('right-sidebar')
+            <!-- ========================================================= -->
+            <div class="animated slideInDown">
+            <!-- LOGIN FORM -->
+            @yield('login-form')
+
+            @yield('register-form')
+
+            </div>
+            <!-- ========================================================= -->
+
+            <!--scroll to top-->
+            <a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>
+        </div>
         <!-- ========================================================= -->
 
-        <!--scroll to top-->
-        <a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>
-    </div>
 </div>
+
+    {{--<div class="wrap">--}}
+        {{--<!-- page BODY -->--}}
+        {{--<!-- ========================================================= -->--}}
+
+    {{--</div>--}}
+
+
+
 <!--BASIC scripts-->
 <!-- ========================================================= -->
 <script src="{{ asset('assets/admin/vendor/jquery/jquery-1.12.3.min.js') }}"></script>

@@ -22,7 +22,13 @@ Route::group(['namespace' => 'Site', 'name'=>'site.'], function () {
 
 });
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin', 'name' =>'admin.'], function() {
-    Route::get('/', 'AdminController@index')->name('index');
+Route::group(['namespace' => 'Admin\Auths', 'prefix' => 'admin'], function () {
+    Route::get('login', 'AuthController@showLoginForm')->name('login');
+    Route::get('register', 'AuthController@showRegisterForm')->name('register');
+
+});
+
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], function () {
+    Route::get('/home', 'Admin\AdminController@index')->name('home');
 
 });

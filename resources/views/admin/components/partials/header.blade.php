@@ -1,7 +1,7 @@
 <div class="page-header">
     <!-- LEFTSIDE header -->
     <div class="leftside-header">
-        <div class="logo">
+        <div style="margin: 0" class="logo">
             <a href="index.html" class="on-click">
                 <img alt="logo" src="{{ asset('assets/admin/images/header-logo.png') }}" />
             </a>

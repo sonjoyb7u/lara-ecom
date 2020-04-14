@@ -1,5 +1,15 @@
 @extends('layouts.admin-master')
 
+@section('title', 'Lara-Ecomm | Admin Home')
+
+
+@section('header')
+    @includeIf('admin.components.partials.header')
+@endsection
+
+@section('left-sidebar')
+    @includeIf('admin.components.partials.left-sidebar')
+@endsection
 
 @section('content')
     <div class="content">
@@ -328,4 +338,10 @@
         </div>
         <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     </div>
+
 @endsection
+
+@section('right-sidebar')
+    @includeIf('admin.components.partials.right-sidebar')
+@endsection
+

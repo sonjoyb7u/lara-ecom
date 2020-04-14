@@ -1,8 +1,6 @@
 @extends('layouts.site-master')
 
-@section('title')
-    Laravel Ecommerce | Home
-@endsection
+@section('title', 'Lara-Ecomm | Home')
 
 @section('content')
     <div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
