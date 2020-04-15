@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::group(['namespace' => 'Site', 'name'=>'site.'], function () {
+Route::namespace('Site')->name('site.')->group(function () {
     Route::get('/', 'SiteController@index')->name('index');
 
 });
 
-Route::group(['namespace' => 'Admin\Auths', 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'Auths', 'prefix' => 'admin'], function () {
     Route::get('login', 'AuthController@showLoginForm')->name('login');
     Route::get('register', 'AuthController@showRegisterForm')->name('register');
 
@@ -32,3 +32,17 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], 
     Route::get('/home', 'Admin\AdminController@index')->name('home');
 
 });
+
+Auth::routes();
+
+Route::middleware('auth')->name('user.')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+
+});
+
+
+Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function() {
+    Route::get('home', 'HomeController@adminHome')->name('home')->middleware();
+
+});
+

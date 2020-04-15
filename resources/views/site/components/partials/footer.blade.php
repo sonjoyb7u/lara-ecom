@@ -125,3 +125,25 @@
         </div>
     </div>
 </footer>
+
+
+<!-- JavaScripts placed at the end of the document so the pages load faster -->
+<script src="{{ asset('assets/site/js/jquery-1.11.1.min.js') }}"></script>
+
+<script src="{{ asset('assets/site/js/bootstrap.min.js') }}"></script>
+
+<script src="{{ asset('assets/site/js/bootstrap-hover-dropdown.min.js') }}"></script>
+<script src="{{ asset('assets/site/js/owl.carousel.min.js') }}"></script>
+
+<script src="{{ asset('assets/site/js/echo.min.js') }}"></script>
+<script src="{{ asset('assets/site/js/jquery.easing-1.3.min.js') }}"></script>
+<script src="{{ asset('assets/site/js/bootstrap-slider.min.js') }}"></script>
+<script src="{{ asset('assets/site/js/jquery.rateit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/site/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('assets/site/js/bootstrap-select.min.js') }}"></script>
+<script src="{{ asset('assets/site/js/wow.min.js') }}"></script>
+<script src="{{ asset('assets/site/js/scripts.js') }}"></script>
+
+
+</body>
+</html>

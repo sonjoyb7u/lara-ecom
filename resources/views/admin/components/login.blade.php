@@ -1,4 +1,4 @@
-@extends('layouts.admin-master')
+@extends('admin.components.admin-master')
 
 @section('title', 'Lara-Ecomm | Login( Admin/User )')
 
