@@ -16,6 +16,7 @@ Clone repository
 https://github.com/username/project_name.git
 
 Step 2:
+Pasted it CLI(cmd) :  
 Copy .env.example to .env
 
 Step 3:
