@@ -19,7 +19,7 @@
                     @endif
                     You are logged in!
                         <div class="card-body">
-                            You are normal user.
+                            You are Admin.
                         </div>
                 </div>
             </div>

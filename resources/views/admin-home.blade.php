@@ -15,7 +15,7 @@
                     @endif
                     You are logged in!
                         <div class="card-body">
-                            You are Admin.
+                            You are Super Admin.
                         </div>
                 </div>
             </div>

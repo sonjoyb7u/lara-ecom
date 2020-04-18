@@ -20,7 +20,7 @@ class IsAdmin
 
         }
 
-        return redirect()->route('user.home')->with('errorMsg', 'You don\'t have an Admin access!');
+        return redirect()->route('user.home')->with('errorMsg', 'You don\'t have an Admin Dashboard access!');
 
     }
 }

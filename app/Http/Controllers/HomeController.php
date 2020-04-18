@@ -42,5 +42,10 @@ class HomeController extends Controller
 
     }
 
+    public function customerHome() {
+        return view('customer-home');
+
+    }
+
 
 }

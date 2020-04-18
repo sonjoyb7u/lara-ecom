@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
         ];
 
         foreach ($users as $key => $row) {
-//            User::create($row);
+            User::create($row);
         }
     }
 }

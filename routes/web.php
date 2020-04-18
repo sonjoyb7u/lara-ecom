@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,14 +36,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], 
 
 Auth::routes();
 
-Route::middleware('auth')->name('user.')->group(function () {
+Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
 });
 
-
 Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function() {
-    Route::get('home', 'HomeController@adminHome')->name('home')->middleware();
+    Route::get('/home', 'HomeController@adminHome')->name('home')->middleware();
 
 });
 
