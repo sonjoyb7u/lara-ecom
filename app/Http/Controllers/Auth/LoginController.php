@@ -28,7 +28,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectToSuperAdmin = RouteServiceProvider::SUPER_ADMIN;
+    protected $redirectToAdmin = RouteServiceProvider::ADMIN;
 
     /**
      * Create a new controller instance.
@@ -48,7 +50,12 @@ class LoginController extends Controller
 
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|max:6',
+
+        ], [
+            'email.required' => 'Email field is required!',
+            'password.required' => 'Password field is required!',
+            'password.max' => 'Password must be minimum 6 character\'s!',
 
         ]);
 
@@ -61,15 +68,14 @@ class LoginController extends Controller
         if(auth()->attempt($login_data))
         {
             if (auth()->user()->is_admin == 1) {
-                return redirect()->route('admin.home');
+                return redirect()->route('super-admin.home');
 
             }else{
-                return redirect()->route('user.home');
+                return redirect()->route('admin.home');
 
             }
 
         }else{
-
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');
 

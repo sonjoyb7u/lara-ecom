@@ -6,7 +6,8 @@
 Laravel Ecommerce is a web/mobile based online shopping application ecommerce platform system using Laravel Framework by PHP.
 
 ## Package using list :
-
+- Laravel Debugbar,
+- 
  
 
 ## Installation Instruction :
