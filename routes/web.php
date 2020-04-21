@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::namespace('Site')->name('site.')->group(function () {
-
     Route::get('/', 'SiteController@index')->name('index');
-
 });
 
 // Route::group(['namespace' => 'Auths', 'prefix' => 'admin'], function () {
@@ -36,24 +34,17 @@ Route::namespace('Site')->name('site.')->group(function () {
 Auth::routes();
 
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
-
     Route::get('dashboard', 'AdminController@admin')->name('home');
 
     Route::prefix('brands')->namespace('Brand')->name('brand.')->group(function () {
         Route::get('/', 'BrandController@index')->name('index');
         Route::get('show', 'BrandController@show')->name('show');
-        Route::post('store', 'BrandController@store')->name('store');
+        Route::post('store/{id}', 'BrandController@store')->name('store');
         Route::get('create', 'BrandController@create')->name('create');
-
-
-        
     });
-
-
 });
 
 Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')->name('super-admin.')->group(function () {
-
     Route::get('dashboard', 'AdminController@index')->name('home');
 
     // Route::post('logout', 'AdminController@logout')->name('logout');
@@ -61,14 +52,12 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
     Route::prefix('brands')->namespace('Brand')->name('brand.')->group(function () {
         Route::get('/', 'BrandController@index')->name('index');
         Route::get('show', 'BrandController@show')->name('show');
-        Route::get('edit', 'BrandController@edit')->name('edit');
-        Route::post('store', 'BrandController@store')->name('store');
         Route::get('create', 'BrandController@create')->name('create');
-        Route::get('delete', 'BrandController@delete')->name('delete');
-
-        
-
+        Route::post('store/{brand_id}', 'BrandController@store')->name('store');
+        Route::delete('delete/{brand_id}', 'BrandController@destroy')->name('delete');
+        Route::get('edit/{brand_id}', 'BrandController@edit')->name('edit');
+        Route::put('update/{brand_id}', 'BrandController@update')->name('update');
+        Route::get('status/{brand_id}/{brand_status}', 'BrandController@updateStatus')->name('status');
 
     });
-
 });

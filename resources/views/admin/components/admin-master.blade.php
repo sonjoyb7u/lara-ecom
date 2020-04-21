@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>@yield('title', 'Lara-Ecomm | Admin Panel ')</title>
+
     <link rel="icon" sizes="250x250" href="{{ asset('assets/site/images/logo-2.png') }}">
     <!--load progress bar-->
     <script src="{{ asset('assets/admin/vendor/pace/pace.min.js') }}"></script>
@@ -22,9 +23,16 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/toastr/toastr.min.css') }}">
     <!--Magnific popup-->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/magnific-popup/magnific-popup.css') }}">
+    <!--STATUS-LOADER css-->
+    <!-- ========================================================= -->
+    <link rel="stylesheet" href="{{ asset('assets/admin/stylesheets/css/status-loader.css') }}">
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{ asset('assets/admin/stylesheets/css/style.css') }}">
+    <!--TOGGLE css-->
+    <!-- ========================================================= -->
+    {{-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') }}">
 
 
 </head>
@@ -43,8 +51,27 @@
             <!-- ========================================================= -->
 
             <!-- CONTENT -->
-
             @yield('content')
+
+            <!-- SPINNER 13   -->
+            <div class="loader-overlay">
+                <div class="status-loader">
+                    <div class="ml-loader">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
 
             <!--scroll to top-->
             <a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>
@@ -87,9 +114,15 @@
 <!-- ========================================================= -->
 <script src="{{ asset('assets/admin/javascripts/template-script.min.js') }}"></script>
 <script src="{{ asset('assets/admin/javascripts/template-init.min.js') }}"></script>
+<!--TOGGLE js-->
+<!-- ========================================================= -->
+{{-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> --}}
+<script src="{{ asset('assets/admin/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js') }}"></script>
 <!--DATA table-->
 <script src="{{ asset('assets/admin/vendor/data-table/media/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/admin/vendor/data-table/media/js/dataTables.bootstrap.min.js') }}">
+<script src="{{ asset('assets/admin/vendor/data-table/media/js/dataTables.bootstrap.min.js') }}"></script>
+<!--DATA Table Examples-->
+<script src="{{ asset('assets/admin/javascripts/examples/tables/data-tables.js') }}"></script>
 <!-- SECTION script and examples-->
 <!-- ========================================================= -->
 <!--Notification msj-->
@@ -100,6 +133,7 @@
 <script src="{{ asset('assets/admin/vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
 <!--Examples-->
 <script src="{{ asset('assets/admin/javascripts/examples/dashboard.js') }}"></script>
+<script src="{{ asset('assets/admin/javascripts/custom/main.js') }}"></script>
 
 </body>
 </html>

@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('admin.components.admin-master')
 
-@section('content')
+@section('title', 'Register(Super Admin / Admin) | Lara-Ecomm')
+
+@section('register-form')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

@@ -769,7 +769,14 @@ html.right-sidebar-opened .right-sidebar {
   padding-right: 8px;
   color: #1fbe9d;
 }
-
+.content .content-header ul.breadcrumbs li:nth-child(2) i {
+  padding-right: 8px;
+  color: #1fbe9d;
+}
+.content .content-header ul.breadcrumbs li:last-child i {
+  padding-right: 8px;
+  color: #1fbe9d;
+}
 .content .content-header ul.breadcrumbs li a {
   color: #126f5c;
 }
@@ -1026,6 +1033,9 @@ ul#main-nav > li.open-item > a {
 }
 
 ul#main-nav > li.open-item > a > i {
+  color: #189279;
+}
+ul.child-nav > li > a > i {
   color: #189279;
 }
 
