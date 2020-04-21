@@ -30,6 +30,22 @@
                             </li> --}}
                         </ul>
                     </li>
+                    <!-- CATEGORY SECTION -->
+                    <li class="has-child-item {{ request()->is('super-admin/categories','super-admin/categories/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/categories', 'admin/categories/*') ? 'open-item active-item' : 'close-item' }}">
+                        <a><i class="fa fa-list-alt" aria-hidden="true"></i><span>CATEGORY SECTION</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li class=" {{ request()->is('super-admin/categories/create') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/categories/create') ? 'open-item active-item' : 'close-item' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.category.create') : route('admin.category.create') }}"><i class="fa fa-plus-square"  aria-hidden="true"></i>Add Category</a></li>
+                            <li  class=" {{ request()->is('super-admin/categories','super-admin/categories/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/category', 'admin/category/*') ? 'open-item active-item' : 'close-item' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.category.index') : route('admin.category.index') }}"><i class="fa fa-tasks"></i>Manage Categories</a></li>
+                            
+                            {{-- <li class="has-child-item close-++++++++++item">
+                                <a>Notifications</a>
+                                <ul class="nav child-nav level-2 ">
+                                    <li><a href="ui-elements_notifications-pnotify.html">PNotify</a></li>
+                                    <li><a href="ui-elements_notifications-toastr.html">Toastr</a></li>
+                                </ul>
+                            </li> --}}
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

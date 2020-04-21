@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models;
-use App\Models\User;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
@@ -14,9 +14,13 @@ class Brand extends Model
     public const ACTIVE_BRAND = 1;
     public const INACTIVE_BRAND = 0;
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

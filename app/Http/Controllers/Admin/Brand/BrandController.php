@@ -35,7 +35,7 @@ class BrandController extends Controller
             $brand_name = $request->brand_name;
             $brand_data = [
                 'user_id' => $user_id,
-                'brand_name' => $request->brand_name,
+                'brand_name' => $brand_name,
                 'brand_slug' => Str::slug($brand_name),
             ];
 

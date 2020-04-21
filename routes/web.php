@@ -42,22 +42,39 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::post('store/{id}', 'BrandController@store')->name('store');
         Route::get('create', 'BrandController@create')->name('create');
     });
+
+    Route::prefix('categories')->namespace('Category')->name('category.')->group(function () {
+        Route::get('/', 'CategoryController@index')->name('index');
+        Route::get('show', 'CategoryController@show')->name('show');
+        Route::get('create', 'CategoryController@create')->name('create');
+        Route::post('store/{user_id}', 'CategoryController@store')->name('store');
+
+    });
+
 });
 
 Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')->name('super-admin.')->group(function () {
     Route::get('dashboard', 'AdminController@index')->name('home');
 
-    // Route::post('logout', 'AdminController@logout')->name('logout');
-
     Route::prefix('brands')->namespace('Brand')->name('brand.')->group(function () {
         Route::get('/', 'BrandController@index')->name('index');
         Route::get('show', 'BrandController@show')->name('show');
         Route::get('create', 'BrandController@create')->name('create');
-        Route::post('store/{brand_id}', 'BrandController@store')->name('store');
+        Route::post('store/{user_id}', 'BrandController@store')->name('store');
         Route::delete('delete/{brand_id}', 'BrandController@destroy')->name('delete');
         Route::get('edit/{brand_id}', 'BrandController@edit')->name('edit');
         Route::put('update/{brand_id}', 'BrandController@update')->name('update');
         Route::get('status/{brand_id}/{brand_status}', 'BrandController@updateStatus')->name('status');
+    });
 
+    Route::prefix('categories')->namespace('Category')->name('category.')->group(function () {
+        Route::get('/', 'CategoryController@index')->name('index');
+        Route::get('show', 'CategoryController@show')->name('show');
+        Route::get('create', 'CategoryController@create')->name('create');
+        Route::post('store/{user_id}', 'CategoryController@store')->name('store');
+        Route::delete('delete/{category_id}', 'CategoryController@destroy')->name('delete');
+        Route::get('edit/{category_id}', 'CategoryController@edit')->name('edit');
+        Route::put('update/{category_id}', 'CategoryController@update')->name('update');
+        Route::get('status/{category_id}/{category_status}', 'CategoryController@updateStatus')->name('status');
     });
 });

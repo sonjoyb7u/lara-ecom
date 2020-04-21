@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Brand;
 
 class User extends Authenticatable
 {
@@ -38,12 +36,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function brands() {
+    public function brands()
+    {
         return $this->hasMany(Brand::class);
     }
 
-
-
-
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
