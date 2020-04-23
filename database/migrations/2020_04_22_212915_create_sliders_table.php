@@ -18,7 +18,7 @@ class CreateSlidersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('message', 20)->unique();
             $table->string('title', 50)->unique();
-            $table->string('sub-title', 100)->unique();
+            $table->string('sub_title', 100)->unique();
             $table->string('image')->default('slider_default.png');
             $table->dateTime('start')->default('2020-04-01 23:00:59');
             $table->dateTime('end')->default('2020-12-30 23:58:59');

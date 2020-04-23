@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Slider extends Model
 {
     protected $fillable = [
-        'user_id', 'message', 'title', 'sub_title', 'image', 'start', 'end', 'status',
+        'user_id', 'message', 'title', 'sub_title', 'image', 'start', 'end', 'status', 'url',
     ];
 
     public function user()

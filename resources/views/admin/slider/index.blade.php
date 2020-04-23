@@ -1,6 +1,6 @@
 @extends('admin.components.admin-master')
 
-@section('title', 'Manage Category | Lara-Ecomm')
+@section('title', 'Manage Sliders | Lara-Ecomm')
 
 
 @section('header')
@@ -20,8 +20,8 @@
             <div class="leftside-content-header">
                 <ul class="breadcrumbs">
                     <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.home') : route('admin.home') }}">Dashboard</a></li>
-                    <li><a href="javascript:avoid(0)"><i class="fa fa-list-alt" aria-hidden="true"></i>Category</a></li>
-                    <li><a href="javascript:avoid(0)"><i class="fa fa-tasks"></i>Manage Categories</a></li>
+                    <li><a href="javascript:avoid(0)"><i class="fa fa-list-alt" aria-hidden="true"></i>Slider</a></li>
+                    <li><a href="javascript:avoid(0)"><i class="fa fa-tasks"></i>Manage Sliders</a></li>
                 </ul>
             </div>
         </div>
@@ -29,15 +29,15 @@
         <div class="row animated fadeInUp">
             <div class="col-sm-12 col-md-12">
                 @includeIf('messages.show-message')
-                <h3 class="section-subtitle"><b>CATEGORY LIST</b></h3>
+                <h3 class="section-subtitle"><b>SLIDER LIST</b></h3>
             <div class="panel b-primary bt-md">
                 <div class="panel-content">
                     <div class="row">
                         <div class="col-xs-6">
-                            <h4>Manage Category :</h4>
+                            <h4>Manage Slider :</h4>
                         </div>
                         <div class="col-xs-6 text-right">
-                            <a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.category.create') : route('admin.category.create') }}" class="btn btn-primary">Add Category</a>
+                            <a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.slider.create') : route('admin.slider.create') }}" class="btn btn-primary">Add Slider</a>
                         </div>
                     </div>
 
@@ -48,50 +48,53 @@
                             <tr>
                                 <th>Sl No.</th>
                                 <th>Added By</th>
-                                <th>Brand Name</th>
-                                <th>Category Name</th>
-                                <th>Category Slug</th>
-                                <th>Category Image</th>
+                                <th>Slider Message</th>
+                                <th>Slider Title</th>
+                                <th>Slider Sub-title</th>
+                                <th>Slider Image</th>
+                                <th>Slider Start To End (Date&Time)</th>
+                                <th>Slider URL</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($sliders as $slider)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    @if($category->user_id)
-                                    {{ $category->user->is_admin === 1 ? 'Super Admin' : 'Admin' }}
+                                    @if($slider->user_id)
+                                    {{ $slider->user->is_admin === 1 ? 'Super Admin' : 'Admin' }}
                                     @else
                                     No User Found Yet.
                                     @endif
                                 </td>
-                                <td>{{ $category->brand->brand_name }}</td>
-                                <td>{{ $category->category_name }}</td>
-                                <td>{{ $category->category_slug }}</td>
+                                <td>{{ $slider->message }}</td>
+                                <td>{{ substr($slider->title, 0, 20) }}</td>
+                                <td>{{ substr($slider->sub_title, 0, 25) }}</td>
                                 <td>
-                                    <img width="80" height="60" src="{{ asset('uploads/images/category/'.$category->image) }}" alt="Category Image">
+                                    <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$slider->image) }}" alt="{{ $slider->image }}">
+                                </td>
+                                <td>{{ $slider->start . '  >>>  ' . $slider->end }}</td>
+                                <td>
+                                    <a target="_blank" href="{{ $slider->url }}" class="btn btn-primary btn-sm">Go To Link</a>
                                 </td>
                                 <td>
                                     @if(auth()->user()->is_admin === 1)
-                                    <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $category->status === 1 ? 'checked' : '' }} id="categoryStatus" data-id="{{ $category->id }}">
+                                    <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $slider->status === 'active' ? 'checked' : '' }} id="sliderStatus" data-id="{{ $slider->id }}">
                                     @else
-                                    <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $category->status === 1 ? 'checked' : '' }} onclick="return confirm('You have Not Authorized To Access This Action!')" disabled>
+                                    <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $slider->status === 'active' ? 'checked' : '' }} onclick="return confirm('You have Not Authorized To Access This Action!')" disabled>
                                     @endif
 
                                 </td>
                                 <td>
-                                    {{-- <a class="btn btn-success btn-sm" href=""><i class="fa fa-arrow-circle-o-up"></i></a>
-                                    <a class="btn btn-warning btn-sm" href=""><i class="fa fa-arrow-circle-o-down"></i></a>  --}}
-
-                                    <a class="btn btn-primary btn-sm" href="{{ auth()->user()->is_admin === 1 ? route('super-admin.category.show') : route('admin.category.show') }}"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{ auth()->user()->is_admin === 1 ? route('super-admin.slider.show') : route('admin.slider.show') }}"><i class="fa fa-eye"></i></a>
 
                                     @if(auth()->user()->is_admin === 1)
 
-                                    <a class="btn btn-info btn-sm" href="{{ route('super-admin.category.edit', base64_encode($category->id)) }}"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('super-admin.slider.edit', base64_encode($slider->id)) }}"><i class="fa fa-pencil-square-o"></i></a>
                                     <span style="display: inline-block">
-                                    <form action="{{ route('super-admin.category.delete', base64_encode($category->id)) }}" method="post">
+                                    <form action="{{ route('super-admin.slider.delete', base64_encode($slider->id)) }}" method="post">
                                     @csrf
                                     @method('DELETE')
 

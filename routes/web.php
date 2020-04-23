@@ -142,7 +142,7 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::post('store/{user_id}', 'SliderController@store')->name('store');
         Route::delete('delete/{slider_id}', 'SliderController@destroy')->name('delete');
         Route::get('edit/{slider_id}', 'SliderController@edit')->name('edit');
-        Route::put('update/{slider_id}', 'SliderController@update')->name('update');
+        Route::put('update/{slider_id}/{user_id}', 'SliderController@update')->name('update');
         Route::get('status/{slider_id}/{slider_status}', 'SliderController@updateStatus')->name('status');
     });
 });
