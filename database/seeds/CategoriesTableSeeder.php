@@ -17,11 +17,12 @@ class CategoriesTableSeeder extends Seeder
         foreach (range(1, 10) as $index) {
             $category_name = $faker_category->name;
             Category::create([
-                'user_id' => random_int(1, 3),
-                'brand_id' => random_int(1, 8),
+                'user_id' => random_int(1, 2),
+                'brand_id' => random_int(1, 10),
                 'category_name' => $category_name,
                 'category_slug' => Illuminate\Support\Str::slug($category_name),
                 'status' => random_int(0, 1),
+
             ]);
         }
     }

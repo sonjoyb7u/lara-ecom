@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\Slider;
 
 class User extends Authenticatable
 {
@@ -15,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'user_name', 'image', 'phone', 'is_admin', 'password', 'status',
+        'name', 'email', 'user_name', 'password', 'image', 'phone', 'address', 'bio', 'is_admin', 'status',
     ];
 
     /**
@@ -44,5 +48,15 @@ class User extends Authenticatable
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function subCategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+
+    public function sliders()
+    {
+        return $this->hasMany(Slider::class);
     }
 }

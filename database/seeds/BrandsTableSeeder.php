@@ -23,7 +23,7 @@ class BrandsTableSeeder extends Seeder
             $brand_name = $faker_brand->unique()->name;
 
             Brand::create([
-                'user_id' => random_int(1, 4),
+                'user_id' => random_int(1, 2),
                 'brand_name' => $brand_name,
                 'brand_slug' => Illuminate\Support\Str::slug($brand_name),
                 'status' => random_int(0, 1),
@@ -31,6 +31,6 @@ class BrandsTableSeeder extends Seeder
 
         }
 
-        
+
     }
 }

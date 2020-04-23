@@ -18,6 +18,7 @@ class CreateBrandsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('brand_name', 30)->unique();
             $table->string('brand_slug', 100)->unique();
+            $table->string('image', 150)->default('brand_default.png');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
 

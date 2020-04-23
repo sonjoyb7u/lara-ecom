@@ -33,6 +33,8 @@
     <!-- ========================================================= -->
     {{-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') }}">
+    <!--seewtaler-->
+    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/sweetalert/sweetalert.css') }}">
 
 
 </head>
@@ -75,7 +77,7 @@
 
             <!--scroll to top-->
             <a href="#" class="scroll-to-top"><i class="fa fa-angle-double-up"></i></a>
-            
+
             <div class="animated slideInDown">
 
             <!-- LOGIN FORM -->
@@ -134,6 +136,9 @@
 <!--Examples-->
 <script src="{{ asset('assets/admin/javascripts/examples/dashboard.js') }}"></script>
 <script src="{{ asset('assets/admin/javascripts/custom/main.js') }}"></script>
+<!--seewtaler-->
+<script src="{{ asset('assets/admin/vendor/sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/admin/javascripts/examples/ui-elements/alerts.js') }}"></script>
 
 </body>
 </html>

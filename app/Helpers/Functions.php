@@ -31,5 +31,17 @@
     function getMessage($type, $message) {
         session()->flash('type', $type);
         session()->flash('message', $message);
-        
+
+    }
+
+
+    /**
+     * Seeder random status generate function/method...
+     * @return string
+     */
+    function randomStatus() {
+        $status = ['active', 'inactive'];
+        $status = $status[array_rand($status)];
+
+        return $status;
     }

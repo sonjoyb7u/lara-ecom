@@ -14,28 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
+/**
+ * FRONT-SITE route...
+ */
 Route::namespace('Site')->name('site.')->group(function () {
     Route::get('/', 'SiteController@index')->name('index');
 });
 
-// Route::group(['namespace' => 'Auths', 'prefix' => 'admin'], function () {
-//     Route::get('login', 'AuthController@showLoginForm')->name('login');
-//     Route::get('register', 'AuthController@showRegisterForm')->name('register');
-// });
-
-// Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], function () {
-//     Route::get('/home', 'Admin\AdminController@index')->name('home');
-// });
-
+/**
+ * DEFAULT AUTHENTICATE route...
+ */
 Auth::routes();
 
+/**
+ * NORMAL ADMIN AUTHENTICATE LOGIN WITH SECTION WISE AUTHORIZED route...
+ */
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
+    /**
+     * NORMAL ADMIN DASHBOARD route...
+     */
     Route::get('dashboard', 'AdminController@admin')->name('home');
 
+    /**
+     * NORMAL ADMIN BRAND route...
+     */
     Route::prefix('brands')->namespace('Brand')->name('brand.')->group(function () {
         Route::get('/', 'BrandController@index')->name('index');
         Route::get('show', 'BrandController@show')->name('show');
@@ -43,6 +45,9 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::get('create', 'BrandController@create')->name('create');
     });
 
+    /**
+     * NORMAL ADMIN CATEGORY route...
+     */
     Route::prefix('categories')->namespace('Category')->name('category.')->group(function () {
         Route::get('/', 'CategoryController@index')->name('index');
         Route::get('show', 'CategoryController@show')->name('show');
@@ -51,11 +56,43 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
 
     });
 
+    /**
+     * NORMAL ADMIN SUB-CATEGORY route...
+     */
+    Route::prefix('sub-categories')->namespace('Category')->name('sub-category.')->group(function () {
+        Route::get('/', 'SubCategoryController@index')->name('index');
+        Route::get('show', 'SubCategoryController@show')->name('show');
+        Route::get('create', 'SubCategoryController@create')->name('create');
+        Route::post('store/{user_id}', 'SubCategoryController@store')->name('store');
+
+    });
+
+    /**
+     * NORMAL ADMIN SLIDER route...
+     */
+    Route::prefix('sliders')->namespace('Slider')->name('slider.')->group(function () {
+        Route::get('/', 'SliderController@index')->name('index');
+        Route::get('show', 'SliderController@show')->name('show');
+        Route::get('create', 'SliderController@create')->name('create');
+        Route::post('store/{user_id}', 'SliderController@store')->name('store');
+
+    });
+
 });
 
+/**
+ * SUPER ADMIN AUTHENTICATE LOGIN WITH SECTION WISE AUTHORIZED route...
+ */
 Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')->name('super-admin.')->group(function () {
+
+    /**
+     * SUPER ADMIN DASHBOARD route...
+     */
     Route::get('dashboard', 'AdminController@index')->name('home');
 
+    /**
+     * SUPER ADMIN BRAND route...
+     */
     Route::prefix('brands')->namespace('Brand')->name('brand.')->group(function () {
         Route::get('/', 'BrandController@index')->name('index');
         Route::get('show', 'BrandController@show')->name('show');
@@ -67,6 +104,9 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::get('status/{brand_id}/{brand_status}', 'BrandController@updateStatus')->name('status');
     });
 
+    /**
+     * SUPER ADMIN CATEGORY route...
+     */
     Route::prefix('categories')->namespace('Category')->name('category.')->group(function () {
         Route::get('/', 'CategoryController@index')->name('index');
         Route::get('show', 'CategoryController@show')->name('show');
@@ -74,7 +114,35 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::post('store/{user_id}', 'CategoryController@store')->name('store');
         Route::delete('delete/{category_id}', 'CategoryController@destroy')->name('delete');
         Route::get('edit/{category_id}', 'CategoryController@edit')->name('edit');
-        Route::put('update/{category_id}', 'CategoryController@update')->name('update');
+        Route::put('update/{category_id}/{user_id}', 'CategoryController@update')->name('update');
         Route::get('status/{category_id}/{category_status}', 'CategoryController@updateStatus')->name('status');
+    });
+
+    /**
+     * SUPER ADMIN SUB-CATEGORY route...
+     */
+    Route::prefix('sub-categories')->namespace('Category')->name('sub-category.')->group(function () {
+        Route::get('/', 'SubCategoryController@index')->name('index');
+        Route::get('show', 'SubCategoryController@show')->name('show');
+        Route::get('create', 'SubCategoryController@create')->name('create');
+        Route::post('store/{user_id}', 'SubCategoryController@store')->name('store');
+        Route::delete('delete/{sub_category_id}', 'SubCategoryController@destroy')->name('delete');
+        Route::get('edit/{sub_category_id}', 'SubCategoryController@edit')->name('edit');
+        Route::put('update/{sub_category_id}/{user_id}', 'SubCategoryController@update')->name('update');
+        Route::get('status/{sub_category_id}/{sub_category_status}', 'SubCategoryController@updateStatus')->name('status');
+    });
+
+    /**
+     * SUPER ADMIN SLIDER route...
+     */
+    Route::prefix('sliders')->namespace('Slider')->name('slider.')->group(function () {
+        Route::get('/', 'SliderController@index')->name('index');
+        Route::get('show', 'SliderController@show')->name('show');
+        Route::get('create', 'SliderController@create')->name('create');
+        Route::post('store/{user_id}', 'SliderController@store')->name('store');
+        Route::delete('delete/{slider_id}', 'SliderController@destroy')->name('delete');
+        Route::get('edit/{slider_id}', 'SliderController@edit')->name('edit');
+        Route::put('update/{slider_id}', 'SliderController@update')->name('update');
+        Route::get('status/{slider_id}/{slider_status}', 'SliderController@updateStatus')->name('status');
     });
 });

@@ -8,13 +8,14 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Brand;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('user', 'brand')->get();
+        $categories = Category::with('user', 'brand')->latest()->get();
 
         // return $categories;
 
@@ -23,7 +24,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $brands = Brand::with('user', 'categories')->get();
+        $brands = Brand::orderBy('brand_name', 'asc')->get();
+
         return view('admin.category.create', compact('brands'));
     }
 
@@ -33,6 +35,13 @@ class CategoryController extends Controller
 
         $user_detail = User::find($user_id);
 
+        $image_file = $request->file('image');
+        $image_file_ext = $image_file->getClientOriginalExtension();
+        $new_image_file  = $user_detail->user_name ."_".date("Ymdhis")."_".rand(9999, 99999).".".$image_file_ext;
+//        return $new_image_file;
+
+        $image_file_type = $image_file->getMimeType();
+
         try {
             $category_name = $request->category_name;
             $category_data = [
@@ -40,31 +49,44 @@ class CategoryController extends Controller
                 'brand_id' => $request->brand_id,
                 'category_name' => $category_name,
                 'category_slug' => Str::slug($category_name),
+                'image' => $new_image_file,
             ];
 
-            // return $category_data;
+//             return $category_data;
 
-            $category_create = Category::create($category_data);
+            if($image_file->isValid()) {
+                if ($image_file_type == "image/jpeg" || $image_file_type == "image/png") {
 
-            if ($category_create) {
-                getMessage('success', 'Category Has Been Added Successfully Done.');
+                    $category_create = Category::create($category_data);
 
-                if ($user_detail->is_admin === 1) {
-                    return redirect()->route('super-admin.category.index');
-                } else {
-                    return redirect()->route('admin.category.index');
+                    if ($category_create) {
+//                    $image_file->storeAs('/images/category/', $new_image_file);
+                        $image_file->move('uploads/images/category/', $new_image_file);
+                        getMessage('success', 'SUCCESS, Category Has Been Added Successfully Done.');
+
+                        if ($user_detail->is_admin === 1) {
+                            return redirect()->route('super-admin.category.index');
+                        } else {
+                            return redirect()->route('admin.category.index');
+                        }
+                    }
+
                 }
+
             }
+
         } catch (Exception $e) {
             // return 'Error : ' . $e->getMessage();
-            getMessage('danger', $e->getMessage());
+            getMessage('danger', 'ERROR, ' . $e->getMessage());
             return redirect()->back();
         }
+
     }
 
     public function edit($category_id)
     {
         $category_id = base64_decode($category_id);
+//        return 'Cat Id :' . $category_id;
 
         $category_detail = Category::with('user', 'brand')->find($category_id);
         $brand_details = Brand::with('user', 'categories')->get();
@@ -72,40 +94,106 @@ class CategoryController extends Controller
         return view('admin.category.edit', compact('category_detail', 'brand_details'));
     }
 
-    public function update(CategoryRequest $request, $category_id)
+    public function update(CategoryRequest $request, $category_id, $user_id)
     {
         $category_id = base64_decode($category_id);
+        $user_id = base64_decode($user_id);
+//        return 'Cat Id :' . $category_id . ' User Id :' . $user_id;
 
         $category_detail = Category::find($category_id);
-        // return $category_detail;
-        $user_detail = User::find($category_detail->user_id);
-        // return $user_detail;
+//         return $category_detail->image;
+        $user_detail = User::find($user_id);
 
-        try {
+        if($request->file('image')) {
+            $image_file = $request->file('image');
+            $image_file_ext = $image_file->getClientOriginalExtension();
+            $new_image_file  = $user_detail->user_name ."_".date("Ymdhis")."_".rand(9999, 99999).".".$image_file_ext;
+//            return $new_image_file;
+            $image_file_type = $image_file->getMimeType();
+
+            if($image_file->isValid()) {
+                if($image_file_type == "image/jpeg" || $image_file_type == "image/png") {
+
+//                    unlink(public_path('uploads/images/category/'.$category_detail->image));
+                    Storage::disk('public')->delete('/images/category/'.$category_detail->image);
+
+                    $category_name = $request->category_name;
+                    $category_detail->user_id = $user_detail->id;
+                    $category_detail->brand_id = $request->brand_id;
+                    $category_detail->category_name = $category_name;
+                    $category_detail->category_slug = Str::slug($category_name);
+                    $category_detail->image = $new_image_file;
+
+                    $category_update_data = $category_detail->update();
+
+                    if ($category_update_data) {
+//                        $image_file->storeAs('/images/category/', $new_image_file);
+                        $image_file->move('uploads/images/category/', $new_image_file);
+
+                        getMessage('success', 'SUCCESS, Category Has Been Updated With Image Successfully Done.');
+
+                        if ($user_detail->is_admin === 1) {
+                            return redirect()->route('super-admin.category.index');
+                        } else {
+                            return redirect()->route('admin.category.index');
+                        }
+                    } else {
+                        getMessage('danger','ERROR, Category has not been Updated With Image!');
+                        return redirect()->back();
+                    }
+
+
+                }
+
+            }
+
+        } else {
             $category_name = $request->category_name;
-            $category_detail->user_id = $category_detail->user_id;
+            $category_detail->user_id = $user_detail->id;
             $category_detail->brand_id = $request->brand_id;
             $category_detail->category_name = $category_name;
             $category_detail->category_slug = Str::slug($category_name);
 
-            // return $category_detail;
-
             $category_update_data = $category_detail->update();
 
             if ($category_update_data) {
-                getMessage('success', 'Category Has Been Updated Successfully Done.');
+                getMessage('success', 'SUCCESS, Category Has Been Updated With Image Successfully Done.');
 
                 if ($user_detail->is_admin === 1) {
                     return redirect()->route('super-admin.category.index');
                 } else {
                     return redirect()->route('admin.category.index');
                 }
+            } else {
+                getMessage('danger','ERROR, Category has not been Updated With Image!');
+                return redirect()->back();
             }
-        } catch (Exception $e) {
-            // return 'Error : ' . $e->getMessage();
-            getMessage('danger', $e->getMessage());
-            return redirect()->back();
+
         }
+
+//        try {
+//            $image_file = $request->file('image');
+//            $image_file_ext = $image_file->getClientOriginalExtension();
+//            $new_image_file  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
+//            $image_file_type = $image_file->getMimeType();
+//
+//
+//
+//             return $category_detail;
+//
+//            if($image_file) {
+//
+//
+//            }
+//
+////            $category_update_data = $category_detail->update();
+//
+//
+//        } catch (Exception $e) {
+//            // return 'Error : ' . $e->getMessage();
+//            getMessage('danger', $e->getMessage());
+//            return redirect()->back();
+//        }
     }
 
     public function destroy($category_id)
@@ -113,41 +201,29 @@ class CategoryController extends Controller
         $category_id = base64_decode($category_id);
 
         $category_detail = Category::find($category_id);
-        $user_detail = User::find($category_detail->user_id);
+
+        Storage::disk('public')->delete('/images/category/'.$category_detail->image);
 
         $category_delete = $category_detail->delete();
 
         if ($category_delete) {
             getMessage('success', 'Category Has Been Deleted Successfully Done.');
 
-            if ($user_detail->is_admin === 1) {
-                return redirect()->back();
-            } else {
-                return redirect()->back();
-            }
+            return redirect()->back();
+
         }
+
     }
 
     public function updateStatus($category_id, $category_status)
     {
         // return $category_id . ' ' . $category_status;
+
         $category_detail = Category::find($category_id);
-        $user_detail = User::find($category_detail->user_id);
 
         $category_detail->status = $category_status;
 
         return $category_update_status = $category_detail->save();
 
-        // if ($brand_update_status) {
-        //     // getMessage('success', 'Brand Status Has Been Updated Successfully Done.');
-
-        //     // return redirect()->back();
-
-        //     // if ($user_detail->is_admin === 1) {
-        //     //     return redirect()->route('super-admin.brand.index');
-        //     // } else {
-        //     //     return redirect()->route('admin.brand.index');
-        //     // }
-        // }
     }
 }
