@@ -27,7 +27,7 @@ class SliderRequest extends FormRequest
             $rules = [
                 'message' => 'string|min:10|max:30',
                 'title' => 'string|min:20|max:50',
-                'sub_title' => 'string|min:50|max:150',
+                'sub_title' => 'string|min:30|max:150',
                 'image' => 'image',
                 'start' => 'required',
                 'end' => 'required',
@@ -37,7 +37,7 @@ class SliderRequest extends FormRequest
             $rules = [
                 'message' => 'string|min:10|max:30',
                 'title' => 'string|min:20|max:50',
-                'sub_title' => 'string|min:50|max:150',
+                'sub_title' => 'string|min:30|max:150',
                 'image' => 'image',
                 'start' => 'required',
                 'end' => 'required',
@@ -47,7 +47,7 @@ class SliderRequest extends FormRequest
             $rules = [
                 'message' => 'required|string|min:10|max:30',
                 'title' => 'required|string|min:20|max:50',
-                'sub_title' => 'required|string|min:50|max:150',
+                'sub_title' => 'required|string|min:30|max:150',
                 'image' => 'required|image',
                 'start' => 'required',
                 'end' => 'required',

@@ -16,7 +16,7 @@ class SliderController extends Controller
     {
         $sliders = Slider::with('user')->orderBy('id', 'desc')->get();
 
-        // return $categories;
+//         return $sliders;
 
         return view('admin.slider.index', compact('sliders'));
     }
@@ -28,6 +28,7 @@ class SliderController extends Controller
 
     public function store(SliderRequest $request, $id)
     {
+//        return $request->all();
         $user_id = base64_decode($id);
         $user_detail = User::find($user_id);
 

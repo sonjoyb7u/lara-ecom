@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-10">
                                 <form class="form-horizontal" action="{{ auth()->user()->is_admin === 1 ? route('super-admin.slider.update', [base64_encode($slider_detail->id), base64_encode(auth()->user()->id)]) : route('admin.slider.update', [base64_encode($slider_detail->id), base64_encode(auth()->user()->id)]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -82,15 +82,21 @@
 
                                     <div class="form-group">
                                         <label for="start" class="col-sm-4 control-label">Slider Start (Date&Time)</label>
-                                        <div class="col-sm-8">
-                                            <input type="date" name="start" class="form-control" id="category_name" value="{{ $slider_detail->start }}">
+                                        <div style="padding-left: 15px; padding-right: 15px;" class="col-sm-8 input-group date" id="datetimepicker">
+                                            <input type="text" name="start" class="form-control" value="{{ $slider_detail->start }}" />
+                                            <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="end" class="col-sm-4 control-label">Slider End (Date&Time)</label>
-                                        <div class="col-sm-8">
-                                            <input type="date" name="end" class="form-control" id="end" value="{{ $slider_detail->end }}">
+                                        <label class="col-sm-4 control-label">Slider End (Date&Time)</label>
+                                        <div style="padding-left: 15px; padding-right: 15px;" class="col-sm-8 input-group date" id="datetimepicker">
+                                            <input type="text" name="end" class="form-control" value="{{ $slider_detail->end }}" />
+                                            <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-calendar"></span>
+                                             </span>
                                         </div>
                                     </div>
 
@@ -102,8 +108,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-8">
-                                            <button type="submit" class="btn btn-primary">Update Category</button>
+                                        <div class="col-sm-offset-4 col-sm-8">
+                                            <button type="submit" class="btn btn-primary">Update Slider</button>
                                         </div>
                                     </div>
                                 </form>

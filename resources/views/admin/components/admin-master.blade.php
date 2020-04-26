@@ -29,12 +29,17 @@
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{ asset('assets/admin/stylesheets/css/style.css') }}">
+    <!--DATETIME-PICKER css-->
+    <link rel='stylesheet' href='{{ asset('assets/admin/vendor/date_time-picker/css/bootstrap-datetimepicker.min.css') }}'>
     <!--TOGGLE css-->
     <!-- ========================================================= -->
     {{-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') }}">
-    <!--seewtaler-->
+    <!--SWEETALERT css-->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/sweetalert/sweetalert.css') }}">
+    <!--SLIDER-POPUP IMAGE css-->
+    <!-- ========================================================= -->
+    <link rel="stylesheet" href="{{ asset('assets/admin/stylesheets/css/slider-popup.css') }}">
 
 
 </head>
@@ -136,7 +141,10 @@
 <!--Examples-->
 <script src="{{ asset('assets/admin/javascripts/examples/dashboard.js') }}"></script>
 <script src="{{ asset('assets/admin/javascripts/custom/main.js') }}"></script>
-<!--seewtaler-->
+<!--DATETIME-PICKER scripts-->
+<script src='{{ asset('assets/admin/vendor/date_time-picker/js/moment-with-locales.min.js') }}'></script>
+<script src='{{ asset('assets/admin/vendor/date_time-picker/js/bootstrap-datetimepicker.min.js') }}'></script>
+<!--sweetalert-->
 <script src="{{ asset('assets/admin/vendor/sweetalert/sweetalert.min.js') }}"></script>
 <script src="{{ asset('assets/admin/javascripts/examples/ui-elements/alerts.js') }}"></script>
 

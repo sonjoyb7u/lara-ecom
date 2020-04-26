@@ -11,6 +11,9 @@ class Slider extends Model
         'user_id', 'message', 'title', 'sub_title', 'image', 'start', 'end', 'status', 'url',
     ];
 
+    public const ACTIVE_STATUS = 'active';
+    public const INACTIVE_STATUS = 'inactive';
+
     public function user()
     {
         return $this->belongsTo(User::class);

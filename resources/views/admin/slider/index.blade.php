@@ -75,7 +75,7 @@
                                 <td>
                                     <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$slider->image) }}" alt="{{ $slider->image }}">
                                 </td>
-                                <td>{{ $slider->start . '  >>>  ' . $slider->end }}</td>
+                                <td>{{ $slider->start . ' ' . '-' . ' ' . $slider->end }}</td>
                                 <td>
                                     <a target="_blank" href="{{ $slider->url }}" class="btn btn-primary btn-sm">Go To Link</a>
                                 </td>
@@ -119,6 +119,15 @@
 
                 </div>
             </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slider Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-body">
+                <img width="135%" height="auto" id="slider-popup" src="" alt="Slider Image">
             </div>
         </div>
     </div>

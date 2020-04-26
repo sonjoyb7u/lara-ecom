@@ -106,3 +106,28 @@ $('body').on('change', '#sliderStatus', function () {
 
 });
 
+
+// DATETIME-PICKER START/END using js...
+$('body').on('click', '#datetimepicker', function () {
+    // window.alert("hello!");
+
+    $('.date').datetimepicker({
+        format:'YYYY-MM-DD hh:mm:ss',
+        useCurrent: true,
+    });
+
+});
+
+
+//SLIDER-IMAGE POPUP using jQuery...
+$('img').click(function () {
+    // alert('Slider Image');
+
+    var slider_image_src = $(this).attr('src');
+    // alert(slider_image_src);
+
+    $('.modal').modal('show');
+    $('#slider-popup').attr('src', slider_image_src);
+});
+
+
