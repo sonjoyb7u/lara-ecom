@@ -145,4 +145,19 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::put('update/{slider_id}/{user_id}', 'SliderController@update')->name('update');
         Route::get('status/{slider_id}/{slider_status}', 'SliderController@updateStatus')->name('status');
     });
+
+    /**
+     * SUPER ADMIN PRODUCTS route...
+     */
+    Route::prefix('products')->namespace('Product')->name('product.')->group(function () {
+        Route::get('/', 'ProductController@index')->name('index');
+        Route::get('show', 'ProductController@show')->name('show');
+        Route::get('create', 'ProductController@create')->name('create');
+        Route::post('store/{user_id}', 'ProductController@store')->name('store');
+        Route::delete('delete/{slider_id}', 'ProductController@destroy')->name('delete');
+        Route::get('edit/{slider_id}', 'ProductController@edit')->name('edit');
+        Route::put('update/{slider_id}/{user_id}', 'ProductController@update')->name('update');
+        Route::get('status/{slider_id}/{slider_status}', 'ProductController@updateStatus')->name('status');
+    });
+
 });
