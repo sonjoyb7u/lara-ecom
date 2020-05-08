@@ -23,22 +23,22 @@ class SliderRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'PUT') {
+        if ($this->method() === 'PUT') {
             $rules = [
                 'message' => 'string|min:10|max:30',
                 'title' => 'string|min:20|max:50',
                 'sub_title' => 'string|min:30|max:150',
-                'image' => 'image',
+                'image.*' => 'image|mimes:jpeg,png,jpg',
                 'start' => 'required',
                 'end' => 'required',
                 'url' => 'required',
             ];
-        } elseif ($this->method() == 'PATCH') {
+        } elseif ($this->method() === 'PATCH') {
             $rules = [
                 'message' => 'string|min:10|max:30',
                 'title' => 'string|min:20|max:50',
                 'sub_title' => 'string|min:30|max:150',
-                'image' => 'image',
+                'image.*' => 'image|mimes:jpeg,png,jpg',
                 'start' => 'required',
                 'end' => 'required',
                 'url' => 'required',
@@ -48,7 +48,7 @@ class SliderRequest extends FormRequest
                 'message' => 'required|string|min:10|max:30',
                 'title' => 'required|string|min:20|max:50',
                 'sub_title' => 'required|string|min:30|max:150',
-                'image' => 'required|image',
+                'image.*' => 'required|image|mimes:jpeg,png,jpg',
                 'start' => 'required',
                 'end' => 'required',
                 'url' => 'required',
@@ -74,8 +74,9 @@ class SliderRequest extends FormRequest
             'sub_title.string' => 'Sub-Title name must be Small or Capital Alphabetic letter!',
             'sub_title.min:15' => 'Sub-Title name at-least 10 Character\'s!',
             'sub_title.max:150' => 'Sub-Title name must be less than 150 Character\'s',
-            'image.required' => 'Slider Image field must be filled out!',
-            'image.image' => 'Slider Image field must be an image file!',
+            'image.*.required' => 'Slider Image field must be filled out!',
+            'images.*.image' => 'Please upload an image',
+            'images.*.mimes' => 'Only jpeg, jpg, png images are allowed',
             'start.required' => 'Date time field must be filled out!',
             'end.required' => 'Date time field must be filled out!',
             'url.required' => 'URL name field must be filled out!',

@@ -75,8 +75,18 @@
                                     <div class="form-group">
                                         <label for="image" class="col-sm-4 control-label">Category Image</label>
                                         <div class="col-sm-8">
-                                            <input type="file" name="image" class="form-control" id="image">
-                                            <span><img width="120" height="70" src="{{ asset('uploads/images/slider/'.$slider_detail->image) }}" alt=""></span>
+                                            <input type="file" name="image[]" multiple class="form-control" id="image">
+{{--                                            <span><img width="120" height="70" src="{{ asset('uploads/images/slider/'.$slider_detail->image) }}" alt=""></span>--}}
+                                            @php
+                                                $images = json_decode($slider_detail->image)
+                                            @endphp
+                                            @if($images)
+                                                @foreach($images as $image)
+                                                    <img style="margin: 5px 0;" width="100" height="60" src="{{ asset('uploads/images/slider/'.$image) }}" alt="{{ $image }}">
+                                                @endforeach
+                                            @else
+                                                <img width="100" height="60" src="{{ asset('uploads/images/slider/'.$slider_detail->image) }}" alt="{{ $slider_detail->image }}">
+                                            @endif
                                         </div>
                                     </div>
 

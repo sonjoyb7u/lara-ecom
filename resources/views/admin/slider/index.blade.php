@@ -59,7 +59,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($sliders as $slider)
+                            @foreach ($sliders as $slider)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
@@ -73,7 +73,16 @@
                                 <td>{{ substr($slider->title, 0, 20) }}</td>
                                 <td>{{ substr($slider->sub_title, 0, 25) }}</td>
                                 <td>
-                                    <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$slider->image) }}" alt="{{ $slider->image }}">
+                                    @php
+                                        $images = json_decode($slider->image)
+                                    @endphp
+                                    @if($images)
+                                    @foreach($images as $image)
+                                        <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$image) }}" alt="{{ $image }}">
+                                    @endforeach
+                                    @else
+                                        <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$slider->image) }}" alt="{{ $slider->image }}">
+                                    @endif
                                 </td>
                                 <td>{{ $slider->start . ' ' . '-' . ' ' . $slider->end }}</td>
                                 <td>
@@ -103,9 +112,9 @@
                                     </span>
 
                                     @else
-                                    <a class="btn btn-info btn-sm" href="javascript:avoid(0)" onclick="return confirm('You have Not Authorized To Access This Action!')"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a class="btn btn-info btn-sm" href="javascript:avoid(0)" onclick="return confirm('You have Not Authorized To Access This Action!')" disabled=""><i class="fa fa-pencil-square-o"></i></a>
 
-                                    <a class="btn btn-danger btn-sm" href="javascript:avoid(0)" onclick="return confirm('You have Not Authorized To Access This Action!')"><i class="fa fa-trash-o"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="javascript:avoid(0)" onclick="return confirm('You have Not Authorized To Access This Action!')" disabled=""><i class="fa fa-trash-o"></i></a>
 
                                     @endif
 
@@ -124,10 +133,18 @@
     </div>
 
     <!-- Slider Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div style="margin-top: -70px;" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
+            <div style="padding: 0; border-bottom: 0; margin-right: -200px;" class="modal-header">
+                <button style="background: #2adcb7; padding: 2px; color: #59b210;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
                 <img width="135%" height="auto" id="slider-popup" src="" alt="Slider Image">
+            </div>
+            <div style="padding: 0; border-top: 0; margin-right: -185px;" class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm">Delete</button>
             </div>
         </div>
     </div>

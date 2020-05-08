@@ -9,14 +9,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Intervention\Image\Facades\Image;
 
 class SliderController extends Controller
 {
     public function index()
     {
         $sliders = Slider::with('user')->orderBy('id', 'desc')->get();
-
-//         return $sliders;
 
         return view('admin.slider.index', compact('sliders'));
     }
@@ -32,46 +31,40 @@ class SliderController extends Controller
         $user_id = base64_decode($id);
         $user_detail = User::find($user_id);
 
-        $image_file = $request->file('image');
-        $image_file_ext = $image_file->getClientOriginalExtension();
-        $new_image_file  = $user_detail->user_name ."_".date("Ymdhis")."_".rand(9999, 99999).".".$image_file_ext;
-//        return $new_image_file;
-
-        $image_file_type = $image_file->getMimeType();
-
         try {
-            $slider_data = [
-                'user_id' => $user_detail->id,
-                'message' => $request->message,
-                'title' => $request->title,
-                'sub-title' => $request->sub_title,
-                'image' => $new_image_file,
-                'start' => $request->start,
-                'end' => $request->end,
-                'url' => $request->url,
-            ];
+            $check_file = $request->hasFile('image');
+            $image_files = $request->file('image');
+//            dd($image_files);
 
+
+            if ($image_files) {
+                $size = ['w'=>870, 'h'=>370];
+                $path = 'uploads/images/slider/';
+                $all_new_images = uploadImage($user_detail, $check_file, $image_files, $size, $path);
+                $new_images = json_encode($all_new_images);
+//                echo "<pre>";
+//                return json_encode($new_images);
+//                exit();
+
+                $slider_data = [
+                    'user_id' => $user_detail->id,
+                    'message' => $request->message,
+                    'title' => $request->title,
+                    'sub_title' => $request->sub_title,
+                    'image' => $new_images,
+                    'start' => $request->start,
+                    'end' => $request->end,
+                    'url' => $request->url,
+                ];
 //             return $slider_data;
+                Slider::create($slider_data);
 
-            if($image_file->isValid()) {
-                if ($image_file_type == "image/jpeg" || $image_file_type == "image/png") {
-
-                    $slider_create = Slider::create($slider_data);
-
-                    if ($slider_create) {
-//                    $image_file->storeAs('/images/category/', $new_image_file);
-                        $image_file->move('uploads/images/slider/', $new_image_file);
-                        getMessage('success', 'SUCCESS, Slider Has Been Added Successfully Done.');
-
-                        if ($user_detail->is_admin === 1) {
-                            return redirect()->route('super-admin.slider.index');
-                        } else {
-                            return redirect()->route('admin.slider.index');
-                        }
-                    }
-
+                getMessage('success', 'SUCCESS, Slider Has Been Added Successfully Done.');
+                if ($user_detail->is_admin === 1) {
+                    return redirect()->route('super-admin.slider.index');
+                } else {
+                    return redirect()->route('admin.slider.index');
                 }
-
             }
 
         } catch (Exception $e) {
@@ -100,77 +93,78 @@ class SliderController extends Controller
 //        return 'Slider Id :' . $slider_id . ' User Id :' . $user_id;
 
         $slider_detail = Slider::find($slider_id);
-//         return $category_detail->image;
+        $images = json_decode($slider_detail->image);
+
         $user_detail = User::find($user_id);
 
-        if($request->file('image')) {
-            $image_file = $request->file('image');
-            $image_file_ext = $image_file->getClientOriginalExtension();
-            $new_image_file  = $user_detail->user_name ."_".date("Ymdhis")."_".rand(9999, 99999).".".$image_file_ext;
-//            return $new_image_file;
-            $image_file_type = $image_file->getMimeType();
+        try {
+            $check_file = $request->hasFile('image');
+            $image_files = $request->file('image');
+//            dd($image_files);
 
-            if($image_file->isValid()) {
-                if($image_file_type == "image/jpeg" || $image_file_type == "image/png") {
+            if ($image_files) {
+                $size = ['w' => 870, 'h' => 370];
+                $path = 'uploads/images/slider/';
+                $all_new_images = editImage($user_detail, $images, $check_file, $image_files, $size, $path);
+                $new_images = json_encode($all_new_images);
+//                echo "<pre>";
+//                return json_encode($new_images);
+//                exit();
 
-//                    unlink(public_path('uploads/images/category/'.$category_detail->image));
-                    Storage::disk('public')->delete('/images/slider/'.$slider_detail->image);
+                $slider_detail->user_id = $user_detail->id;
+                $slider_detail->message = $request->message;
+                $slider_detail->title = $request->title;
+                $slider_detail->sub_title = $request->sub_title;
+                $slider_detail->image = $new_images;
+                $slider_detail->start = $request->start;
+                $slider_detail->end = $request->end;
+                $slider_detail->url = $request->url;
 
-                    $slider_detail->user_id = $user_detail->id;
-                    $slider_detail->message = $request->message;
-                    $slider_detail->title = $request->title;
-                    $slider_detail->sub_title = $request->sub_title;
-                    $slider_detail->image = $new_image_file;
-                    $slider_detail->start = $request->start;
-                    $slider_detail->end = $request->end;
-                    $slider_detail->url = $request->url;
+                $slider_update_data = $slider_detail->update();
 
-                    $slider_update_data = $slider_detail->update();
+                if ($slider_update_data) {
+                    getMessage('success', 'SUCCESS, Slider Has Been Updated Successfully Done With Image.');
 
-                    if ($slider_update_data) {
-//                        $image_file->storeAs('/images/category/', $new_image_file);
-                        $image_file->move('uploads/images/slider/', $new_image_file);
-
-                        getMessage('success', 'SUCCESS, Slider Has Been Updated Successfully Done With Image.');
-
-                        if ($user_detail->is_admin === 1) {
-                            return redirect()->route('super-admin.slider.index');
-                        } else {
-                            return redirect()->route('admin.slider.index');
-                        }
+                    if ($user_detail->is_admin === 1) {
+                        return redirect()->route('super-admin.slider.index');
                     } else {
-                        getMessage('danger','ERROR, Slider has not been Updated With Image!');
-                        return redirect()->back();
+                        return redirect()->route('admin.slider.index');
                     }
-
-
-                }
-
-            }
-
-        } else {
-            $slider_detail->user_id = $user_detail->id;
-            $slider_detail->message = $request->message;
-            $slider_detail->title = $request->title;
-            $slider_detail->sub_title = $request->sub_title;
-            $slider_detail->start = $request->start;
-            $slider_detail->end = $request->end;
-            $slider_detail->url = $request->url;
-
-            $slider_update_data = $slider_detail->update();
-
-            if ($slider_update_data) {
-                getMessage('success', 'SUCCESS, Slider Has Been Updated Successfully Done Without Image.');
-
-                if ($user_detail->is_admin === 1) {
-                    return redirect()->route('super-admin.slider.index');
                 } else {
-                    return redirect()->route('admin.slider.index');
+                    getMessage('danger','ERROR, Slider has not been Updated With Image!');
+                    return redirect()->back();
                 }
+
             } else {
-                getMessage('danger','ERROR, Slider has not been Updated Without Image!');
-                return redirect()->back();
+                $slider_detail->user_id = $user_detail->id;
+                $slider_detail->message = $request->message;
+                $slider_detail->title = $request->title;
+                $slider_detail->sub_title = $request->sub_title;
+                $slider_detail->start = $request->start;
+                $slider_detail->end = $request->end;
+                $slider_detail->url = $request->url;
+
+                $slider_update_data = $slider_detail->update();
+
+                if ($slider_update_data) {
+                    getMessage('success', 'SUCCESS, Slider Has Been Updated Successfully Done Without Image.');
+
+                    if ($user_detail->is_admin === 1) {
+                        return redirect()->route('super-admin.slider.index');
+                    } else {
+                        return redirect()->route('admin.slider.index');
+                    }
+                } else {
+                    getMessage('danger','ERROR, Slider has not been Updated Without Image!');
+                    return redirect()->back();
+                }
+
             }
+
+        } catch(Exception $exception) {
+            // return 'Error : ' . $e->getMessage();
+            getMessage('danger', 'ERROR, ' . $exception->getMessage());
+            return redirect()->back();
 
         }
 
@@ -179,20 +173,29 @@ class SliderController extends Controller
 
     public function destroy($slider_id)
     {
-        $slider_id = base64_decode($slider_id);
+        try {
+            $slider_id = base64_decode($slider_id);
+            $slider_detail = Slider::find($slider_id);
+//            return $slider_detail;
+            $images = json_decode($slider_detail->image);
+//            return $images;
+            foreach ($images as $image) {
+//                unlink(public_path('uploads/images/slider/') . $image);
+                Storage::disk('public')->delete('/images/slider/' . $image);
+            }
+            $slider_delete = $slider_detail->delete();
+            if ($slider_delete) {
+                getMessage('success', 'SUCCESS, Slider Has Been Deleted Successfully Done.');
+                return redirect()->back();
 
-        $slider_detail = Slider::find($slider_id);
+            }
 
-        Storage::disk('public')->delete('/images/slider/'.$slider_detail->image);
-
-        $slider_delete = $slider_detail->delete();
-
-        if ($slider_delete) {
-            getMessage('success', 'SUCCESS, Slider Has Been Deleted Successfully Done.');
-
+        } catch (Exception $exception) {
+            // return 'Error : ' . $e->getMessage();
+            getMessage('danger', 'ERROR, ' . $exception->getMessage());
             return redirect()->back();
-
         }
+
 
     }
 

@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-10">
                                 <form class="form-horizontal" action="{{ auth()->user()->is_admin === 1 ? route('super-admin.slider.store', base64_encode(auth()->user()->id)) : route('admin.slider.store', base64_encode(auth()->user()->id)) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
 
@@ -71,7 +71,7 @@
                                     <div class="form-group">
                                         <label for="image" class="col-sm-4 control-label">Slider Image</label>
                                         <div class="col-sm-8">
-                                            <input type="file" name="image" class="form-control" id="image" value="{{ old('image') }}" placeholder="Choose Slider Image...">
+                                            <input type="file" name="image[]" multiple class="form-control" id="image" value="{{ old('image') }}" placeholder="Choose Slider Image...">
                                         </div>
                                     </div>
 
