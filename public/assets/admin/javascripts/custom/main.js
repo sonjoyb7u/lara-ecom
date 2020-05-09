@@ -106,6 +106,32 @@ $('body').on('change', '#sliderStatus', function () {
 
 });
 
+// UPDATE SLIDER STATUS using js
+$('body').on('change', '#productStatus', function () {
+    var id = $(this).attr('data-id');
+
+    if (this.checked) {
+        var status = 'active';
+    } else {
+        var status = 'inactive';
+    }
+
+    // alert(id + status);
+
+    $('.loader-overlay').show();
+
+    $.ajax({
+        url: "products/status/" + id + '/' + status,
+        method: 'get',
+        success: function (result) {
+            // console.log(result);
+            $('.loader-overlay').hide();
+        }
+
+    });
+
+});
+
 
 // DATETIME-PICKER START/END using js...
 $('body').on('click', '#datetimepicker', function () {

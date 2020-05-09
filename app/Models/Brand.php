@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
@@ -23,5 +24,9 @@ class Brand extends Model
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function products() {
+        return $this->hasMany(Product::class);
     }
 }

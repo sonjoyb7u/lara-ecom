@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\SubCategory;
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
+
 
 class Category extends Model
 {
@@ -26,5 +28,9 @@ class Category extends Model
     public function subCategories()
     {
         return $this->hasMany(SubCategory::class);
+    }
+
+    public function products() {
+        return $this->hasMany(Product::class);
     }
 }
