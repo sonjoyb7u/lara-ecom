@@ -11,6 +11,7 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller

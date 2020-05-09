@@ -83,8 +83,8 @@ function editImage($user_detail, $images, $check_file, $image_files, $size, $pat
             if($file->isValid()) {
                 if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
                     foreach ($images as $image) {
-//                        unlink(public_path('uploads/images/category/'.$image));
-//                        Storage::disk('public')->delete('/images/slider/'.$image);
+//                        unlink(public_path('uploads/images/product/'.$image));
+                        Storage::disk('public')->delete('/images/product/'.$image);
 
                     }
                     Image::make($file)
