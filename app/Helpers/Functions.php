@@ -37,17 +37,6 @@ function slugGenerate($text) {
     }
 
 
-    /**
-     * Seeder random status generate function/method...
-     * @return string
-     */
-    function randomStatus() {
-        $status = ['active', 'inactive'];
-        $status = $status[array_rand($status)];
-
-        return $status;
-    }
-
     function uploadImage($user_detail, $check_file, $image_files, $size, $path) {
         $image_name = [];
         if($check_file) {

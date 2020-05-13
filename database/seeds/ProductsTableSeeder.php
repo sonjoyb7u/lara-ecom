@@ -22,16 +22,36 @@ class ProductsTableSeeder extends Seeder
         foreach (range(1, 10) as $index) {
             $title = $product_faker->jobTitle;
             Product::create([
-                'user_id' => User::all()->random()->id,
-                'brand_id' => Brand::all()->random()->id,
-                'category_id' => Category::all()->random()->id,
-                'sub_category_id' => SubCategory::all()->random()->id,
+                'user_id' => User::get()->random()->id,
+                'brand_id' => Brand::get()->random()->id,
+                'category_id' => Category::get()->random()->id,
+                'sub_category_id' => SubCategory::get()->random()->id,
                 'title' => $title,
                 'slug' => Str::slug($title),
-                'desc' => $product_faker->realText(),
-                'code' => random_int(1000, 1500),
-                'sales_price' => random_int(1000.000, 3500.000),
+                'desc' => 'Generate Lorem Ipsum placeholder text. Select the number of characters, words, sentences or paragraphs, and hit generate',
+                'long_desc' => $product_faker->realText(),
+                'product_code' => randomCode(),
+                'product_model' => randomModel(),
+                'product_color' => randomColor(),
+                'product_size' => randomSize(),
+                'gallery' => $product_faker->imageUrl(),
+                'product_video_url' => $product_faker->imageUrl(),
+                'quantity' => rand(1, 5),
+                'warranty_duration' => randomWarrantyDuration(),
+                'warranty_condition' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                'original_price' => rand(800, 1200),
+                'sales_price' => rand(1250, 2500),
+                'special_price' => rand(830, 1250),
+                'special_start' => $product_faker->dateTime('2020-05-13 06:00:00 AM'),
+                'special_end' => $product_faker->dateTime('2020-06-13 11:00:00 AM'),
+                'offer_price' => rand(810, 1220),
+                'offer_start' => $product_faker->dateTime('2020-05-13 06:00:00 AM'),
+                'offer_end' => $product_faker->dateTime('2020-05-13 06:00:00 AM'),
+                'total_sales' => rand(5, 10),
+                'available' => randomProductAvailable(),
                 'status' => randomStatus(),
+
             ]);
         }
     }

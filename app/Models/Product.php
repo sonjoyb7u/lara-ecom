@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'user_id' ,'brand_id', 'category_id', 'sub_category_id', 'title', 'slug', 'desc', 'code', 'available', 'image', 'quantity', 'original_price', 'sales_price', 'offer_price', 'total_sales', 'is_new', 'status',
+        'user_id' ,'brand_id', 'category_id', 'sub_category_id', 'title', 'slug', 'desc', 'long_desc', 'product_code', 'product_model', 'product_color', 'product_size', 'image', 'image_start', 'image_end', 'gallery', 'product_video_url', 'quantity', 'warranty', 'warranty_duration', 'warranty_condition', 'original_price', 'sales_price', 'special_price', 'special_start', 'special_end', 'offer_price', 'offer_start', 'offer_end', 'total_sales', 'available', 'status',
     ];
 
     public const ACTIVE_STATUS = 'active';
