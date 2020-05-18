@@ -28,13 +28,13 @@ class BrandController extends Controller
     public function store(BrandRequest $request, $id)
     {
         $user_id = base64_decode($id);
-
-        $user_detail = User::find($id);
+        $user_detail = User::find($user_id);
+//        return $user_detail;
 
         try {
             $brand_name = $request->brand_name;
             $brand_data = [
-                'user_id' => $user_id,
+                'user_id' => $user_detail->id,
                 'brand_name' => $brand_name,
                 'brand_slug' => Str::slug($brand_name),
             ];

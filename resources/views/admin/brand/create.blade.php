@@ -20,8 +20,8 @@
             <div class="leftside-content-header">
                 <ul class="breadcrumbs">
                     <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.home') : route('admin.home') }}">Dashboard</a></li>
-                    <li><a href="javascript:avoid(0)"><i class="fa fa-list-alt" aria-hidden="true"></i>Brand</a></li>
-                    <li><a href="javascript:avoid(0)"><i class="fa fa-plus-square"  aria-hidden="true"></i>Add Brand</a></li>
+                    <li><a href="{{ route('super-admin.brand.index') }}"><i class="fa fa-list-alt" aria-hidden="true"></i>Brand</a></li>
+                    <li><a href="{{ route('super-admin.brand.create') }}"><i class="fa fa-plus-square"  aria-hidden="true"></i>Add Brand</a></li>
                 </ul>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="form-horizontal" action="{{ auth()->user()->is_admin === 1 ? route('super-admin.brand.store', base64_encode(auth()->user()->id)) : route('admin.brand.store', base64_encode(auth()->user()->id)) }}" method="POST">
+                                <form class="form-horizontal" action="{{ auth()->user()->is_admin === 1 ? route('super-admin.brand.store', [base64_encode(auth()->user()->id)]) : route('admin.brand.store', base64_encode(auth()->user()->id)) }}" method="POST">
                                     @csrf
 
                                     <div class="form-group">

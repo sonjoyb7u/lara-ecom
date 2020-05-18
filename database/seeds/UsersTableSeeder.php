@@ -24,9 +24,9 @@ class UsersTableSeeder extends Seeder
                 'status' => '1',
             ],
             [
-                'name' => 'Payel Barua',
-                'email' => 'payel@gmail.com',
-                'user_name' => 'payelb7u',
+                'name' => 'John Barua',
+                'email' => 'john@gmail.com',
+                'user_name' => 'johnb7u',
                 'password' => bcrypt('123456'),
                 'phone' => '01811591944',
                 'is_admin' => '0',

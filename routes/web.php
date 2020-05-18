@@ -168,7 +168,12 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::delete('delete/{product_id}', 'ProductController@destroy')->name('delete');
         Route::get('edit/{product_id}', 'ProductController@edit')->name('edit');
         Route::put('update/{product_id}/{user_id}', 'ProductController@update')->name('update');
-        Route::get('status/{product_id}/{slider_status}', 'ProductController@updateStatus')->name('status');
+        Route::get('status/{product_id}/{product_status}', 'ProductController@updateStatus')->name('status');
+        Route::get('find-cat-wise-subcat/{cat_id}', 'ProductController@findCatWiseSubCat');
+        Route::get('update-original-price/{id}/{price}', 'ProductController@updateOriginalPrice');
+        Route::post('update-sales-price', 'ProductController@updateSalesPrice');
+        Route::get('update-special-price/{id}/{price}', 'ProductController@updateSpecialPrice');
+        Route::get('update-offer-price/{id}/{price}', 'ProductController@updateOfferPrice');
     });
 
 });

@@ -28,31 +28,28 @@ class CreateProductsTable extends Migration
             $table->string('product_color', 100)->nullable();
             $table->string('product_size', 100)->nullable();
             $table->string('image')->default('product_default.png');
-            $table->dateTime('image_start')->nullable();
-            $table->dateTime('image_end')->nullable();
+            $table->date('image_start')->nullable();
+            $table->date('image_end')->nullable();
             $table->string('gallery')->nullable();
             $table->string('product_video_url')->nullable();
             $table->integer('quantity')->default(1);
-            $table->enum('warranty', ['yes', 'no'])->default('yes');
+            $table->enum('warranty', ['yes', 'no'])->default('no');
             $table->string('warranty_duration', 50)->nullable();
             $table->text('warranty_condition')->nullable();
-            $table->decimal('original_price', 8, 4);
-            $table->decimal('sales_price', 8, 4);
-            $table->decimal('special_price', 8, 4)->nullable();
-            $table->dateTime('special_start')->nullable();
-            $table->dateTime('special_end')->nullable();
-            $table->decimal('offer_price', 8, 4)->nullable();
-            $table->dateTime('offer_start')->nullable();
-            $table->dateTime('offer_end')->nullable();
-            $table->integer('total_sales')->nullable();
+            $table->decimal('original_price', 10, 3);
+            $table->decimal('sales_price', 10, 3);
+            $table->enum('is_special_price', ['yes', 'no'])->default('no');
+            $table->decimal('special_price', 10, 3)->nullable();
+            $table->date('special_start')->nullable();
+            $table->date('special_end')->nullable();
+            $table->enum('is_offer_price', ['yes', 'no'])->default('no');
+            $table->decimal('offer_price', 10, 3)->nullable();
+            $table->date('offer_start')->nullable();
+            $table->date('offer_end')->nullable();
             $table->enum('available', ['in stock', 'out of stock', 'stock limit'])->default('in stock');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
 
-//            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-//            $table->foreign('brand_id')->references('id')->on('brands')->cascadeOnDelete();
-//            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
-//            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->cascadeOnDelete();
         });
     }
 

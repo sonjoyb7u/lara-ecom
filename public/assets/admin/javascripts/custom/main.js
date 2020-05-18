@@ -1,3 +1,5 @@
+const SITE_URL_SUPER_ADMIN = 'http://lara-ecom.sonjoy/super-admin/';
+const SITE_URL_ADMIN = 'http://lara-ecom.sonjoy/-admin/';
 
 // UPDATE BRAND STATUS using js
 $('body').on('change', '#brandStatus', function () {
@@ -8,11 +10,9 @@ $('body').on('change', '#brandStatus', function () {
     } else {
         var status = 0;
     }
-
     // alert(id + status);
 
     $('.loader-overlay').show();
-
     $.ajax({
         url: "brands/status/" + id + '/' + status,
         method: 'get',
@@ -35,11 +35,9 @@ $('body').on('change', '#categoryStatus', function () {
     } else {
         var status = 0;
     }
-
     // alert(id + status);
 
     $('.loader-overlay').show();
-
     $.ajax({
         url: "categories/status/" + id + '/' + status,
         method: 'get',
@@ -62,11 +60,9 @@ $('body').on('change', '#subCategoryStatus', function () {
     } else {
         var status = 'inactive';
     }
-
     // alert(id + status);
 
     $('.loader-overlay').show();
-
     $.ajax({
         url: "sub-categories/status/" + id + '/' + status,
         method: 'get',
@@ -89,11 +85,9 @@ $('body').on('change', '#sliderStatus', function () {
     } else {
         var status = 'inactive';
     }
-
     // alert(id + status);
 
     $('.loader-overlay').show();
-
     $.ajax({
         url: "sliders/status/" + id + '/' + status,
         method: 'get',
@@ -115,11 +109,9 @@ $('body').on('change', '#productStatus', function () {
     } else {
         var status = 'inactive';
     }
-
     // alert(id + status);
 
     $('.loader-overlay').show();
-
     $.ajax({
         url: "products/status/" + id + '/' + status,
         method: 'get',
@@ -154,6 +146,160 @@ $('img').click(function () {
 
     $('.modal').modal('show');
     $('#slider-popup').attr('src', slider_image_src);
+});
+
+
+// WARRANTY BOX SHOW/HIDE using js...
+$('body').on('change', 'input[name="warranty"]', function () {
+    var val = $(this).val();
+    // console.log(val);
+    if(val === 'yes') {
+        $('.warranty-box').slideDown();
+    } else {
+        $('.warranty-box').slideUp();
+    }
+
+});
+
+// SPECIAL-PRICE BOX SHOW/HIDE using js...
+$('body').on('change', 'input[name="is_special_price"]', function () {
+    var val = $(this).val();
+    // console.log(val);
+    if(val === 'yes') {
+        $('.special-price-box').slideDown();
+    } else {
+        $('.special-price-box').slideUp();
+    }
+
+});
+
+// OFFER-PRICE BOX SHOW/HIDE using js...
+$('body').on('change', 'input[name="is_offer_price"]', function () {
+    var val = $(this).val();
+    // console.log(val);
+    if(val === 'yes') {
+        $('.offer-price-box').slideDown();
+    } else {
+        $('.offer-price-box').slideUp();
+    }
+
+});
+
+// FIND & FETCH CATEGORY WISE SUB-CATEGORY using js...
+$('body').on('change', '#category_id', function () {
+    var cat_id = $(this).val();
+    // console.log(cat_id);
+
+    if(cat_id !== '') {
+        $('.loader-overlay').show();
+        $.ajax({
+            url: SITE_URL_SUPER_ADMIN + "products/find-cat-wise-subcat/" + cat_id,
+            method: 'get',
+            success: function (result) {
+                // console.log(result);
+                $('#sub_category_id').html(result);
+                $('.loader-overlay').hide();
+            }
+
+        });
+    }
+
+});
+
+
+// UPDATE ORIGINAL PRICE USING INPUT FORM using js...
+$('body').on('change', '.original_price', function () {
+    let id = $(this).attr('data-id');
+    // console.log(id);
+    var price = $(this).val();
+    // console.log(price);
+
+    if(SITE_URL_SUPER_ADMIN) {
+        $('.loader-overlay').show();
+        $.ajax({
+            url: SITE_URL_SUPER_ADMIN + "products/update-original-price/" + id + '/' + price,
+            method: 'get',
+            success: function (result) {
+                // console.log(result);
+                $('.loader-overlay').hide();
+            }
+
+        });
+    }
+
+});
+
+// UPDATE ORIGINAL PRICE USING INPUT FORM using js...
+$('body').on('change', '.sales_price', function () {
+    let id = $(this).attr('data-id');
+    // console.log(id);
+    var price = $(this).val();
+    // console.log(price);
+
+    if(SITE_URL_SUPER_ADMIN) {
+        $('.loader-overlay').show();
+        $.ajax({
+            data: {
+                id: id,
+                price: price,
+            },
+            url: SITE_URL_SUPER_ADMIN + "products/update-sales-price",
+            method: 'post',
+            beforeSend: function (request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success: function (result) {
+                // console.log(result);
+                $('.loader-overlay').hide();
+            }
+
+        });
+    }
+
+});
+
+// UPDATE ORIGINAL PRICE USING INPUT FORM using js...
+$('body').on('change', '.special_price', function () {
+    let id = $(this).attr('data-id');
+    // console.log(id);
+    var price = $(this).val();
+    // console.log(price);
+
+    if(SITE_URL_SUPER_ADMIN) {
+        $('.loader-overlay').show();
+        $.ajax({
+            url: SITE_URL_SUPER_ADMIN + "products/update-special-price/" + id + '/' + price,
+            method: 'get',
+            success: function (result) {
+                // console.log(result);
+                $('.loader-overlay').hide();
+            }
+
+        });
+    }
+
+});
+
+// UPDATE ORIGINAL PRICE USING INPUT FORM using js...
+$('body').on('change', '.offer_price', function () {
+    let id = $(this).attr('data-id');
+    // console.log(id);
+    var price = $(this).val();
+    // console.log(price);
+
+    if(SITE_URL_SUPER_ADMIN) {
+        $('.loader-overlay').show();
+        $.ajax({
+            url: SITE_URL_SUPER_ADMIN + "products/update-offer-price/" + id + '/' + price,
+            method: 'get',
+            success: function (result) {
+                // console.log(result);
+                $('.loader-overlay').hide();
+            }
+
+        });
+    }
+
 });
 
 

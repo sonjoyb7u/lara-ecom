@@ -17,8 +17,8 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('brand_id');
-            $table->string('category_name', 30)->unique();
-            $table->string('category_slug', 100)->unique();
+            $table->string('category_name', 30);
+            $table->string('category_slug', 100);
             $table->string('image', 150)->default('cat_default.png');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

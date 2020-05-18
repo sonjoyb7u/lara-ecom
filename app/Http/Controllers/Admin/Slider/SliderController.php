@@ -180,8 +180,8 @@ class SliderController extends Controller
             $images = json_decode($slider_detail->image);
 //            return $images;
             foreach ($images as $image) {
-//                unlink(public_path('uploads/images/slider/') . $image);
-                Storage::disk('public')->delete('/images/slider/' . $image);
+                unlink(public_path('uploads/images/slider/') . $image);
+//                Storage::disk('public')->delete('/images/slider/' . $image);
             }
             $slider_delete = $slider_detail->delete();
             if ($slider_delete) {

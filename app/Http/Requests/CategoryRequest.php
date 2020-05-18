@@ -23,20 +23,20 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'PUT') {
+        if ($this->method() === 'PUT') {
             $rules = [
-                'category_name' => 'string|min:15|max:25',
+                'category_name' => 'string|min:5|max:30',
                 'image' => 'image',
             ];
-        } elseif ($this->method() == 'PATCH') {
+        } elseif ($this->method() === 'PATCH') {
             $rules = [
-                'category_name' => 'string|min:15|max:25',
+                'category_name' => 'string|min:5|max:30',
                 'image' => 'image',
             ];
         } else {
             $rules = [
                 'brand_id' => 'required',
-                'category_name' => 'required|string|min:15|max:25',
+                'category_name' => 'required|string|min:5|max:30',
                 'image' => 'required|image',
             ];
         }

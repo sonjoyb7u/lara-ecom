@@ -74,7 +74,7 @@
                                 <td>{{ substr($slider->sub_title, 0, 25) }}</td>
                                 <td>
                                     @php
-                                        $images = json_decode($slider->image)
+                                        $images = json_decode($slider->image);
                                     @endphp
                                     @if($images)
                                     @foreach($images as $image)

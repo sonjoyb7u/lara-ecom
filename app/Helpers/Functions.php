@@ -36,24 +36,25 @@ function slugGenerate($text) {
 
     }
 
-
-    function uploadImage($user_detail, $check_file, $image_files, $size, $path) {
+    //    UPLOAD IMAGE/THUMBNAIL FILE...
+    function uploadImage($user_detail, $check_image_file, $image_files, $image_size, $image_path) {
         $image_name = [];
-        if($check_file) {
-            foreach ($image_files as $file) {
-                $image_file_ext = $file->getClientOriginalExtension();
+        if($check_image_file) {
+            foreach ($image_files as $image_file) {
+                $image_file_ext = $image_file->getClientOriginalExtension();
                 $new_image_name  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
-                $image_file_type = $file->getMimeType();
+                $image_file_type = $image_file->getMimeType();
 
-                if($file->isValid()) {
+                if($image_file->isValid()) {
                     if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
-                        Image::make($file)
-                            ->resize($size['w'], $size['h'])
-                            ->save(public_path($path) . $new_image_name);
+                        Image::make($image_file)
+                            ->resize($image_size['w'], $image_size['h'])
+                            ->save(public_path($image_path) . $new_image_name);
 
                     }
                 }
-                $image_name[] = $new_image_name;
+//                $image_name[] = $new_image_name;
+                array_push($image_name, $new_image_name);
 
             }
             return $image_name;
@@ -61,32 +62,91 @@ function slugGenerate($text) {
 
     }
 
-function editImage($user_detail, $images, $check_file, $image_files, $size, $path) {
-    $image_name = [];
-    if($check_file) {
-        foreach ($image_files as $file) {
-            $image_file_ext = $file->getClientOriginalExtension();
-            $new_image_name  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
-            $image_file_type = $file->getMimeType();
+    //UPLOAD GALLERY IMAGE FILES...
+    function uploadGalleryImage($user_detail, $check_gallery_files, $gallery_files, $gallery_size, $gallery_path) {
+        $gallery_image_name = [];
+        if($check_gallery_files) {
+            foreach ($gallery_files as $gallery_file) {
+                $image_file_ext = $gallery_file->getClientOriginalExtension();
+                $new_gallery_image_name  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
+                $image_file_type = $gallery_file->getMimeType();
 
-            if($file->isValid()) {
-                if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
-                    foreach ($images as $image) {
-//                        unlink(public_path('uploads/images/product/'.$image));
-                        Storage::disk('public')->delete('/images/product/'.$image);
+                if($gallery_file->isValid()) {
+                    if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
+                            Image::make($gallery_file)
+                                ->resize($gallery_size['w'], $gallery_size['h'])
+                                ->save(public_path($gallery_path) . $new_gallery_image_name);
 
                     }
-                    Image::make($file)
-                        ->resize($size['w'], $size['h'])
-                        ->save(public_path($path) . $new_image_name);
+                }
+//                $gallery_image_name[] = $new_gallery_image_name;
+                array_push($gallery_image_name, $new_gallery_image_name);
 
+            }
+            return $gallery_image_name;
+        }
+
+    }
+
+    //EDIT IMAGE FILES...
+    function editImage($user_detail, $images, $check_image_file, $image_files, $image_size, $image_path) {
+        $image_name = [];
+        if($check_image_file) {
+            foreach ($image_files as $image_file) {
+                $image_file_ext = $image_file->getClientOriginalExtension();
+                $new_image_name  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
+                $image_file_type = $image_file->getMimeType();
+
+                if($image_file->isValid()) {
+                    if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
+                        foreach ($images as $image) {
+    //                        unlink(public_path('uploads/images/product/'.$image));
+                            Storage::disk('public')->delete('/images/product/images/' . $image);
+
+                        }
+                        Image::make($image_file)
+                            ->resize($image_size['w'], $image_size['h'])
+                            ->save(public_path($image_path) . $new_image_name);
+
+
+                    }
+                }
+//                $image_name[] = $new_image_name;
+                array_push($image_name, $new_image_name);
+
+            }
+            return $image_name;
+        }
+
+    }
+
+//EDIT GALLERY IMAGE FILES...
+function editGalleryImage($user_detail, $gallery_images, $check_gallery_files, $gallery_files, $size, $path) {
+    $gallery_image_name = [];
+    if($check_gallery_files) {
+        foreach ($gallery_files as $gallery_file) {
+            $image_file_ext = $gallery_file->getClientOriginalExtension();
+            $new_gallery_image_name  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
+            $image_file_type = $gallery_file->getMimeType();
+
+            if($gallery_file->isValid()) {
+                if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
+                    foreach ($gallery_images as $gallery_image) {
+//                        unlink(public_path('uploads/images/product/'.$image));
+                        Storage::disk('public')->delete('/images/product/gallery-images/'.$gallery_image);
+
+                    }
+                    Image::make($gallery_file)
+                        ->resize($size['w'], $size['h'])
+                        ->save(public_path($path) . $new_gallery_image_name);
 
                 }
             }
-            $image_name[] = $new_image_name;
+//            $gallery_image_name[] = $new_gallery_image_name;
+            array_push($gallery_image_name, $new_gallery_image_name);
 
         }
-        return $image_name;
+        return $gallery_image_name;
     }
 
 }

@@ -2,6 +2,13 @@
 
 @section('title', 'Manage Products | Lara-Ecomm')
 
+@push('css')
+    <style>
+        .form-control.price {
+            width: 100px;
+        }
+    </style>
+@endpush
 
 @section('header')
     @includeIf('admin.components.partials.header')
@@ -50,17 +57,23 @@
                                     <th>Product Added By</th>
                                     <th>Brand Name</th>
                                     <th>Category Name</th>
+                                    <th>Sub-Category Name</th>
                                     <th>Product Title</th>
                                     <th>Product Description</th>
                                     <th>Product Code</th>
+                                    <th>Product Color</th>
+                                    <th>Product Size</th>
                                     <th>Available</th>
-                                    <th>Product Image's</th>
+                                    <th>Product Image</th>
+                                    <th>Product Display Duration</th>
+                                    <th>Gallery Image's</th>
                                     <th>Quantity</th>
                                     <th>Original Price</th>
                                     <th>Sales Price</th>
+                                    <th>Special Price</th>
+                                    <th>Special Price Duration</th>
                                     <th>Offer Price</th>
-                                    <th>Total Price</th>
-                                    <th>Product is New?</th>
+                                    <th>Offer Price Duration</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -78,35 +91,77 @@
                                     </td>
                                     <td>{{ $product->brand->brand_name }}</td>
                                     <td>{{ $product->category->category_name }}</td>
+                                    <td>{{ $product->subCategory->sub_category_name }}</td>
                                     <td>{{ $product->title }}</td>
                                     <td>{{ substr($product->title, 0, 50).' ... ... ' }}</td>
-                                    <td>{{ $product->code }}</td>
+                                    <td>{{ $product->product_code }}</td>
+                                    <td>
+                                        @php
+                                            $product_colors = json_decode($product->product_color);
+                                        @endphp
+                                        @if($product_colors)
+                                            @foreach($product_colors as $product_color)
+                                                {{ $product_color }}
+                                            @endforeach
+                                        @else
+                                            {{ $product->product_color }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $product->product_size }}</td>
                                     <td>{{ ucwords($product->available) }}</td>
                                     <td>
                                         @php
-                                            $images = json_decode($product->image)
+                                            $images = json_decode($product->image);
                                         @endphp
-                                        @if($images)
-                                        @foreach($images as $image)
-                                            <img width="120" height="60" src="{{ asset('uploads/images/product/'.$image) }}" alt="{{ $image }}">
-                                        @endforeach
-                                        @else
-                                            <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$product->image) }}" alt="{{ $product->image }}">
+                                        @if(!empty($images))
+                                            @foreach($images as $image)
+                                            <img width="120" height="60" src="{{ asset('uploads/images/product/images/'.$image) }}" alt="{{ $image }}">
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($product->image_start && $product->image_end)
+                                            {{ date('d(D)-M-Y', strtotime($product->image_start)) . ' to ' . date('d(D)-M-Y', strtotime($product->image_end)) }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @php
+                                            $gallery_images = json_decode($product->gallery);
+                                        @endphp
+                                        @if(!empty($gallery_images))
+                                            @foreach($gallery_images as $gallery_image)
+                                                <img width="120" height="60" src="{{ asset('uploads/images/product/gallery-images/'.$gallery_image) }}" alt="{{ $gallery_image }}">
+                                            @endforeach
                                         @endif
                                     </td>
                                     <td>{{ $product->quantity }}</td>
-                                    <td>{{ $product->original_price }}</td>
-                                    <td>{{ $product->sales_price }}</td>
-                                    <td>{{ $product->offer_price }}</td>
-                                    <td>{{ $product->total_price }}</td>
                                     <td>
-                                        {{ $product->is_new === 1 ? 'YES' : "NO" }}
+                                        <input type="text" class="form-control original_price price" value="{{ $product->original_price }}" data-id="{{ $product->id  }}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control sales_price price" value="{{ $product->sales_price }}" data-id="{{ $product->id  }}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control special_price price" value="{{ $product->special_price }}" data-id="{{ $product->id  }}">
+                                    </td>
+                                    <td>
+                                        @if($product->special_start && $product->special_end)
+                                            {{ date('d(D)-M-Y', strtotime($product->special_start)) . ' to ' . date('d(D)-M-Y', strtotime($product->special_end)) }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control offer_price price" value="{{ $product->offer_price }}" data-id="{{ $product->id  }}">
+                                    </td>
+                                    <td>
+                                        @if($product->offer_start && $product->offer_end)
+                                            {{ date('d(D)-M-Y', strtotime($product->offer_start)) . ' to ' . date('d(D)-M-Y', strtotime($product->offer_end)) }}
+                                        @endif
                                     </td>
                                     <td>
                                         @if(auth()->user()->is_admin === 1)
                                         <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $product->status === 'active' ? 'checked' : '' }} id="productStatus" data-id="{{ $product->id }}">
                                         @else
-                                        <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $slider->status === 'active' ? 'checked' : '' }} onclick="return confirm('You have Not Authorized To Access This Action!')" disabled="">
+                                        <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $product->status === 'active' ? 'checked' : '' }} onclick="return confirm('You have Not Authorized To Access This Action!')" disabled="">
                                         @endif
 
                                     </td>
