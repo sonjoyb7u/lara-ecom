@@ -37,7 +37,7 @@
                             <h4>Manage Sub-Category :</h4>
                         </div>
                         <div class="col-xs-6 text-right">
-                            <a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.sub-category.create') : route('admin.sub-category.create') }}" class="btn btn-primary">Add Sub-Category</a>
+                            <a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.sub-category.create') : route('admin.sub-category.create') }}" class="btn btn-primary">Add Sub Category</a>
                         </div>
                     </div>
 
@@ -47,11 +47,11 @@
                             <thead>
                             <tr>
                                 <th>Sl No.</th>
-                                <th>User Name</th>
-                                <th>Brand Name</th>
+                                <th>Added By</th>
                                 <th>Category Name</th>
-                                <th>Sub-Category Name</th>
-                                <th>Sub-Category Slug</th>
+                                <th>Sub Category Name</th>
+                                <th>Sub Category Slug</th>
+                                <th>Sub Category Banner</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -62,15 +62,21 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     @if($sub_category->user_id)
-                                    {{ $sub_category->user->name }}
+                                    {{ auth()->user()->is_admin === 1 ? 'Super Admin' : 'Admin' }}
                                     @else
-                                    No User Found Yet.
+                                    <p>No User Found</p>
                                     @endif
                                 </td>
-                                <td>{{ $sub_category->brand->brand_name }}</td>
                                 <td>{{ $sub_category->category->category_name }}</td>
                                 <td>{{ $sub_category->sub_category_name }}</td>
                                 <td>{{ $sub_category->sub_category_slug }}</td>
+                                <td>
+                                    <div class="row" id="gallery-with-zoom">
+                                        <a href="{{ asset('uploads/images/sub-category/'.$sub_category->banner) }}" title="" class="image">
+                                            <img width="80" height="60" src="{{ asset('uploads/images/sub-category/'.$sub_category->banner) }}" alt="Sub Category Banner">
+                                        </a>
+                                    </div>
+                                </td>
                                 <td>
                                     @if(auth()->user()->is_admin === 1)
                                     <input type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="success" data-on="Active" data-off="Inactive" {{ $sub_category->status === 'active' ? 'checked' : '' }} id="subCategoryStatus" data-id="{{ $sub_category->id }}">

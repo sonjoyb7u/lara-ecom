@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Str;
 use App\Models\Category;
+use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -17,10 +20,9 @@ class CategoriesTableSeeder extends Seeder
         foreach (range(1, 10) as $index) {
             $category_name = $faker_category->name;
             Category::create([
-                'user_id' => random_int(1, 2),
-                'brand_id' => random_int(1, 10),
+                'user_id' => User::get()-random()->id,
                 'category_name' => $category_name,
-                'category_slug' => Illuminate\Support\Str::slug($category_name),
+                'category_slug' => Str::slug($category_name),
                 'status' => random_int(0, 1),
 
             ]);

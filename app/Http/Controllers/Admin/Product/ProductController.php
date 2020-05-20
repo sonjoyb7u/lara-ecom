@@ -54,13 +54,11 @@ class ProductController extends Controller
                 $gallery_path = 'uploads/images/product/gallery-images/';
 
                 // Calling Helper function...
-                $all_images_name = uploadImage($user_detail, $check_image_file, $image_files, $image_size, $image_path);
+                $image_name = uploadSingleImage($user_detail, $check_image_file, $image_files, $image_size, $image_path);
                 $all_gallery_images = uploadGalleryImage($user_detail, $check_gallery_files, $gallery_files, $gallery_size, $gallery_path);
 
-                $images = json_encode($all_images_name);
                 $gallery_images = json_encode($all_gallery_images);
 //                echo "<pre>";
-//                print_r(json_encode($images));
 //                print_r(json_encode($gallery_images));
 //                echo "</pre>";
 //                exit();
@@ -81,7 +79,7 @@ class ProductController extends Controller
                     'product_model' => $request->product_model,
                     'product_color' => $product_colors,
                     'product_size' => $request->product_size,
-                    'image' => $images,
+                    'image' => $image_name,
                     'image_start' => $request->image_start,
                     'image_end' => $request->image_end,
                     'gallery' => $gallery_images,
@@ -100,7 +98,6 @@ class ProductController extends Controller
                     'offer_price' => $request->offer_price,
                     'offer_start' => $request->offer_start,
                     'offer_end' => $request->offer_end,
-                    'total_sales' => $request->total_sales,
                     'available' => $request->available,
                     'status' => $request->status,
                 ];
@@ -110,8 +107,10 @@ class ProductController extends Controller
 
                 if ($user_detail->is_admin === 1) {
                     return redirect()->route('super-admin.product.index');
+
                 } else {
                     return redirect()->route('admin.product.index');
+
                 }
 
             }
@@ -133,8 +132,10 @@ class ProductController extends Controller
 
         $product_detail = Product::with('user', 'brand', 'category', 'subCategory')->find($product_id);
 //        return $product_detail;
+        $cat_wise_subcats = SubCategory::where('category_id', $product_detail->category_id)->get();
+//        return $cat_wise_subcats;
 
-        return view('admin.product.edit', compact('brands', 'categories',  'product_detail'));
+        return view('admin.product.edit', compact('brands', 'categories', 'cat_wise_subcats',  'product_detail'));
 
     }
 

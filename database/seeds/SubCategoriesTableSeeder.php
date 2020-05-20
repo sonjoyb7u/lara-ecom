@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Category;
 use App\Models\SubCategory;
 
 class SubCategoriesTableSeeder extends Seeder
@@ -14,12 +16,11 @@ class SubCategoriesTableSeeder extends Seeder
     {
         $faker_sub_category = Faker\Factory::create();
 
-        foreach (range(1, 9) as $index) {
+        foreach (range(1, 10) as $index) {
             $sub_category_name = $faker_sub_category->name;
             SubCategory::create([
-                'user_id' => random_int(1, 2),
-                'brand_id' => random_int(1, 10),
-                'category_id' => random_int(1, 3),
+                'user_id' => User::get()->random()->id,
+                'category_id' => Category::get()->random()->id,
                 'sub_category_name' => $sub_category_name,
                 'sub_category_slug' => Illuminate\Support\Str::slug($sub_category_name),
                 'status' => randomStatus(),

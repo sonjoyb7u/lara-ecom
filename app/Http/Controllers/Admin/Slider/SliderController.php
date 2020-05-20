@@ -168,7 +168,6 @@ class SliderController extends Controller
 
         }
 
-
     }
 
     public function destroy($slider_id)

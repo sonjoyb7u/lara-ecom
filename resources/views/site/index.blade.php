@@ -17,17 +17,21 @@
             <!-- ========================================== SECTION – HERO ========================================= -->
             <div id="hero">
                 <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
-
                     @foreach($sliders as $slider)
-                    <div class="item" style="background-image: url({{ asset('uploads/images/slider/'. $slider->image) }});">
+                    @php
+                        $slider_images = json_decode($slider->image);
+                    @endphp
+                    @foreach($slider_images as $slider_image)
+                    <div class="item" style="background-image: url({{ asset('uploads/images/slider/'. $slider_image) }});">
+                    @endforeach
                         <div class="container-fluid">
                             <div class="caption bg-color vertical-center text-left">
-                                <div class="slider-header fadeInDown-1">{{ $slider->message }}</div>
-                                <div class="big-text fadeInDown-1">
+                                <div class="slider-header fadeInDown-1" style="color: #59B210;">{{ $slider->message }}</div>
+                                <div class="big-text fadeInDown-1" style="color: #59B210;">
                                     {{ $slider->title }}
                                 </div>
 
-                                <div class="excerpt fadeInDown-2 hidden-xs">
+                                <div class="excerpt fadeInDown-2 hidden-xs" style="color: #59B210;">
 
                                     <span>{{ $slider->sub_title }}</span>
 
@@ -38,9 +42,7 @@
                             </div><!-- /.caption -->
                         </div><!-- /.container-fluid -->
                     </div><!-- /.item -->
-
                     @endforeach
-
                 </div><!-- /.owl-carousel -->
             </div>
 

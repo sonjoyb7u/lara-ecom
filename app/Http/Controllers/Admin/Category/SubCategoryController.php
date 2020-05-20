@@ -17,7 +17,7 @@ class SubCategoryController extends Controller
 {
     public function index()
     {
-        $sub_categories = SubCategory::with('user', 'brand', 'category')->latest()->get();
+        $sub_categories = SubCategory::with('user', 'category')->latest()->get();
 //         return $sub_categories;
 
         return view('admin.sub-category.index', compact('sub_categories'));
@@ -25,36 +25,40 @@ class SubCategoryController extends Controller
 
     public function create()
     {
-        $brands = Brand::orderBy('brand_name', 'asc')->get();
         $categories = Category::orderBy('category_name', 'asc')->get();
 
-        return view('admin.sub-category.create', compact('brands', 'categories'));
+        return view('admin.sub-category.create', compact( 'categories'));
     }
 
-
+//    CREATE/ADD SUB CATEGORY PROCESSING...
     public function store(SubCategoryRequest $request, $id)
     {
+//        return $request->all();
         $user_id = base64_decode($id);
         $user_detail = User::find($user_id);
 
         try {
-            $sub_category_name = $request->sub_category_name;
-            $sub_category_data = [
-                'user_id' => $user_id,
-                'brand_id' => $request->brand_id,
-                'category_id' => $request->category_id,
-                'sub_category_name' => $sub_category_name,
-                'sub_category_slug' => Str::slug($sub_category_name),
-            ];
+            $check_image_file = $request->hasFile('banner');
+            $image_file = $request->file('banner');
+//            dd($image_file);
 
-//             return $sub_category_data;
+            if ($image_file) {
+                $image_size = ['w'=>870, 'h'=>370];
+                $image_path = 'uploads/images/sub-category/';
+                $new_image = uploadSingleImage($user_detail, $check_image_file, $image_file, $image_size, $image_path);
 
-            $sub_category_create = SubCategory::create($sub_category_data);
+                $sub_category_name = $request->sub_category_name;
+                $sub_category_data = [
+                    'user_id' => $user_id,
+                    'category_id' => $request->category_id,
+                    'sub_category_name' => $sub_category_name,
+                    'sub_category_slug' => Str::slug($sub_category_name),
+                    'banner' => $new_image,
+                ];
+//              return $sub_category_data;
+                SubCategory::create($sub_category_data);
 
-            if ($sub_category_create) {
-
-                getMessage('success', 'SUCCESS, Sub-Category Has Been Added Successfully Done.');
-
+                getMessage('success', 'SUCCESS, Sub Category Has Been Added Successfully Done.');
                 if ($user_detail->is_admin === 1) {
                     return redirect()->route('super-admin.sub-category.index');
                 } else {
@@ -70,18 +74,23 @@ class SubCategoryController extends Controller
 
     }
 
+
+//    SHOW EDIT SUB CATEGORY FORM...
     public function edit($sub_category_id)
     {
         $sub_category_id = base64_decode($sub_category_id);
 //        return 'Sub-Cat Id :' . $sub_category_id;
+        $categories = Category::select('id', 'category_name')->orderBy('category_name', 'asc')->get();
+//        return $categories;
+        $sub_category_detail = SubCategory::with('user', 'category')->find($sub_category_id);
+//        return $sub_category_detail;
 
-        $sub_category_detail = SubCategory::with('user', 'brand', 'category')->find($sub_category_id);
-        $brand_details = Brand::with('user', 'categories')->orderBy('brand_name', 'asc')->get();
-        $category_details = Category::with('user', 'brand', 'subCategories')->orderBy('category_name', 'asc')->get();
+        return view('admin.sub-category.edit', compact('sub_category_detail', 'categories'));
 
-        return view('admin.sub-category.edit', compact('sub_category_detail', 'brand_details', 'category_details'));
     }
 
+
+//    UPDATE SUB CATEGORY PROCESSING...
     public function update(SubCategoryRequest $request, $sub_category_id, $user_id)
     {
         $sub_category_id = base64_decode($sub_category_id);
@@ -91,40 +100,79 @@ class SubCategoryController extends Controller
         $sub_category_detail = SubCategory::find($sub_category_id);
         $user_detail = User::find($user_id);
 
+        $image = $sub_category_detail->banner;
+
         try {
-            $sub_category_name = $request->sub_category_name;
+            $check_image_file = $request->hasFile('banner');
+            $image_file = $request->file('banner');
+//            dd($image_file);
 
-            $sub_category_detail->user_id = $user_detail->id;
-            $sub_category_detail->brand_id = $request->brand_id;
-            $sub_category_detail->category_id = $request->category_id;
-            $sub_category_detail->sub_category_name = $sub_category_name;
-            $sub_category_detail->sub_category_slug = Str::slug($sub_category_name);
+            if ($image_file) {
+                $image_size = ['w' => 870, 'h' => 370];
+                $image_path = 'uploads/images/sub-category/';
+                $new_image = editSingleImage($user_detail, $image, $check_image_file, $image_file, $image_size, $image_path);
 
-//            return $sub_category_detail;
+                $sub_category_name = $request->sub_category_name;
 
-            $sub_category_update_data = $sub_category_detail->update();
+                $sub_category_detail->user_id = $user_detail->id;
+                $sub_category_detail->category_id = $request->category_id;
+                $sub_category_detail->sub_category_name = $sub_category_name;
+                $sub_category_detail->sub_category_slug = Str::slug($sub_category_name);
+                $sub_category_detail->banner = $new_image;
+//              return $sub_category_detail;
 
-            if ($sub_category_update_data) {
+                $sub_category_update_data = $sub_category_detail->update();
 
-                getMessage('success', 'SUCCESS, Sub-Category Has Been Updated Successfully Done.');
+                if ($sub_category_update_data) {
+                    getMessage('success', 'SUCCESS, Sub Category Has Been Updated Successfully Done with Banner.');
 
-                if ($user_detail->is_admin === 1) {
-                    return redirect()->route('super-admin.sub-category.index');
+                    if ($user_detail->is_admin === 1) {
+                        return redirect()->route('super-admin.sub-category.index');
+                    } else {
+                        return redirect()->route('admin.sub-category.index');
+                    }
                 } else {
-                    return redirect()->route('admin.sub-category.index');
+                    getMessage('danger','ERROR, Sub Category has not been Updated With Image!');
+                    return redirect()->back();
                 }
+
+            } else {
+                $sub_category_name = $request->sub_category_name;
+
+                $sub_category_detail->user_id = $user_detail->id;
+                $sub_category_detail->category_id = $request->category_id;
+                $sub_category_detail->sub_category_name = $sub_category_name;
+                $sub_category_detail->sub_category_slug = Str::slug($sub_category_name);
+//              return $sub_category_detail;
+
+                $sub_category_update_data = $sub_category_detail->update();
+
+                if ($sub_category_update_data) {
+                    getMessage('success', 'SUCCESS, Sub Category Has Been Updated Successfully Done Without Image.');
+
+                    if ($user_detail->is_admin === 1) {
+                        return redirect()->route('super-admin.sub-category.index');
+                    } else {
+                        return redirect()->route('admin.sub-category.index');
+                    }
+                } else {
+                    getMessage('danger','ERROR, Sub Category has not been Updated Without Image!');
+                    return redirect()->back();
+                }
+
             }
 
-        } catch (Exception $e) {
+        } catch(Exception $exception) {
             // return 'Error : ' . $e->getMessage();
-            getMessage('danger', 'ERROR, ' . $e->getMessage());
+            getMessage('danger', 'ERROR, ' . $exception->getMessage());
             return redirect()->back();
-        }
 
+        }
 
     }
 
 
+//    DESTROY/DELETE SUB CATEGORY PROCESSING...
     public function destroy($sub_category_id)
     {
         $sub_category_id = base64_decode($sub_category_id);

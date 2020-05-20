@@ -36,7 +36,29 @@ function slugGenerate($text) {
 
     }
 
-    //    UPLOAD IMAGE/THUMBNAIL FILE...
+//    UPLOAD SINGLE IMAGE/THUMBNAIL FILE...
+function uploadSingleImage($user_detail, $check_image_file, $image_file, $image_size, $image_path) {
+    if($check_image_file) {
+//        foreach ($image_files as $image_file) {
+            $image_file_ext = $image_file->getClientOriginalExtension();
+            $new_image_name  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
+            $image_file_type = $image_file->getMimeType();
+
+            if($image_file->isValid()) {
+                if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
+                    Image::make($image_file)
+                        ->resize($image_size['w'], $image_size['h'])
+                        ->save(public_path($image_path) . $new_image_name);
+
+                }
+            }
+
+            return $new_image_name;
+    }
+
+}
+
+    //    UPLOAD MULTIPLE IMAGE/THUMBNAIL FILE...
     function uploadImage($user_detail, $check_image_file, $image_files, $image_size, $image_path) {
         $image_name = [];
         if($check_image_file) {
@@ -87,6 +109,31 @@ function slugGenerate($text) {
         }
 
     }
+
+//EDIT SINGLE IMAGE FILES...
+function editSingleImage($user_detail, $image, $check_image_file, $image_file, $image_size, $image_path) {
+    if($check_image_file) {
+            $image_file_ext = $image_file->getClientOriginalExtension();
+            $new_image_name  = $user_detail->user_name . "_" . date("Ymdhis") . "_" . rand(9999, 99999) . "." . $image_file_ext;
+            $image_file_type = $image_file->getMimeType();
+
+            if($image_file->isValid()) {
+                if ($image_file_type === "image/jpeg" || $image_file_type === "image/png") {
+//                        unlink(public_path('uploads/images/sub-category/'.$image));
+                        Storage::disk('public')->delete('/images/sub-category/' . $image);
+
+                    Image::make($image_file)
+                        ->resize($image_size['w'], $image_size['h'])
+                        ->save(public_path($image_path) . $new_image_name);
+
+
+                }
+            }
+
+            return $new_image_name;
+    }
+
+}
 
     //EDIT IMAGE FILES...
     function editImage($user_detail, $images, $check_image_file, $image_files, $image_size, $image_path) {

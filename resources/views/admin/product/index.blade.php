@@ -110,14 +110,7 @@
                                     <td>{{ $product->product_size }}</td>
                                     <td>{{ ucwords($product->available) }}</td>
                                     <td>
-                                        @php
-                                            $images = json_decode($product->image);
-                                        @endphp
-                                        @if(!empty($images))
-                                            @foreach($images as $image)
-                                            <img width="120" height="60" src="{{ asset('uploads/images/product/images/'.$image) }}" alt="{{ $image }}">
-                                            @endforeach
-                                        @endif
+                                        <img width="100" height="80" src="{{ asset('uploads/images/product/images/'.$product->image) }}" alt="{{ $product->image }}">
                                     </td>
                                     <td>
                                         @if($product->image_start && $product->image_end)

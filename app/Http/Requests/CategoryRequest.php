@@ -26,18 +26,18 @@ class CategoryRequest extends FormRequest
         if ($this->method() === 'PUT') {
             $rules = [
                 'category_name' => 'string|min:5|max:30',
-                'image' => 'image',
+                'banner' => 'image|mimes:jpeg,png,jpg',
             ];
         } elseif ($this->method() === 'PATCH') {
             $rules = [
                 'category_name' => 'string|min:5|max:30',
-                'image' => 'image',
+                'banner' => 'image|mimes:jpeg,png,jpg',
             ];
         } else {
             $rules = [
-                'brand_id' => 'required',
                 'category_name' => 'required|string|min:5|max:30',
-                'image' => 'required|image',
+                'banner' => 'required|image|mimes:jpeg,png,jpg',
+                'logo' => 'required',
             ];
         }
 
@@ -52,8 +52,10 @@ class CategoryRequest extends FormRequest
             'category_name.string' => 'Category name must be Small or Capital Alphabetic letter!',
             'category_name.min:15' => 'Category name at-least 15 Character\'s!',
             'category_name.max:25' => 'Category name must be less than 20 Character\'s',
-            'image.required' => 'Category Image field must be filled out!',
-            'image.image' => 'Category Image field must be an image file!',
+            'banner.required' => 'Category Image field must be filled out!',
+            'banner.image' => 'Category Image field must be an image file!',
+            'banner.mimes' => 'Only jpeg, jpg, png images are allowed',
+            'logo.required' => 'Category Logo field must be filled out!',
         ];
     }
 }

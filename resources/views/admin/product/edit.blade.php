@@ -102,6 +102,9 @@
                                             <label for="sub_category_id" class="control-label">Select Sub-Category Name</label>
                                             <select name="sub_category_id" id="sub_category_id" class="form-control">
                                                 <option value="">Select Sub-Category Name</option>
+                                                @foreach($cat_wise_subcats as $sub_cat)
+                                                    <option value="{{ $sub_cat->id }}">{{ $sub_cat->sub_category_name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 

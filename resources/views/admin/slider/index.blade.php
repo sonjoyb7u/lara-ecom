@@ -77,11 +77,17 @@
                                         $images = json_decode($slider->image);
                                     @endphp
                                     @if($images)
+                                    <div class="row" id="gallery-with-zoom">
                                     @foreach($images as $image)
+                                        <a href="{{ asset('uploads/images/slider/'.$image) }}" title="" class="image">
                                         <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$image) }}" alt="{{ $image }}">
+                                        </a>
                                     @endforeach
-                                    @else
-                                        <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$slider->image) }}" alt="{{ $slider->image }}">
+{{--                                    @else--}}
+{{--                                        <a href="{{ asset('uploads/images/slider/'.$slider->image) }}" title="" class="image">--}}
+{{--                                        <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$slider->image) }}" alt="{{ $slider->image }}">--}}
+{{--                                        </a>--}}
+                                    </div>
                                     @endif
                                 </td>
                                 <td>{{ $slider->start . ' ' . '-' . ' ' . $slider->end }}</td>
@@ -133,20 +139,20 @@
     </div>
 
     <!-- Slider Modal -->
-    <div style="margin-top: -70px;" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div style="padding: 0; border-bottom: 0; margin-right: -200px;" class="modal-header">
-                <button style="background: #2adcb7; padding: 2px; color: #59b210;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img width="135%" height="auto" id="slider-popup" src="" alt="Slider Image">
-            </div>
-            <div style="padding: 0; border-top: 0; margin-right: -185px;" class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm">Delete</button>
-            </div>
-        </div>
-    </div>
+{{--    <div style="margin-top: -70px;" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">--}}
+{{--        <div class="modal-dialog modal-dialog-centered" role="document">--}}
+{{--            <div style="padding: 0; border-bottom: 0; margin-right: -200px;" class="modal-header">--}}
+{{--                <button style="background: #2adcb7; padding: 2px; color: #59b210;" type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                    <span aria-hidden="true">&times;</span>--}}
+{{--                </button>--}}
+{{--            </div>--}}
+{{--            <div class="modal-body">--}}
+{{--                <img width="135%" height="auto" id="slider-popup" src="" alt="Slider Image">--}}
+{{--            </div>--}}
+{{--            <div style="padding: 0; border-top: 0; margin-right: -185px;" class="modal-footer">--}}
+{{--                <button type="button" class="btn btn-primary btn-sm">Delete</button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
 @endsection

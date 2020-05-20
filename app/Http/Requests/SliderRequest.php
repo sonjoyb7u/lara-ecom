@@ -26,7 +26,7 @@ class SliderRequest extends FormRequest
         if ($this->method() === 'PUT') {
             $rules = [
                 'message' => 'string|min:10|max:30',
-                'title' => 'string|min:20|max:50',
+                'title' => 'string|min:10|max:60',
                 'sub_title' => 'string|min:30|max:150',
                 'image.*' => 'image|mimes:jpeg,png,jpg',
                 'start' => 'required',
@@ -36,7 +36,7 @@ class SliderRequest extends FormRequest
         } elseif ($this->method() === 'PATCH') {
             $rules = [
                 'message' => 'string|min:10|max:30',
-                'title' => 'string|min:20|max:50',
+                'title' => 'string|min:10|max:60',
                 'sub_title' => 'string|min:30|max:150',
                 'image.*' => 'image|mimes:jpeg,png,jpg',
                 'start' => 'required',
@@ -46,7 +46,7 @@ class SliderRequest extends FormRequest
         } else {
             $rules = [
                 'message' => 'required|string|min:10|max:30',
-                'title' => 'required|string|min:20|max:50',
+                'title' => 'required|string|min:10|max:60',
                 'sub_title' => 'required|string|min:30|max:150',
                 'image.*' => 'required|image|mimes:jpeg,png,jpg',
                 'start' => 'required',
@@ -68,8 +68,8 @@ class SliderRequest extends FormRequest
             'message.max:25' => 'Category name must be less than 30 Character\'s',
             'title.required' => 'Title name field must be filled out!',
             'title.string' => 'Title name must be Small or Capital Alphabetic letter!',
-            'title.min:15' => 'Title name at-least 10 Character\'s!',
-            'title.max:25' => 'Title name must be less than 20 Character\'s',
+            'title.min:10' => 'Title name at-least 10 Character\'s!',
+            'title.max:60' => 'Title name must be less than 60 Character\'s',
             'sub_title.required' => 'Sub-Title name field must be filled out!',
             'sub_title.string' => 'Sub-Title name must be Small or Capital Alphabetic letter!',
             'sub_title.min:15' => 'Sub-Title name at-least 10 Character\'s!',

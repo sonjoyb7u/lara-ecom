@@ -2,6 +2,18 @@
 
 @section('title', 'Add Slider | Lara-Ecomm')
 
+@push('css')
+    <style>
+        .sliders img{
+            max-width:120px;
+            height: 70px;
+            margin: 5px;
+        }
+        .btn.btn-primary.btn-sm.file-click {
+            margin-bottom: 0;
+        }
+    </style>
+@endpush
 
 @section('header')
     @includeIf('admin.components.partials.header')
@@ -69,9 +81,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="image" class="col-sm-4 control-label">Slider Image</label>
+                                        <label for="images" class="col-sm-4 control-label">Slider Image</label>
                                         <div class="col-sm-8">
-                                            <input type="file" name="image[]" multiple class="form-control" id="image" value="{{ old('image') }}" placeholder="Choose Slider Image...">
+                                            <input type="file" name="image[]" multiple class="product-image" id="slider" style="display: none;">
+                                            <input type="button" class="btn btn-primary btn-sm file-click" data-id="slider" value="Choose Slider">
+                                            <div class="sliders"></div>
                                         </div>
                                     </div>
 
@@ -117,3 +131,30 @@
     </div>
 
 @endsection
+
+@push('js')
+    <script>
+
+        // Multiple Slider images preview in browser...
+        var sliderPreview = function(input, insertSliderPreview) {
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(insertSliderPreview);
+                    };
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        };
+
+        $('#slider').on('change', function () {
+            sliderPreview(this, 'div.sliders');
+        });
+    </script>
+@endpush

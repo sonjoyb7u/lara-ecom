@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/data-table/media/css/dataTables.bootstrap.min.css') }}">
     <!--SECTION css-->
     <!-- ========================================================= -->
+    <!-- include summernote css -->
+    <link href="{{ asset('assets/admin/vendor/summer-note-textarea/summernote.min.css') }}" rel="stylesheet">
     <!--Notification msj-->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/toastr/toastr.min.css') }}">
     <!--Magnific popup-->
@@ -26,8 +28,6 @@
     <!-- Select with searching & tagging -->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/select2/css/select2-bootstrap.min.css') }}">
-    <!-- include summernote css -->
-    <link href="{{ asset('assets/admin/vendor/summer-note-textarea/dist/summernote.min.css') }}" rel="stylesheet">
     <!--Date picker-->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap_date-picker/css/bootstrap-datepicker3.min.css') }}">
     <!--Time picker-->
@@ -51,6 +51,7 @@
     <!--SLIDER-POPUP IMAGE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{ asset('assets/admin/stylesheets/css/slider-popup.css') }}">
+
     @stack('css')
 
 </head>
@@ -141,6 +142,8 @@
 <script src="{{ asset('assets/admin/javascripts/examples/tables/data-tables.js') }}"></script>
 <!-- SECTION script and examples-->
 <!-- ========================================================= -->
+<!-- include summernote css/js -->
+<script src="{{ asset('assets/admin/vendor/summer-note-textarea/summernote.min.js') }}"></script>
 <!--Notification msj-->
 <script src="{{ asset('assets/admin/vendor/toastr/toastr.min.js') }}"></script>
 <!--morris chart-->
@@ -148,6 +151,7 @@
 <!--Gallery with Magnific popup-->
 <script src="{{ asset('assets/admin/vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
 <!--Examples-->
+{{--<script src="{{ asset('assets/admin/javascripts/examples/ui-elements/lightbox.js') }}"></script>--}}
 <script src="{{ asset('assets/admin/javascripts/examples/dashboard.js') }}"></script>
 <script src="{{ asset('assets/admin/javascripts/custom/main.js') }}"></script>
 <!--DATETIME-PICKER scripts-->
@@ -155,8 +159,6 @@
 <script src='{{ asset('assets/admin/vendor/date_time-picker/js/bootstrap-datetimepicker.min.js') }}'></script>
 <!--Select with searching & tagging-->
 <script src="{{ asset('assets/admin/vendor/select2/js/select2.min.js') }}"></script>
-<!-- include summernote css/js -->
-<script src="{{ asset('assets/admin/vendor/summer-note-textarea/dist/summernote.min.js') }}"></script>
 <!--Date picker-->
 <script src="{{ asset('assets/admin/vendor/bootstrap_date-picker/js/bootstrap-datepicker.min.js') }}"></script>
 <!--Time picker-->
@@ -166,6 +168,10 @@
 <!--sweetalert-->
 <script src="{{ asset('assets/admin/vendor/sweetalert/sweetalert.min.js') }}"></script>
 <script src="{{ asset('assets/admin/javascripts/examples/ui-elements/alerts.js') }}"></script>
+
+<!-- include summernote css/js -->
+{{--<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">--}}
+{{--<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>--}}
 
 @stack('js')
 

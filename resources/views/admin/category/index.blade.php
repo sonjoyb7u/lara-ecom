@@ -48,30 +48,36 @@
                             <tr>
                                 <th>Sl No.</th>
                                 <th>Added By</th>
-                                <th>Brand Name</th>
                                 <th>Category Name</th>
                                 <th>Category Slug</th>
-                                <th>Category Image</th>
+                                <th>Category Banner</th>
+                                <th>Category Logo</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                            @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     @if($category->user_id)
-                                    {{ $category->user->is_admin === 1 ? 'Super Admin' : 'Admin' }}
+                                    {{ auth()->user()->is_admin === 1 ? 'Super Admin' : 'Admin' }}
                                     @else
-                                    No User Found Yet.
+                                    <p>No User Found</p>
                                     @endif
                                 </td>
-                                <td>{{ $category->brand->brand_name }}</td>
                                 <td>{{ $category->category_name }}</td>
                                 <td>{{ $category->category_slug }}</td>
                                 <td>
-                                    <img width="80" height="60" src="{{ asset('uploads/images/category/'.$category->image) }}" alt="Category Image">
+                                    <div class="row" id="gallery-with-zoom">
+                                        <a href="{{ asset('uploads/images/category/'.$category->banner) }}" title="" class="image">
+                                            <img width="80" height="60" src="{{ asset('uploads/images/category/'.$category->banner) }}" alt="Category Banner">
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <i class="fa {{ $category->logo }}" style="font-size: 25px;"></i>
                                 </td>
                                 <td>
                                     @if(auth()->user()->is_admin === 1)
@@ -105,7 +111,6 @@
                                     <a class="btn btn-danger btn-sm" href="javascript:avoid(0)" onclick="return confirm('You have Not Authorized To Access This Action!')"><i class="fa fa-trash-o"></i></a>
 
                                     @endif
-
                                 </td>
                             </tr>
                             @endforeach

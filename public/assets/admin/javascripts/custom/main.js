@@ -302,4 +302,40 @@ $('body').on('change', '.offer_price', function () {
 
 });
 
+// File input button customize using js...
+$('body').on('click', '.file-click', function() {
+    var id = $(this).attr("data-id");
+    $('#'+id).click();
+});
 
+//  SINGLE IMAGE Magnifing Popup...
+$('.image').magnificPopup({
+    type:'image',
+    gallery: {
+        enabled: true,
+        navigateByImgClick: true,
+        preload: [1, 1]
+    },
+    mainClass: 'mfp-with-zoom',
+    zoom: {
+        enabled: true,
+        duration: 300
+    }
+});
+
+//GALLERY
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$('#gallery-with-zoom').magnificPopup({
+    delegate: 'a',
+    type: 'image',
+    gallery: {
+        enabled: true,
+        navigateByImgClick: true,
+        preload: [1, 1]
+    },
+    mainClass: 'mfp-with-zoom',
+    zoom: {
+        enabled: true,
+        duration: 300
+    }
+});

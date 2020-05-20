@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
  */
 Route::namespace('Site')->name('site.')->group(function () {
     Route::get('/', 'SiteController@index')->name('index');
+    Route::get('category/{slug}', 'SiteController@catWiseProduct')->name('category');
+    Route::get('sub-category/{slug}', 'SiteController@subCatWiseProduct')->name('sub-category');
 });
 
 /**
