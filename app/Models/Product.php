@@ -25,10 +25,10 @@ class Product extends Model
     }
 
     public function category() {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->where('status', Category::ACTIVE_STATUS);
     }
 
     public function subCategory() {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id')->where('status', SubCategory::ACTIVE_STATUS);
     }
 }

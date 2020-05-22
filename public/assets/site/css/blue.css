@@ -165,7 +165,7 @@ a {
 .yamm .dropdown-menu li a:focus {
   color: #333;
 }
-.breadcrumb ul li.active {
+.breadcrumb ul li.active a {
   color: #157ed2;
 }
 .breadcrumb ul a:hover,

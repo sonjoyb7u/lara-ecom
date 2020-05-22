@@ -1,42 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="keywords" content="MediaCenter, Template, eCommerce">
-    <meta name="robots" content="all">
-
-    <title>@yield('title', 'Lara-Ecom | Home')</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap.min.css') }}">
-
-    <!-- Customizable CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/site/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/site/css/blue.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/site/css/owl.carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/site/css/owl.transitions.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/site/css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/site/css/rateit.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap-select.min.css') }}">
-
-    <!-- Icons/Glyphs -->
-    <link rel="stylesheet" href="{{ asset('assets/site/css/font-awesome.css') }}">
-
-    <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
-</head>
-<body class="cnt-home">
-
-
 <header class="header-style-1">
     <!-- ============================================== TOP MENU ============================================== -->
     <div class="top-bar animate-dropdown">
@@ -189,43 +150,16 @@
                             <ul class="nav navbar-nav">
                                 <li class="active dropdown yamm-fw">
                                     <a href="{{ route('site.index') }}">Home</a>
-
                                 </li>
-
+                                @foreach($brands as $brand)
                                 <li class="dropdown yamm mega-menu">
-                                    <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing
-                                        <span class="menu-label hot-menu hidden-xs">hot</span>
+                                    <a href="#" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ $brand->brand_name }}
+{{--                                        <span class="menu-label hot-menu hidden-xs">--}}
+{{--                                            {{ $brand->level === 'top' ? 'Hot' : 'New' }}--}}
+{{--                                        </span>--}}
                                     </a>
-                                    <ul class="dropdown-menu container">
-                                        <li>
-                                            <div class="yamm-content ">
-                                                <div class="row">
-
-                                                    <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                        <h2 class="title">Men</h2>
-                                                        <ul class="links">
-                                                            <li><a href="#">Dresses</a></li>
-
-                                                        </ul>
-                                                    </div><!-- /.col -->
-
-                                                    <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
-                                                        <img class="img-responsive" src="{{ asset('assets/site/images/banners/top-menu-banner.jpg') }}" alt="">
-
-
-
-
-
-
-                                                    </div><!-- /.yamm-content -->
-                                                </div>
-                                            </div>
-
-                                        </li>
-                                    </ul>
-
                                 </li>
-
+                                @endforeach
                                 <li class="dropdown  navbar-right special-menu">
                                     <a href="#">Todays offer</a>
                                 </li>

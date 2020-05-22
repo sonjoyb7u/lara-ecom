@@ -10,11 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     protected $fillable = [
-        'user_id', 'brand_name', 'brand_slug', 'image', 'status',
+        'user_id', 'brand_name', 'brand_slug', 'image', 'level', 'status',
     ];
 
     public const ACTIVE_BRAND = 1;
     public const INACTIVE_BRAND = 0;
+    public const TOP_BRAND = 'top';
+    public const MID_BRAND = 'mid';
+    public const LOW_BRAND = 'low';
 
     public function user()
     {

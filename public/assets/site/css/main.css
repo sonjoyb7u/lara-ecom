@@ -3484,7 +3484,7 @@ age-container #owl-main .owl-next {
   font-size: 12px;
   line-height: 24px;
   margin-left: 9px;
-  margin-right: -4px;
+  /*margin-right: -4px;*/
   padding: 0px;
 }
 .breadcrumb ul li:last-child:after {
