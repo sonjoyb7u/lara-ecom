@@ -23,37 +23,33 @@ class BrandRequest extends FormRequest
      */
     public function rules()
     {
-        if($this->method() == 'PUT') {
+        if ($this->method() === 'PUT') {
             $rules = [
                 'brand_name' => 'required|unique:brands|max:25',
                 'brand_slug' => 'unique:brands',
             ];
-
-        } elseif($this->method() == 'PATCH') {
+        } elseif ($this->method() === 'PATCH') {
             $rules = [
                 'brand_name' => 'required|unique:brands|max:25',
                 'brand_slug' => 'unique:brands',
             ];
-
-        }else {
+        } else {
             $rules = [
                 'brand_name' => 'required|unique:brands|max:25',
                 'brand_slug' => 'unique:brands',
             ];
-
         }
-        
-        return $rules; 
+
+        return $rules;
     }
 
-    public function messages() {
-
+    public function messages()
+    {
         return [
             'brand_name.required' => 'Brand name field must be filled out!',
             'brand_name.unique' => 'Brand Name has already been taken!',
             'brand_name.max:25' => 'Brand name must be less than 20 Character\'s',
             'brand_slug.unique' => 'Brand Slug has already been taken!',
-
         ];
     }
 }

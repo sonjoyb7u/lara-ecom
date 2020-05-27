@@ -83,15 +83,11 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
-                                        @if($product->user->id)
                                         {{ $product->user->is_admin === 1 ? 'Super Admin' : 'Admin' }}
-                                        @else
-                                        No User Found Yet.
-                                        @endif
                                     </td>
-                                    <td>{{ $product->brand->brand_name }}</td>
-                                    <td>{{ $product->category->category_name }}</td>
-                                    <td>{{ $product->subCategory->sub_category_name }}</td>
+                                    <td>{{ $product->brand['brand_name'] }}</td>
+                                    <td>{{ $product->category['category_name'] }}</td>
+                                    <td>{{ $product->subCategory['sub_category_name'] }}</td>
                                     <td>{{ $product->title }}</td>
                                     <td>{{ substr($product->title, 0, 50).' ... ... ' }}</td>
                                     <td>{{ $product->product_code }}</td>
@@ -110,7 +106,9 @@
                                     <td>{{ $product->product_size }}</td>
                                     <td>{{ ucwords($product->available) }}</td>
                                     <td>
-                                        <img width="100" height="80" src="{{ asset('uploads/images/product/images/'.$product->image) }}" alt="{{ $product->image }}">
+                                        <a href="{{ asset('uploads/images/product/images/'.$product->image) }}" title="By {{ $product->title }}" class="image">
+                                            <img width="100" height="80" src="{{ asset('uploads/images/product/images/'.$product->image) }}" alt="{{ $product->image }}">
+                                        </a>
                                     </td>
                                     <td>
                                         @if($product->image_start && $product->image_end)
@@ -123,7 +121,9 @@
                                         @endphp
                                         @if(!empty($gallery_images))
                                             @foreach($gallery_images as $gallery_image)
+                                            <a href="{{ asset('uploads/images/product/gallery-images/'.$gallery_image) }}" title="By {{ $product->title }}" class="image">
                                                 <img width="120" height="60" src="{{ asset('uploads/images/product/gallery-images/'.$gallery_image) }}" alt="{{ $gallery_image }}">
+                                            </a>
                                             @endforeach
                                         @endif
                                     </td>
@@ -195,7 +195,7 @@
     </div>
 
     <!-- Slider Modal -->
-    <div style="margin-top: -70px;" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    {{-- <div style="margin-top: -70px;" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div style="padding: 0; border-bottom: 0; margin-right: -200px;" class="modal-header">
                 <button style="background: #2adcb7; padding: 2px; color: #59b210;" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -209,6 +209,6 @@
                 <button type="button" class="btn btn-primary btn-sm">Delete</button>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection

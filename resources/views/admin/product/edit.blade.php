@@ -3,6 +3,8 @@
 @section('title', 'Edit Product | Lara-Ecomm')
 
 @push('css')
+    <!-- include summernote css -->
+    <link href="{{ asset('assets/admin/vendor/summer-note-textarea/summernote.min.css') }}" rel="stylesheet">
     <style>
         .images img{
             max-width:100px;
@@ -191,23 +193,23 @@
 
                                         <div class="col-md-6">
                                             <label for="images" class="control-label">Product Image</label>
-                                            <input type="file" name="image[]" multiple class="form-control product-image" id="images" onchange="readImageURL(this);" >
+                                            <input type="file" name="image" class="form-control" id="images" onchange="previewImages(this);" style="display: none;">
+                                            <input type="button" class="btn btn-primary btn-sm file-click" data-id="images" value="Choose Image">
                                             <div class="images">
-                                                @php
-                                                    $images = json_decode($product_detail->image);
-                                                @endphp
-                                                @if($images)
-                                                    @foreach($images as $image)
-                                                        <img id="showImage" src="{{ asset('uploads/images/product/images/' . $image) }}" alt="{{ $image }}" />
-                                                    @endforeach
-                                                @endif
+                                                <div class="row" id="gallery-with-zoom">
+                                                    <a href="" title="">
+                                                        <img id="show_images" src="{{ asset('uploads/images/product/images/' . $product_detail->image) }}" alt="{{ $product_detail->image }}" />
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="gallery" class="control-label">Product Gallery</label>
-                                            <input type="file" name="gallery[]" multiple class="form-control product-image" id="gallery" onchange="readGalleryURL(this);">
+                                            <input type="file" name="gallery[]" multiple class="product-image" id="gallery" style="display: none;">
+                                            <input type="button" class="btn btn-primary btn-sm file-click" data-id="gallery" value="Choose Gallery">
                                             <div class="gallery">
+                                                <a href="" title="" class="image">
                                                 @php
                                                     $gallery_images = json_decode($product_detail->gallery);
                                                 @endphp
@@ -216,6 +218,10 @@
                                                         <img id="showGalleries" src="{{ asset('uploads/images/product/gallery-images/' . $gallery_image) }}" alt="{{ $gallery_image }}" />
                                                     @endforeach
                                                 @endif
+                                                </a>
+                                            </div>
+                                            <div class="gallery">
+                                                
                                             </div>
                                         </div>
 
@@ -379,6 +385,8 @@
 @endsection
 
 @push('js')
+<!-- Include summernote css/js -->
+<script src="{{ asset('assets/admin/vendor/summer-note-textarea/summernote.min.js') }}"></script>
     <script>
         //Select2 basic example
         $("#brand_id").select2({
@@ -406,60 +414,46 @@
             allowClear: true
         });
 
-        //single images preview in browser...
-        function readImageURL(input) {
-            if (input.files && input.files[0]) {
+        //Single images preview in browser...
+    function previewImages(input) {
+        var id = $(input).attr('id');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            $('#show_'+id).slideUp();
+            reader.onload = function (e) {
+                $('#show_'+id).attr('src', e.target.result);
+                $('#show_'+id).parent().attr('href', e.target.result);
+                $('#show_'+id).slideDown();
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Multiple Gallery images preview in browser...
+    var galleryPreview = function(input, insertGalleryPreview) {
+        var id = $(input).attr('id');
+        // console.log(id);
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
                 var reader = new FileReader();
 
-                $('#showImage').slideUp();
-                reader.onload = function (e) {
-                    $('#showImage').attr('src', e.target.result);
-                    $('#showImage').slideDown();
+                reader.onload = function(event) {
+                    $($.parseHTML('<img id="#show_gallery">')).attr('src', event.target.result).appendTo(insertGalleryPreview);
+                    $('#show_'+id).parent().attr('href', event.target.result);
                 };
 
-                reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(input.files[i]);
             }
         }
 
-        //single images preview in browser...
-        // function readGalleryURL(input) {
-        //     if (input.files && input.files[0]) {
-        //         var ImageCount = input.files.length;
-        //         for (i = 0; i < ImageCount; i++) {
-        //             var reader = new FileReader();
-        //
-        //             $('#showGalleries').slideUp();
-        //             reader.onload = function (e) {
-        //                 $('#showGalleries').attr('src', e.target.result);
-        //                 $('#showGalleries').slideDown();
-        //             };
-        //
-        //             reader.readAsDataURL(input.files[i]);
-        //         }
-        //
-        //     }
-        // }
+    };
 
-        // Multiple images preview in browser...
-        var galleryPreview = function(input, placeToInsertGalleryPreview) {
-
-            if (input.files) {
-                var filesAmount = input.files.length;
-                for (i = 0; i < filesAmount; i++) {
-                    var reader = new FileReader();
-
-                    reader.onload = function(event) {
-                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertGalleryPreview);
-                    };
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-
-        };
-
-        $('#gallery').on('change', function () {
-            galleryPreview(this, 'div.gallery');
-        });
+    $('#gallery').on('change', function () {
+        galleryPreview(this, 'div.gallery>a');
+    });
 
 
         //Range Date-Picker example...

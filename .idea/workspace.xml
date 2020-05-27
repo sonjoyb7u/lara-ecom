@@ -19,39 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d08b7f1-f568-45dd-a016-c6ea8643a41f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-best-seller.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-blog.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-featured-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-new-arrival.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-new-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-slider.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-wide-banner.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/content-wide-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/leftside-category-list.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/leftside-hot-deal.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/leftside-newsletter.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/leftside-product-tag.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/leftside-special-deals.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/leftside-special-offer.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/components/partials/leftside-testimonial.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/site/sub-cat-wise-products.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Site/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Site/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Brand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Brand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/SubCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/SubCategory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_19_185980_create_brands_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_19_185980_create_brands_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/site/css/blue.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/site/css/blue.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/site/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/site/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/site/components/partials/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site/components/partials/footer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/site/components/partials/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site/components/partials/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/site/components/partials/left-sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site/components/partials/left-sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/site/components/site-master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site/components/site-master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/site/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/site/sub_cat_wise_products.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site/cat-wise-products.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="0d08b7f1-f568-45dd-a016-c6ea8643a41f" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/vendor/asm89/stack-cors/" />
     <ignored path="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/" />
     <ignored path="$PROJECT_DIR$/vendor/brick/math/" />
@@ -176,105 +144,7 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Site/SiteController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="47" column="104" selection-start-line="47" selection-start-column="92" selection-end-line="47" selection-end-column="104" />
-              <folding>
-                <element signature="e#45#81#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/site/cat-wise-products.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="167" column="55" lean-forward="true" selection-start-line="167" selection-start-column="55" selection-end-line="167" selection-end-column="55" />
-              <folding>
-                <element signature="e#6613#6653#0#HTML" expanded="true" />
-                <element signature="e#12127#12150#0#HTML" expanded="true" />
-                <element signature="e#17577#17600#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/SubCategory.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
-              <folding>
-                <element signature="e#30#69#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Category.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="30" column="46" lean-forward="true" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
-              <folding>
-                <element signature="e#30#57#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Product.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
-              <folding>
-                <element signature="e#30#50#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/site/sub-cat-wise-products.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2166">
-              <caret line="301" column="234" selection-start-line="301" selection-start-column="234" selection-end-line="301" selection-end-column="234" />
-              <folding>
-                <element signature="e#6695#6735#0#HTML" expanded="true" />
-                <element signature="e#12140#12163#0#HTML" expanded="true" />
-                <element signature="e#17488#17511#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="21" column="64" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="64" />
-              <folding>
-                <element signature="e#7#43#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/site/components/partials/leftside-category-list.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="5" column="50" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -444,7 +314,7 @@
       <path value="$PROJECT_DIR$/vendor/intervention/image" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1346" />
@@ -459,120 +329,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Site" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="category" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="site" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="site" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="site" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="partials" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lara-ecom" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lara-ecom" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -587,7 +344,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lara-online-shop" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -681,15 +438,15 @@
       <workItem from="1590040768575" duration="5409000" />
       <workItem from="1590048609722" duration="27374000" />
       <workItem from="1590115489338" duration="213000" />
-      <workItem from="1590115768808" duration="13844000" />
+      <workItem from="1590115768808" duration="16231000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="390954000" />
+    <option name="totallyTimeSpent" value="393341000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23146747" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -767,18 +524,6 @@
     <state x="249" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587785407084" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/sub-category/sonjoyb7u_20200519095954_79886.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/sub-category/sonjoyb7u_20200519042003_71435.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/sub-category/sonjoyb7u_20200519044147_72846.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/sub-category/sonjoyb7u_20200519044416_25266.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/uploads/images/sub-category/sonjoyb7u_20200519044734_90054.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -1015,24 +760,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/site/sub-cat-wise-products.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2166">
-          <caret line="301" column="234" selection-start-line="301" selection-start-column="234" selection-end-line="301" selection-end-column="234" />
-          <folding>
-            <element signature="e#6695#6735#0#HTML" expanded="true" />
-            <element signature="e#12140#12163#0#HTML" expanded="true" />
-            <element signature="e#17488#17511#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/public/uploads/images/category/sonjoyb7u_20200519031208_37669.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
+    <entry file="file://$PROJECT_DIR$/node_modules/browserify-rsa/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Category.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="21" column="64" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="64" />
+        <state relative-caret-position="260">
+          <caret line="30" column="46" lean-forward="true" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
           <folding>
-            <element signature="e#7#43#0#PHP" expanded="true" />
+            <element signature="e#30#57#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1057,12 +799,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Category.php">
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="30" column="46" lean-forward="true" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
+        <state relative-caret-position="234">
+          <caret line="21" column="64" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="64" />
           <folding>
-            <element signature="e#30#57#0#PHP" expanded="true" />
+            <element signature="e#7#43#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/site/sub-cat-wise-products.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2166">
+          <caret line="301" column="234" selection-start-line="301" selection-start-column="234" selection-end-line="301" selection-end-column="234" />
+          <folding>
+            <element signature="e#6695#6735#0#HTML" expanded="true" />
+            <element signature="e#12140#12163#0#HTML" expanded="true" />
+            <element signature="e#17488#17511#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.mix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="35" lean-forward="true" selection-start-column="35" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/site/cat-wise-products.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="167" column="55" lean-forward="true" selection-start-line="167" selection-start-column="55" selection-end-line="167" selection-end-column="55" />
+          <folding>
+            <element signature="e#6613#6653#0#HTML" expanded="true" />
+            <element signature="e#12127#12150#0#HTML" expanded="true" />
+            <element signature="e#17577#17600#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1073,21 +849,6 @@
           <caret line="47" column="104" selection-start-line="47" selection-start-column="92" selection-end-line="47" selection-end-column="104" />
           <folding>
             <element signature="e#45#81#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/category/sonjoyb7u_20200519031208_37669.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/site/cat-wise-products.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="167" column="55" lean-forward="true" selection-start-line="167" selection-start-column="55" selection-end-line="167" selection-end-column="55" />
-          <folding>
-            <element signature="e#6613#6653#0#HTML" expanded="true" />
-            <element signature="e#12127#12150#0#HTML" expanded="true" />
-            <element signature="e#17577#17600#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -3,6 +3,8 @@
 @section('title', 'Add Product | Lara-Ecomm')
 
 @push('css')
+    <!-- include summernote css -->
+    <link href="{{ asset('assets/admin/vendor/summer-note-textarea/summernote.min.css') }}" rel="stylesheet">
     <style>
         .images img{
             width:100px;
@@ -384,6 +386,9 @@
 
 
 @push('js')
+<!-- Include summernote css/js -->
+<script src="{{ asset('assets/admin/vendor/summer-note-textarea/summernote.min.js') }}"></script>
+
 <script>
     //Select2 basic example
     $("#brand_id").select2({
@@ -410,24 +415,6 @@
         placeholder: "Select a Availability",
         allowClear: true
     });
-
-    //Product Summernote Text-Area js call...
-    // $('#summernote_desc').summernote({
-    //     placeholder: 'Write Short Description',
-    //     tabsize: 4,
-    //     height: 80,
-    // });
-    // $('#summernote_long_desc').summernote({
-    //     placeholder: 'Write Long Description',
-    //     tabsize: 4,
-    //     height: 80,
-    // });
-    // $('#warranty_condition').summernote({
-    //     placeholder: 'Write Product Warranty Condition',
-    //     tabsize: 4,
-    //     height: 80,
-    // });
-
 
     //Single images preview in browser...
     function previewImages(input) {
@@ -505,6 +492,24 @@
 
     //Component Color-Picker example...
     $('#component-colorpicker').colorpicker({});
+
+
+    // Product Summernote Text-Area js call...
+    $('#summernote_desc').summernote({
+        placeholder: 'Write Short Description',
+        tabsize: 4,
+        height: 80,
+    });
+    $('#summernote_long_desc').summernote({
+        placeholder: 'Write Long Description',
+        tabsize: 4,
+        height: 80,
+    });
+    $('#warranty_condition').summernote({
+        placeholder: 'Write Product Warranty Condition',
+        tabsize: 4,
+        height: 80,
+    });
 
 </script>
 @endpush

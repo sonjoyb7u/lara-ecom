@@ -77,7 +77,6 @@
                                         $images = json_decode($slider->image);
                                     @endphp
                                     @if($images)
-                                    <div class="row" id="gallery-with-zoom">
                                     @foreach($images as $image)
                                         <a href="{{ asset('uploads/images/slider/'.$image) }}" title="" class="image">
                                         <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$image) }}" alt="{{ $image }}">
@@ -87,7 +86,6 @@
 {{--                                        <a href="{{ asset('uploads/images/slider/'.$slider->image) }}" title="" class="image">--}}
 {{--                                        <img width="120" height="60" src="{{ asset('uploads/images/slider/'.$slider->image) }}" alt="{{ $slider->image }}">--}}
 {{--                                        </a>--}}
-                                    </div>
                                     @endif
                                 </td>
                                 <td>{{ $slider->start . ' ' . '-' . ' ' . $slider->end }}</td>

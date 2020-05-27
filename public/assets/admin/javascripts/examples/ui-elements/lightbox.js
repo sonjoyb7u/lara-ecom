@@ -18,6 +18,7 @@ $(function () {
         },
         tLoading: 'Loading image #%curr%...'
     });
+    
     //GALLERY
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     $('#gallery-with-zoom').magnificPopup({

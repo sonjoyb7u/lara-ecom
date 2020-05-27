@@ -308,7 +308,7 @@ $('body').on('click', '.file-click', function() {
     $('#'+id).click();
 });
 
-//  SINGLE IMAGE Magnifing Popup...
+//  INDEX SINGLE IMAGE Magnify Popup Light-Box...
 $('.image').magnificPopup({
     type:'image',
     gallery: {
@@ -323,9 +323,12 @@ $('.image').magnificPopup({
     }
 });
 
-//GALLERY
+//SINGLE IMAGE Magnify Popup Light-Box...
+$('.single-image').magnificPopup({ type: 'image' });
+
+//GALLERY IMAGE Magnify Popup LIGHT-BOX...
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-$('#gallery-with-zoom').magnificPopup({
+$('#gallery-image').magnificPopup({
     delegate: 'a',
     type: 'image',
     gallery: {
@@ -333,9 +336,8 @@ $('#gallery-with-zoom').magnificPopup({
         navigateByImgClick: true,
         preload: [1, 1]
     },
-    mainClass: 'mfp-with-zoom',
-    zoom: {
-        enabled: true,
-        duration: 300
-    }
+    tLoading: 'Loading image #%curr%...'
 });
+
+
+

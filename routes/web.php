@@ -55,7 +55,6 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::get('show', 'CategoryController@show')->name('show');
         Route::get('create', 'CategoryController@create')->name('create');
         Route::post('store/{user_id}', 'CategoryController@store')->name('store');
-
     });
 
     /**
@@ -66,7 +65,6 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::get('show', 'SubCategoryController@show')->name('show');
         Route::get('create', 'SubCategoryController@create')->name('create');
         Route::post('store/{user_id}', 'SubCategoryController@store')->name('store');
-
     });
 
     /**
@@ -77,7 +75,6 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::get('show', 'SliderController@show')->name('show');
         Route::get('create', 'SliderController@create')->name('create');
         Route::post('store/{user_id}', 'SliderController@store')->name('store');
-
     });
 
     /**
@@ -88,16 +85,13 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::get('show', 'ProductController@show')->name('show');
         Route::get('create', 'ProductController@create')->name('create');
         Route::post('store/{user_id}', 'ProductController@store')->name('store');
-
     });
-
 });
 
 /**
  * SUPER ADMIN AUTHENTICATE LOGIN WITH SECTION WISE AUTHORIZED route...
  */
 Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')->name('super-admin.')->group(function () {
-
     /**
      * SUPER ADMIN DASHBOARD route...
      */
@@ -177,5 +171,4 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::get('update-special-price/{id}/{price}', 'ProductController@updateSpecialPrice');
         Route::get('update-offer-price/{id}/{price}', 'ProductController@updateOfferPrice');
     });
-
 });

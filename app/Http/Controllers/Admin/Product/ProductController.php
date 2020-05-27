@@ -16,23 +16,26 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-//  INDEX/MANAGE PRODUCT...
+    //  INDEX/MANAGE PRODUCT...
     public function index()
     {
-        $products = Product::with('user', 'brand', 'category', 'subCategory')->orderBy('id', 'desc')->get();
+        $products = Product::with('user', 'brand', 'category', 'subCategory')->latest()->get();
+        // return $products;
 
         return view('admin.product.index', compact('products'));
     }
 
-//  CREATE/STORE FORM...
-    public function create() {
+    //  CREATE/STORE FORM...
+    public function create()
+    {
         $brands = Brand::select('id', 'brand_name')->get();
         $categories = Category::select('id', 'category_name')->get();
         return view('admin.product.create', compact('brands', 'categories'));
     }
 
-//  STORE/CREATE PROCESS PRODUCT...
-    public function store(ProductRequest $request, $id) {
+    //  STORE/CREATE PROCESS PRODUCT...
+    public function store(ProductRequest $request, $id)
+    {
 //        return $request->all();
         $user_id = base64_decode($id);
         $user_detail = User::find($user_id);
@@ -48,8 +51,8 @@ class ProductController extends Controller
 //            return $gallery_files;
 
             if ($image_files || $gallery_files) {
-                $image_size = ['w'=>400, 'h'=>400];
-                $gallery_size = ['w'=>300, 'h'=>300];
+                $image_size = ['w' => 400, 'h' => 400];
+                $gallery_size = ['w' => 300, 'h' => 300];
                 $image_path = 'uploads/images/product/images/';
                 $gallery_path = 'uploads/images/product/gallery-images/';
 
@@ -107,24 +110,20 @@ class ProductController extends Controller
 
                 if ($user_detail->is_admin === 1) {
                     return redirect()->route('super-admin.product.index');
-
                 } else {
                     return redirect()->route('admin.product.index');
-
                 }
-
             }
-
         } catch (Exception $e) {
             // return 'Error : ' . $e->getMessage();
             getMessage('danger', 'ERROR, ' . $e->getMessage());
             return redirect()->back();
         }
-
     }
 
-//  EDIT FORM PRODUCT...
-    public function edit($product_id) {
+    //  EDIT FORM PRODUCT...
+    public function edit($product_id)
+    {
         $product_id = base64_decode($product_id);
 //        return 'Product Id :' . $product_id;
         $brands = Brand::select('id', 'brand_name')->get();
@@ -135,11 +134,10 @@ class ProductController extends Controller
         $cat_wise_subcats = SubCategory::where('category_id', $product_detail->category_id)->get();
 //        return $cat_wise_subcats;
 
-        return view('admin.product.edit', compact('brands', 'categories', 'cat_wise_subcats',  'product_detail'));
-
+        return view('admin.product.edit', compact('brands', 'categories', 'cat_wise_subcats', 'product_detail'));
     }
 
-//  UPDATE PROCESS PRODUCT...
+    //  UPDATE PROCESS PRODUCT...
     public function update(ProductRequest $request, $product_id, $user_id)
     {
         $product_id = base64_decode($product_id);
@@ -167,16 +165,16 @@ class ProductController extends Controller
 //            return $gallery_files;
 
             if ($image_files || $gallery_files) {
-                $image_size = ['w'=>400, 'h'=>400];
-                $gallery_size = ['w'=>300, 'h'=>300];
+                $image_size = ['w' => 400, 'h' => 400];
+                $gallery_size = ['w' => 300, 'h' => 300];
                 $image_path = 'uploads/images/product/images/';
                 $gallery_path = 'uploads/images/product/gallery-images/';
 
-                if($image_files) {
+                if ($image_files) {
                     $all_images_name = editImage($user_detail, $images, $check_image_file, $image_files, $image_size, $image_path);
                     $images = json_encode($all_images_name);
                 }
-                if($gallery_files) {
+                if ($gallery_files) {
                     $all_gallery_images = editGalleryImage($user_detail, $gallery_images, $check_gallery_files, $gallery_files, $gallery_size, $gallery_path);
                     $gallery_images = json_encode($all_gallery_images);
                 }
@@ -234,10 +232,9 @@ class ProductController extends Controller
                         return redirect()->route('admin.product.index');
                     }
                 } else {
-                    getMessage('danger','ERROR, Product has not been Updated With Image!');
+                    getMessage('danger', 'ERROR, Product has not been Updated With Image!');
                     return redirect()->back();
                 }
-
             } else {
                 $title = $request->title;
                 $product_detail->user_id = $user_detail->id;
@@ -284,19 +281,15 @@ class ProductController extends Controller
                         return redirect()->route('admin.product.index');
                     }
                 } else {
-                    getMessage('danger','ERROR, Product has not been Updated Without Image!');
+                    getMessage('danger', 'ERROR, Product has not been Updated Without Image!');
                     return redirect()->back();
                 }
-
             }
-
-        } catch(Exception $exception) {
+        } catch (Exception $exception) {
             // return 'Error : ' . $e->getMessage();
             getMessage('danger', 'ERROR, ' . $exception->getMessage());
             return redirect()->back();
-
         }
-
     }
 
 //    DESTROY/DELETE PROCESS PRODUCT...
@@ -312,13 +305,13 @@ class ProductController extends Controller
             $gallery_images = json_decode($product_detail->gallery);
 //            return $gallery_images;
 
-            if(!empty($images)) {
+            if (!empty($images)) {
                 foreach ($images as $image) {
 //                unlink(public_path('uploads/images/product/') . $image);
                     Storage::disk('public')->delete('/images/product/images/' . $image);
                 }
             }
-            if(!empty($gallery_images)) {
+            if (!empty($gallery_images)) {
                 foreach ($gallery_images as $gallery_image) {
 //                unlink(public_path('uploads/images/product/') . $image);
                     Storage::disk('public')->delete('/images/product/gallery-images/' . $gallery_image);
@@ -330,16 +323,14 @@ class ProductController extends Controller
                 getMessage('success', 'SUCCESS, Product Has Been Deleted Successfully Done.');
                 return redirect()->back();
             }
-
         } catch (Exception $exception) {
             // return 'Error : ' . $e->getMessage();
             getMessage('danger', 'ERROR, ' . $exception->getMessage());
             return redirect()->back();
         }
-
     }
 
-//  UPDATE STATUS PROCESS ACTIVE/INACTIVE PRODUCT...
+    //  UPDATE STATUS PROCESS ACTIVE/INACTIVE PRODUCT...
     public function updateStatus($product_id, $product_status)
     {
         // return $product_id . ' ' . $product_status;
@@ -347,60 +338,58 @@ class ProductController extends Controller
 
         $product_detail->status = $product_status;
         $product_detail->save();
-
     }
 
-//  FIND & FETCH CATEGORY WISE SUB-CATEGORY PRODUCT...
-    public function findCatWiseSubCat($cat_id) {
+    //  FIND & FETCH CATEGORY WISE SUB-CATEGORY PRODUCT...
+    public function findCatWiseSubCat($cat_id)
+    {
 //        return $cat_id;
         $sub_categories = SubCategory::select('id', 'sub_category_name')->where('category_id', $cat_id)->get();
 //        return $sub_categories;
         echo '<option value="">Select Sub-Category Name</option>';
         foreach ($sub_categories as $sub_category) {
-            echo '<option value="'.$sub_category->id.'">'.$sub_category->sub_category_name.'</option>';
+            echo '<option value="' . $sub_category->id . '">' . $sub_category->sub_category_name . '</option>';
         }
     }
 
-//  UPDATED GET WISE(using Ajax)  PROCESS ORIGINAL PRICE PRODUCT...
-    public function updateOriginalPrice($id, $price) {
+    //  UPDATED GET WISE(using Ajax)  PROCESS ORIGINAL PRICE PRODUCT...
+    public function updateOriginalPrice($id, $price)
+    {
 //        return $id . ' ' . $price;
         $product = Product::select('id', 'original_price')->find($id);
 //        return $product;
         $product->original_price = $price;
         $product->save();
-
     }
 
-//  UPDATED POST WISE(using Ajax) PROCESS SALES PRICE PRODUCT...
-    public function updateSalesPrice(Request $request) {
+    //  UPDATED POST WISE(using Ajax) PROCESS SALES PRICE PRODUCT...
+    public function updateSalesPrice(Request $request)
+    {
 //        dd($request->all());
 //        return $id . ' ' . $price;
         $product = Product::select('id', 'sales_price')->find($request->id);
 //        return $product;
         $product->sales_price = $request->price;
         $product->update();
-
     }
 
     //  UPDATED PROCESS SPECIAL PRICE PRODUCT...
-    public function updateSpecialPrice($id, $price) {
+    public function updateSpecialPrice($id, $price)
+    {
 //        return $id . ' ' . $price;
         $product = Product::select('id', 'special_price')->find($id);
 //        return $product;
         $product->special_price = $price;
         $product->save();
-
     }
 
-//  UPDATED PROCESS OFFER PRICE PRODUCT...
-    public function updateOfferPrice($id, $price) {
+    //  UPDATED PROCESS OFFER PRICE PRODUCT...
+    public function updateOfferPrice($id, $price)
+    {
 //        return $id . ' ' . $price;
         $product = Product::select('id', 'offer_price')->find($id);
 //        return $product;
         $product->offer_price = $price;
         $product->save();
-
     }
-
-
 }
