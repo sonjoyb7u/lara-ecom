@@ -1,6 +1,9 @@
 const SITE_URL_SUPER_ADMIN = 'http://lara-ecom.sonjoy/super-admin/';
 const SITE_URL_ADMIN = 'http://lara-ecom.sonjoy/-admin/';
 
+// Page Testing Purpose...
+// alert();
+
 // UPDATE BRAND STATUS using js
 $('body').on('change', '#brandStatus', function () {
     var id = $(this).attr('data-id');
@@ -338,6 +341,45 @@ $('#gallery-image').magnificPopup({
     },
     tLoading: 'Loading image #%curr%...'
 });
+
+
+//FETCH AND LOAD MORE SUB CATEGORY WISE DATA using Ajax call...
+function fatchCatData() {
+    var token = $("meta[name='csrf-token']").attr('content');
+    // alert(token);
+
+    function fatchCatData(id='', token) {
+        // alert('Id : ' + id + ' & ' + 'Token : ' + token);
+        $.ajax({
+            url: 'fetch-cat-data',
+            method: 'POST',
+            // beforeSend: function (request) {
+            //     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            // },
+            data: {id: id, _token: token},
+            success:function (results) {
+                // console.log(results);
+                $('#loadCatShowButton').remove();
+                $('#fetchCatData').append(results);
+            }
+
+        });
+
+    }
+
+    fatchCatData('', token);
+
+    $('body').on('click', '#loadCatShowButton', function () {
+        var cat_id = $(this).data('id');
+        // alert(cat_id);
+        $('#loadCatShowButton').html('Loading...');
+        fatchCatData(cat_id, token);
+    });
+
+}
+
+
+
 
 
 

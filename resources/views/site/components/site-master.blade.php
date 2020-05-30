@@ -10,12 +10,11 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Lara-Ecom | Home')</title>
-
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap.min.css') }}">
-
     <!-- Customizable CSS -->
     <link rel="stylesheet" href="{{ asset('assets/site/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/blue.css') }}">
@@ -24,10 +23,8 @@
     <link rel="stylesheet" href="{{ asset('assets/site/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap-select.min.css') }}">
-
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{ asset('assets/site/css/font-awesome.css') }}">
-
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
@@ -42,7 +39,7 @@
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
     <div class="container">
 
-        <div class="row">
+        <div class="row {{ request()->is('product-detail/*') ? 'single-product' : '' }}">
             <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
 
                 @yield('left-sidebar')

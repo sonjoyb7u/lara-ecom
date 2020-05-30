@@ -3,40 +3,18 @@
 @section('title', 'Category Wise Products | Lara-Ecomm')
 
 @section('left-sidebar')
-    @if(count($cat_products) === 1)
-        @foreach($cat_products as $product)
-            <div class="breadcrumb">
-                <div class="container">
-                    <div class="breadcrumb-inner">
-                        <ul class="list-inline list-unstyled">
-                            <li><a href="#">Home</a></li>
-                            <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $product->category->category_slug) }}">{{ $product->category->category_name }}</a></li>
-                        </ul>
-                    </div>
-                    <!-- /.breadcrumb-inner -->
-                </div>
-                <!-- /.container -->
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $category->category_slug) }}">{{ $category->category_name }}</a></li>
+                </ul>
             </div>
-            <!-- /.breadcrumb -->
-        @endforeach
-    @else
-        @foreach($category as $cat)
-            <div class="breadcrumb">
-                <div class="container">
-                    <div class="breadcrumb-inner">
-                        <ul class="list-inline list-unstyled">
-                            <li><a href="#">Home</a></li>
-                            <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $cat->category_slug) }}">{{ $cat->category_name }}</a></li>
-                        </ul>
-                    </div>
-                    <!-- /.breadcrumb-inner -->
-                </div>
-                <!-- /.container -->
-            </div>
-        @endforeach
-    @endif
-
-
+            <!-- /.breadcrumb-inner -->
+        </div>
+        <!-- /.container -->
+    </div>
 
     <!-- ==================== SIDEBAR ======================= -->
 
@@ -107,41 +85,18 @@
 
     <!-- ====================== SECTION – HERO BANNER =================== -->
     <div id="category" class="category-carousel hidden-xs">
-        @if(count($cat_products) === 1)
-            @foreach($cat_products as $product)
-                <div class="item">
-                    <div class="image"> <img src="{{ asset('uploads/images/category/'.$product->category->banner) }}" alt="{{ $product->category->banner }}" class="img-responsive"> </div>
-                    <div class="container-fluid">
-                        <div class="caption vertical-top text-left">
-                            <div class="big-text" style="color: #59B210; font-size: 50px;"> {{ ucwords($product->category->category_name) }} </div>
-                            {{--                        <div class="excerpt hidden-sm hidden-md"> Save up to 49% off </div>--}}
-                            {{--                        <div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit </div>--}}
-                        </div>
-                        <!-- /.caption -->
-                    </div>
-                    <!-- /.container-fluid -->
+        <div class="item">
+            <div class="image"> <img src="{{ asset('uploads/images/category/'.$category->banner) }}" alt="{{ $category->banner }}" class="img-responsive"> </div>
+            <div class="container-fluid">
+                <div class="caption vertical-top text-left">
+                    <div class="big-text" style="color: #59B210; font-size: 50px;"> {{ ucwords($category->category_name) }} </div>
+{{--                            <div class="excerpt hidden-sm hidden-md"> Save up to 49% off </div>--}}
+{{--                            <div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit </div>--}}
                 </div>
-            @endforeach
-
-        @else
-            @foreach($category as $cat)
-                <div class="item">
-                    <div class="image"> <img src="{{ asset('uploads/images/category/'.$cat->banner) }}" alt="{{ $cat->banner }}" class="img-responsive"> </div>
-                    <div class="container-fluid">
-                        <div class="caption vertical-top text-left">
-                            <div class="big-text" style="color: #59B210; font-size: 50px;"> {{ ucwords($cat->category_name) }} </div>
-                            {{--                            <div class="excerpt hidden-sm hidden-md"> Save up to 49% off </div>--}}
-                            {{--                            <div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit </div>--}}
-                        </div>
-                        <!-- /.caption -->
-                    </div>
-                    <!-- /.container-fluid -->
-                </div>
-            @endforeach
-
-        @endif
-
-
+                <!-- /.caption -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
 
     </div>
 
@@ -165,38 +120,42 @@
             <div class="tab-pane active " id="grid-container">
                 <div class="category-product">
                     <div class="row">
-                        @if(count($cat_products) !== 0)
-                            @foreach($cat_products as $product)
-                                <div class="col-sm-6 col-md-4 wow fadeInUp">
+{{--                        @if(count($cat_wise_products) > 0)--}}
+                        @if(!$cat_wise_products->isEmpty())
+                            @foreach($cat_wise_products as $product)
+                                <div class="col-sm-6 col-md-3 col-lg-3 wow fadeInUp">
                                     <div class="products">
                                         <div class="product">
                                             <div class="product-image">
-                                                <div class="image"> <a href="detail.html"><img  src="{{ asset('uploads/images/product/images/'. $product->image) }}" alt="{{ $product->image }}"></a> </div>
+                                                <div class="image"> <a href="{{ route('site.product-detail', $product->slug) }}"><img  src="{{ asset('uploads/images/product/images/'. $product->image) }}" alt="{{ $product->image }}"></a> </div>
                                                 <!-- /.image -->
                                                 <div class="tag new"><span>new</span></div>
                                             </div>
                                             <!-- /.product-image -->
 
                                             <div class="product-info text-left">
-                                                <h3 class="name"><a href="">{{ substr($product->title, 0, 19) }}</a></h3>
+                                                <h3 class="name"><a href="{{ route('site.product-detail', $product->slug) }}">{{ substr($product->title, 0, 19) }}</a></h3>
                                                 {{--                                                <div class="rating rateit-small"></div>--}}
                                                 <div class="description"></div>
                                                 <div class="product-price">
-                                                    @if($product->is_special_price === 'yes')
-                                                        <span class="price">
-                                                    $ {{ $product->special_price }}
+                                                @php($special_price = false)
+                                                @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
+                                                    @php($special_price = true)
+                                                @endif
+                                                <span class="price">
+                                                &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
                                                 </span>
-                                                        <span class="price-before-discount">
-                                                    {{ $product->sales_price }}
-                                                </span>
-                                                    @else
-                                                        <span class="price">
-                                                $ {{ $product->sales_price }}
-                                                </span>
-                                                    @endif
-                                                </div>
+                                                @if($special_price)
+                                                    <span class="special-price-percent">
+                                                {{ sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
+                                                    </span>
+                                                    <span class="price-before-discount pull-right">
+                                                &#2547;{{ $product->sales_price }}
+                                                    </span>
+                                                @endif
                                                 <!-- /.product-price -->
 
+                                                </div>
                                             </div>
                                             <!-- /.product-info -->
                                             <div class="cart clearfix animate-effect">
@@ -206,8 +165,8 @@
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                                                         </li>
-                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-                                                        <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-eye"></i> </a> </li>
+                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                        <li class="lnk"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="Compare"> <i class="fa fa-eye"></i> </a> </li>
                                                     </ul>
                                                 </div>
                                                 <!-- /.action -->
@@ -221,22 +180,23 @@
                                 </div>
                             @endforeach
                         @else
-                            @foreach($category as $cat)
-                                <h2 class="text-center">No Product Found under the <span style="color: #59B210;">{{ 'Category - ' . $cat->category_name }}</span> !</h2>
-                        @endforeach
+{{--                            @foreach($category as $cat)--}}
+                                <h2 class="text-center">No Product Found under this,<span style="color: #59B210; font-weight: bold;">{{ 'Category - ' . $category->category_name . '!' }}</span> </h2>
+{{--                        @endforeach--}}
                     @endif
                     <!-- /.item -->
+                        </div>
+                        <!-- /.row -->
                     </div>
-                    <!-- /.row -->
+                    <!-- /.category-product -->
                 </div>
-                <!-- /.category-product -->
-            </div>
-            <!-- /.tab-pane -->
+                <!-- /.tab-pane -->
 
             <div class="tab-pane"  id="list-container">
                 <div class="category-product">
-                    @if(count($cat_products) !== 0)
-                        @foreach($cat_products as $product)
+                    @if(count($cat_wise_products) > 0)
+{{--                    @if(!$cat_wise_products->isEmpty())--}}
+                        @foreach($cat_wise_products as $product)
                             <div class="category-product-inner wow fadeInUp">
                                 <div class="products">
                                     <div class="product-list product">
@@ -250,24 +210,27 @@
                                             <!-- /.col -->
                                             <div class="col col-sm-8 col-lg-8">
                                                 <div class="product-info">
-                                                    <h3 class="name"><a href="">{{ $product->title }}</a></h3>
+                                                    <h3 class="name"><a href="{{ route('site.product-detail', $product->slug) }}">{{ $product->title }}</a></h3>
                                                     {{--                                                    <div class="rating rateit-small"></div>--}}
                                                     <div class="product-price">
-                                                        @if($product->is_special_price === 'yes')
-                                                            <span class="price">
-                                                        $ {{ $product->special_price }}
-                                                    </span>
-                                                            <span class="price-before-discount">
-                                                        {{ $product->sales_price }}
-                                                    </span>
-                                                        @else
-                                                            <span class="price">
-                                                        $ {{ $product->sales_price }}
-                                                    </span>
-                                                        @endif
+                                                    @php($special_price = false)
+                                                    @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
+                                                        @php($special_price = true)
+                                                    @endif
+                                                        <span class="price">
+                                                    &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
+                                                        </span>
+                                                    @if($special_price)
+                                                        <span class="special-price-percent">
+                                                {{ sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
+                                                        </span>
+                                                        <span class="price-before-discount pull-right">
+                                                &#2547;{{ $product->sales_price }}
+                                                        </span>
+                                                    @endif
                                                     </div>
                                                     <!-- /.product-price -->
-                                                    <div class="description m-t-10">{{ $product->long_desc }}</div>
+                                                    <div class="description m-t-10">{!! $product->desc  !!}</div>
                                                     <div class="cart clearfix animate-effect">
                                                         <div class="action">
                                                             <ul class="list-unstyled">
@@ -275,8 +238,8 @@
                                                                     <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
                                                                     <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                                                                 </li>
-                                                                <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-                                                                <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-eye"></i> </a> </li>
+                                                                <li class="lnk wishlist"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                <li class="lnk"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="Compare"> <i class="fa fa-eye"></i> </a> </li>
                                                             </ul>
                                                         </div>
                                                         <!-- /.action -->
@@ -297,9 +260,12 @@
                             <!-- /.category-product-inner -->
                         @endforeach
                     @else
-                        @foreach($category as $cat)
-                            <h2 class="text-center">No Product Found under the <span style="color: #59B210;">{{ 'Category - ' . $cat->category_name }}</span> !</h2>
-                        @endforeach
+{{--                        @foreach($category as $cat)--}}
+                            <h2 class="text-center">No Product Found under this,
+                                <br>
+                                <span style="color: #59B210; font-weight: bold;">{{ 'Category - ' . $category->category_name . ' !' }}</span>
+                            </h2>
+{{--                        @endforeach--}}
                     @endif
                 </div>
                 <!-- /.category-product -->

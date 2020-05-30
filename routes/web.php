@@ -19,9 +19,19 @@ use Illuminate\Support\Facades\Route;
  */
 Route::namespace('Site')->name('site.')->group(function () {
     Route::get('/', 'SiteController@index')->name('index');
+    // Category Wise Product Founding Route...
     Route::get('category/{slug}', 'SiteController@catWiseProduct')->name('category');
+    // Sub Category Wise Product Founding Route...
     Route::get('sub-category/{slug}', 'SiteController@subCatWiseProduct')->name('sub-category');
+    // Single product Detail Route...
+    Route::get('product-detail/{slug}', 'SiteController@productDetail')->name('product-detail');
 });
+
+/**
+ * PRACTICE and TESTING route define...
+ */
+Route::get('fetch-cat-data', 'Practice\PracticeTestController@fatchCatData')->name('fetch-cat-data');
+Route::post('fetch-cat-data', 'Practice\PracticeTestController@loadCatData')->name('fetch-cat-data');
 
 /**
  * DEFAULT AUTHENTICATE route...
