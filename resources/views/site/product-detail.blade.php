@@ -10,29 +10,17 @@
     @includeIf('site.components.partials.leftside-category-list')
     <!-- =================== TOP NAVIGATION : END ================== -->
 
-    <!-- ===================== HOT DEALS ========================= -->
-    <div class="sidebar-module-container">
-        <div class="sidebar-filter">
-            <!-- ====================== PRICE SILDER===================== -->
+    <!-- ====================== SPECIAL OFFER ======================== -->
+    @includeIf('site.components.partials.leftside-special-offer')
+    <!-- ====================== SPECIAL OFFER : END ==================== -->
 
-            <!-- ===================== PRICE SILDER : END ======================= -->
+    <!-- ====================== SPECIAL DEALS ===================== -->
+{{--    @includeIf('site.components.partials.leftside-special-deals')--}}
+    <!-- ===================== SPECIAL DEALS: END ================= -->
 
-            <!-- =================== COLOR ==================== -->
-
-            <!-- ======================= COLOR: END ======================= -->
-
-        </div><!-- /.sidebar-filter -->
-    </div><!-- /.sidebar-module-container -->
-
-    <!-- ===================== HOT DEALS: END ===================== -->
-
-    <!-- ======================== PRODUCT TAGS ====================== -->
-    @includeIf('site.components.partials.leftside-product-tag')
-    <!-- ====================== PRODUCT TAGS: END ====================== -->
-
-    <!-- ====================== Testimonials ===================== -->
-    {{--        @includeIf('site.components.partials.leftside-newsletter')--}}
-    <!-- ============== Testimonials: END ==================== -->
+    <!-- ====================== Newsletter ===================== -->
+    @includeIf('site.components.partials.leftside-newsletter')
+    <!-- ============== Newsletter: END ==================== -->
 
     <!-- ================ SIDEBAR : END ====================== -->
 @endsection
