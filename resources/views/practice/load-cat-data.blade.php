@@ -26,7 +26,7 @@
                 @php($lastCatId = $category->id)
             </ul>
 
-            @if($i > 1)
+            @if($i > 0)
             <div class="load-cat-button">
                 <button type="submit" class="btn btn-success btn-sm" data-id="{{ $lastCatId }}" id="loadCatShowButton">Load More Category</button>
             </div>

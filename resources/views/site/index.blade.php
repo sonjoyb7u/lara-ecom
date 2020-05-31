@@ -14,21 +14,20 @@
     @includeIf('site.components.partials.leftside-hot-deal')
     <!-- ===================== HOT DEALS: END ===================== -->
 
-
     <!-- ====================== SPECIAL OFFER ======================== -->
     @includeIf('site.components.partials.leftside-special-offer')
     <!-- ====================== SPECIAL OFFER : END ==================== -->
 
     <!-- ======================== PRODUCT TAGS ====================== -->
-    @includeIf('site.components.partials.leftside-product-tag')
+
     <!-- ====================== PRODUCT TAGS: END ====================== -->
 
     <!-- ====================== SPECIAL DEALS ===================== -->
-
+    @includeIf('site.components.partials.leftside-special-deals')
     <!-- ===================== SPECIAL DEALS: END ================= -->
 
     <!-- ====================== NEWSLETTER ===================== -->
-
+    @includeIf('site.components.partials.leftside-newsletter')
     <!-- =================== NEWSLETTER: END ====================-->
 
     <!-- ====================== Testimonials ===================== -->
@@ -50,30 +49,25 @@
     @includeIf('site.components.partials.content-new-product')
     <!-- ============================================== SCROLL TABS : END ============================================== -->
 
-    <!-- ====================== WIDE BANNER PRODUCTS ======================== -->
-    @includeIf('site.components.partials.content-wide-banner')
-    <!-- /.wide-banners -->
-    <!-- ==================== WIDE BANNER PRODUCTS : END ======================= -->
-
-    <!-- ==================== FEATURED PRODUCTS ======================= -->
-    @includeIf('site.components.partials.content-featured-product')
-    <!-- ==================== FEATURED PRODUCTS : END ======================= -->
-
     <!-- ====================== WIDE PRODUCTS BANNER ====================== -->
     @includeIf('site.components.partials.content-wide-product')
     <!-- /.wide-product-banners -->
     <!-- ===================== WIDE PRODUCTS BANNER : END =================== -->
+
+    <!-- ==================== FEATURED PRODUCTS ======================= -->
+    @includeIf('site.components.partials.content-featured-product')
+    <!-- ==================== FEATURED PRODUCTS : END ======================= -->
 
     <!-- ==================== BEST SELLER ====================== -->
     @includeIf('site.components.partials.content-best-seller')
     <!-- ==================== BEST SELLER : END ==================== -->
 
     <!-- ===================== BLOG SLIDER ======================= -->
-    @includeIf('site.components.partials.content-blog')
+
     <!-- ===================== BLOG SLIDER : END ==================== -->
 
     <!-- ====================== FEATURED PRODUCTS ==================== -->
-    @includeIf('site.components.partials.content-featured-product')
+    @includeIf('site.components.partials.content-new-arrival')
     <!-- ===================== FEATURED PRODUCTS : END ====================== -->
 
 @endsection

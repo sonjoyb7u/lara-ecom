@@ -2648,12 +2648,18 @@ age-container #owl-main .owl-next {
   font-weight:bold
 }
 .scroll-tabs .nav-tab-line {
-  border-bottom: none;
-  margin-top: 4px;
-  margin-right: 55px;
+    border-bottom: none;
+    /* margin-top: 4px; */
+    /* margin-right: 55px; */
+    padding: 15px;
+    margin-left: -24px;
+}
+#new-products-1 li {
+    padding: 3px;
 }
 .scroll-tabs .nav-tab-line li.active a {
-  border: none;
+    border: none;
+    color: #66AD44;
 }
 .scroll-tabs .nav-tab-line li a {
    font-weight: 500;
@@ -2749,21 +2755,21 @@ age-container #owl-main .owl-next {
 
 }
 .tag {
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 40px;
-  width: 40px;
-  height: 40px;
-  text-transform: uppercase;
-  top: 2.5%;
-  z-index: 100;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 50px;
-  color: #fff;
-  right: 10px;
-  /*11px;*/
-  text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 55px;
+    width: 55px;
+    height: 55px;
+    text-transform: uppercase;
+    top: 1.5%;
+    left: 2%;
+    z-index: 100;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    color: #fff;
+    right: 10px;
+    text-align: center;
 }
 .tag span {
   position: relative;

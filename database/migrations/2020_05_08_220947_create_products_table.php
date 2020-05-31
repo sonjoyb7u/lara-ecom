@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('brand_id');
             $table->unsignedInteger('category_id');
-            $table->unsignedInteger('sub_category_id');
+            $table->unsignedInteger('sub_category_id')->nullable();
             $table->string('title', 100)->unique();
             $table->string('slug', 150)->unique();
             $table->string('desc');
@@ -38,14 +38,14 @@ class CreateProductsTable extends Migration
             $table->text('warranty_condition')->nullable();
             $table->decimal('original_price', 10, 3);
             $table->decimal('sales_price', 10, 3);
-            $table->enum('is_special_price', ['yes', 'no'])->default('no');
             $table->decimal('special_price', 10, 3)->nullable();
             $table->date('special_start')->nullable();
             $table->date('special_end')->nullable();
-            $table->enum('is_offer_price', ['yes', 'no'])->default('no');
             $table->decimal('offer_price', 10, 3)->nullable();
             $table->date('offer_start')->nullable();
             $table->date('offer_end')->nullable();
+            $table->enum('is_featured', ['yes', 'no'])->default('no');
+            $table->enum('is_new', ['yes', 'no'])->default('no');
             $table->enum('available', ['in stock', 'out of stock', 'stock limit'])->default('in stock');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

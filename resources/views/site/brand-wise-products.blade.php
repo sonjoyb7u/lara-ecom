@@ -1,6 +1,6 @@
 @extends('site.components.site-master')
 
-@section('title', 'Category Wise Products | Lara-Ecomm')
+@section('title', 'Brand Wise Products | Lara-Ecomm')
 
 @section('left-sidebar')
     <div class="breadcrumb">
@@ -8,7 +8,7 @@
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
                     <li><a href="#">Home</a></li>
-                    <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $category->category_slug) }}">{{ $category->category_name }}</a></li>
+                    <li class='{{ request()->is('brand/*') ? 'active' : '' }}'><a href="{{ route('site.brand', $brand->brand_slug) }}">{{ $brand->brand_name }}</a></li>
                 </ul>
             </div>
             <!-- /.breadcrumb-inner -->
@@ -86,10 +86,10 @@
     <!-- ====================== SECTION – HERO BANNER =================== -->
     <div id="category" class="category-carousel hidden-xs">
         <div class="item">
-            <div class="image"> <img src="{{ asset('uploads/images/category/'.$category->banner) }}" alt="{{ $category->banner }}" class="img-responsive"> </div>
+            <div class="image"> <img src="{{ asset('uploads/images/brand/'.$brand->image) }}" alt="{{ $brand->image }}" class="img-responsive"> </div>
             <div class="container-fluid">
                 <div class="caption vertical-top text-left">
-                    <div class="big-text" style="color: #59B210; font-size: 50px;"> {{ ucwords($category->category_name) }} </div>
+                    <div class="big-text" style="color: #59B210; font-size: 50px;"> {{ ucwords($brand->brand_name) }} </div>
 {{--                            <div class="excerpt hidden-sm hidden-md"> Save up to 49% off </div>--}}
 {{--                            <div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit </div>--}}
                 </div>
@@ -121,8 +121,8 @@
                 <div class="category-product">
                     <div class="row">
 {{--                        @if(count($cat_wise_products) > 0)--}}
-                        @if(!$cat_wise_products->isEmpty())
-                            @foreach($cat_wise_products as $product)
+                        @if(!$brand_wise_products->isEmpty())
+                            @foreach($brand_wise_products as $product)
                                 <div class="col-sm-6 col-md-3 col-lg-3 wow fadeInUp">
                                     <div class="products">
                                         <div class="product">
@@ -138,18 +138,18 @@
                                                 {{--                                                <div class="rating rateit-small"></div>--}}
                                                 <div class="description"></div>
                                                 <div class="product-price">
-                                                @php($special_price = false)
-                                                @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
-                                                    @php($special_price = true)
-                                                @endif
-                                                <span class="price">
+                                                    @php($special_price = false)
+                                                    @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
+                                                        @php($special_price = true)
+                                                    @endif
+                                                    <span class="price">
                                                 &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
                                                 </span>
-                                                @if($special_price)
-                                                    <span class="special-price-percent">
+                                                    @if($special_price)
+                                                        <span class="special-price-percent">
                                                 {{ sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
                                                     </span>
-                                                    <span class="price-before-discount pull-right">
+                                                        <span class="price-before-discount pull-right">
                                                 &#2547;{{ $product->sales_price }}
                                                     </span>
                                                 @endif
@@ -180,21 +180,21 @@
                                 </div>
                             @endforeach
                         @else
-                        <h2 class="text-center">No Product Found under this,<span style="color: #59B210; font-weight: bold;">{{ 'Category - ' . $category->category_name . '!' }}</span> </h2>
-                        @endif
+                            <h2 class="text-center">No Product Found under this,<span style="color: #59B210; font-weight: bold;">{{ 'Brand - ' . $brand->brand_name . '!' }}</span> </h2>
+                    @endif
                     <!-- /.item -->
-                        </div>
-                        <!-- /.row -->
                     </div>
-                    <!-- /.category-product -->
+                    <!-- /.row -->
                 </div>
-                <!-- /.tab-pane -->
+                <!-- /.category-product -->
+            </div>
+            <!-- /.tab-pane -->
 
             <div class="tab-pane"  id="list-container">
                 <div class="category-product">
-                    @if(count($cat_wise_products) > 0)
+                    @if(count($brand_wise_products) > 0)
 {{--                    @if(!$cat_wise_products->isEmpty())--}}
-                        @foreach($cat_wise_products as $product)
+                        @foreach($brand_wise_products as $product)
                             <div class="category-product-inner wow fadeInUp">
                                 <div class="products">
                                     <div class="product-list product">
@@ -211,21 +211,21 @@
                                                     <h3 class="name"><a href="{{ route('site.product-detail', $product->slug) }}">{{ $product->title }}</a></h3>
                                                     {{--                                                    <div class="rating rateit-small"></div>--}}
                                                     <div class="product-price">
-                                                    @php($special_price = false)
-                                                    @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
-                                                        @php($special_price = true)
-                                                    @endif
+                                                        @php($special_price = false)
+                                                        @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
+                                                            @php($special_price = true)
+                                                        @endif
                                                         <span class="price">
                                                     &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
                                                         </span>
-                                                    @if($special_price)
-                                                        <span class="special-price-percent">
+                                                        @if($special_price)
+                                                            <span class="special-price-percent">
                                                 {{ sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
                                                         </span>
-                                                        <span class="price-before-discount pull-right">
+                                                            <span class="price-before-discount pull-right">
                                                 &#2547;{{ $product->sales_price }}
                                                         </span>
-                                                    @endif
+                                                        @endif
                                                     </div>
                                                     <!-- /.product-price -->
                                                     <div class="description m-t-10">{!! $product->desc  !!}</div>
@@ -258,12 +258,12 @@
                             <!-- /.category-product-inner -->
                         @endforeach
                     @else
-{{--                        @foreach($category as $cat)--}}
-                            <h2 class="text-center">No Product Found under this,
-                                <br>
-                                <span style="color: #59B210; font-weight: bold;">{{ 'Category - ' . $category->category_name . ' !' }}</span>
-                            </h2>
-{{--                        @endforeach--}}
+                        {{--                        @foreach($category as $cat)--}}
+                        <h2 class="text-center">No Product Found under this,
+                            <br>
+                            <span style="color: #59B210; font-weight: bold;">{{ 'Brand - ' . $brand->brand_name . ' !' }}</span>
+                        </h2>
+                        {{--                        @endforeach--}}
                     @endif
                 </div>
                 <!-- /.category-product -->
@@ -295,4 +295,5 @@
     <!-- /.search-result-container -->
 
 @endsection
+
 

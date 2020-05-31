@@ -153,7 +153,7 @@
                                 </li>
                                 @foreach($brands as $brand)
                                 <li class="dropdown yamm mega-menu">
-                                    <a href="#" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ $brand->brand_name }}
+                                    <a href="{{ route('site.brand', $brand->brand_slug) }}" >{{ $brand->brand_name }}
 {{--                                        <span class="menu-label hot-menu hidden-xs">--}}
 {{--                                            {{ $brand->level === 'top' ? 'Hot' : 'New' }}--}}
 {{--                                        </span>--}}

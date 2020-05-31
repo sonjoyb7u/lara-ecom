@@ -31,9 +31,41 @@ class SiteController extends Controller
             ->where('status', Slider::ACTIVE_STATUS)
             ->get();
 
-        return view('site.index', compact( 'sliders'));
+        // All Products Show on Home page...
+        $products = Product::with('user', 'brand', 'category', 'subCategory')->where('status', Product::ACTIVE_STATUS)->latest()->get();
+//        return $products;
+
+        // Featured Products show on Home page...
+        $featured_products = Product::with('user', 'brand', 'category', 'subCategory')->where('is_featured', Product::FEATURED)->where('status', Product::ACTIVE_STATUS)->latest()->get();
+        // New Arriaval Products show on Home page...
+        $new_products = Product::with('user', 'brand', 'category', 'subCategory')->where('is_new', Product::NEW_ARRIVAL)->where('status', Product::ACTIVE_STATUS)->latest()->get();
+
+        return view('site.index', compact( 'sliders', 'products', 'featured_products', 'new_products'));
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function brandWiseProduct($slug) {
+        $brand_id = Brand::where('brand_slug', $slug)->pluck('id');
+//        return $brand_id;
+        $brand = Brand::where('id', $brand_id)
+            ->where('status', Brand::ACTIVE_BRAND)
+            ->first();
+//        return $brand;
+        $brand_wise_products = Product::where('brand_id', $brand_id)->get();
+//        return $brand_wise_products;
+
+        return view('site.brand-wise-products', compact('brand', 'brand_wise_products'));
+
+    }
+
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function catWiseProduct($slug)
     {
         $category_id = Category::where('category_slug', $slug)->pluck('id');
@@ -45,12 +77,16 @@ class SiteController extends Controller
                             ->where('category_id', $category_id)
                             ->where('status', Product::ACTIVE_STATUS)
                             ->get();
-//        return $products;
+//        return $cat_wise_products;
 
         return view('site.cat-wise-products', compact( 'category', 'cat_wise_products'));
 
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function subCatWiseProduct($slug)
     {
         $sub_cat_id = SubCategory::where('sub_category_slug', $slug)->pluck('id');
@@ -60,16 +96,62 @@ class SiteController extends Controller
                     ->first();
 //        return $sub_category;
 
-        $products = Product::with('user', 'brand', 'category', 'subCategory')
-                            ->where('sub_category_id', $sub_cat_id)
-                            ->where('status', Product::ACTIVE_STATUS)
-                            ->get();
-//        return $products;
-
-        return view('site.sub-cat-wise-products', compact( 'sub_cat_id', 'sub_category', 'products'));
+        return view('site.sub-cat-wise-products', compact( 'sub_cat_id', 'sub_category'));
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function loadSubCatProduct(Request $request) {
+        $sub_cat_id = json_decode($request->sub_cat_id);
+//        return $sub_cat_id;
+//        $sub_cat_id = SubCategory::where('sub_category_slug', $request->slug)->pluck('id');
+//        return $id;
+        if($request->ajax()) {
+            if($request->id && $sub_cat_id) {
+//                return "1";
+                $products = Product::with('user', 'brand', 'category', 'subCategory')->where('sub_category_id', $sub_cat_id)->where('id', '<', $request->id)->orderBy('id', 'DESC')->limit(4)->get();
+
+            } else {
+//                return "0";
+                $products = Product::with('user', 'brand', 'category', 'subCategory') ->where('sub_category_id', $sub_cat_id)->orderBy('id', 'DESC')->limit(4)->get();
+
+            }
+
+        }
+        return view('site.load-sub-cat-grid-product', compact('products'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function loadSubCatListProduct(Request $request) {
+        $sub_cat_id = json_decode($request->sub_cat_id);
+//        return $sub_cat_id;
+//        $sub_cat_id = SubCategory::where('sub_category_slug', $request->slug)->pluck('id');
+//        return $id;
+        if($request->ajax()) {
+            if($request->id && $sub_cat_id) {
+//                return "1";
+                $products = Product::with('user', 'brand', 'category', 'subCategory')->where('sub_category_id', $sub_cat_id)->where('id', '<', $request->id)->orderBy('id', 'DESC')->limit(4)->get();
+
+            } else {
+//                return "0";
+                $products = Product::with('user', 'brand', 'category', 'subCategory') ->where('sub_category_id', $sub_cat_id)->orderBy('id', 'DESC')->limit(4)->get();
+
+            }
+
+        }
+        return view('site.load-sub-cat-list-product', compact('products'));
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function productDetail($slug)
     {
 //        return $slug;
@@ -83,14 +165,16 @@ class SiteController extends Controller
 //        return json_decode($product_detail->gallery);
         $sub_cat_id = $product_detail->sub_category_id;
 //        return $sub_cat_id;
-        $related_subcat_products = Product::with('user', 'brand', 'category', 'subCategory')                                           ->where('sub_category_id', $sub_cat_id)
+
+        $related_subcat_products = Product::with('user', 'brand', 'category', 'subCategory')                             ->where('sub_category_id', $sub_cat_id)
                                             ->where('id', '!=', $product_id)
-                                            ->where('status', Product::ACTIVE_STATUS)
+                                            ->where('status',Product::ACTIVE_STATUS)
                                             ->get();
-//        return $products;
+//        return $related_subcat_products;
 
         return view('site.product-detail', compact( 'product_detail', 'related_subcat_products'));
 
     }
+
 
 }

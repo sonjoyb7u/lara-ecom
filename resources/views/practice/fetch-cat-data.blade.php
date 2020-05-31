@@ -15,7 +15,7 @@
     <div class="row">
         <h2 class="text-center bg-info" style="padding: 20px;">Load More SubCat Data Using Ajax Call</h2>
 
-        <div id="fetchCatData" class="text-center"></div>
+        <div id="loadSubCatProduct" class="text-center"></div>
 
     </div>
 </div>
@@ -25,9 +25,40 @@
 <!-- JavaScripts placed at the end of the document so the pages load faster -->
 <script src="{{ asset('assets/site/js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ asset('assets/site/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/admin/javascripts/custom/main.js') }}"></script>
+<script src="{{ asset('assets/site/custom/custom.js') }}"></script>
 <script>
-    fatchCatData();
+    // loadSubCatProduct();
+
+    var token = $("meta[name='csrf-token']").attr('content');
+    // alert(token);
+
+    function loadSubCatData(id = '', token) {
+        // alert('Id : ' + id + ' & ' + 'Token : ' + token);
+        $.ajax({
+            url: 'fetch-cat-data',
+            method: 'POST',
+            // beforeSend: function (request) {
+            //     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            // },
+            data: {id: id, _token: token},
+            success:function (results) {
+                // console.log(results);
+                $('#loadCatShowButton').remove();
+                $('#loadSubCatProduct').append(results);
+            }
+
+        });
+
+    }
+
+    loadSubCatData('', token);
+
+    $('body').on('click', '#loadCatShowButton', function () {
+        var sub_cat_id = $(this).data('id');
+        // alert(sub_cat_id);
+        $('#loadSubCatProduct').html('Loading...');
+        loadSubCatData(sub_cat_id, token);
+    });
 </script>
 </body>
 </html>
