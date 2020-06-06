@@ -44,7 +44,7 @@ class BrandController extends Controller
             $brand_create = Brand::create($brand_data);
 
             if ($brand_create) {
-                getMessage('success', 'Brand Has Been Added Successfully Done.');
+                getMessage('success', 'Success, Brand Has Been Added Successfully Done.');
 
                 if ($user_detail->is_admin === 1) {
                     return redirect()->route('super-admin.brand.index');

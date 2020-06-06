@@ -15,11 +15,11 @@
                         </div><!-- /.image -->
 
                         @if($special_price)
-                        <div class="tag hot">
-                            <span class="special-price-percent">
-                                {{ $special_price ? sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100).'%off' : '' }}
-                            </span>
-                        </div>
+                            <div class="special-price-percent hot">
+                                <span>
+                                    {{ $special_price ? sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) : '' }}%<br>off
+                                </span>
+                            </div>
                         @else
 
                         @endif
@@ -50,10 +50,14 @@
                         <div class="action">
                             <ul class="list-unstyled">
                                 <li class="add-cart-button btn-group">
-                                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </button>
-                                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                    <form action="{{ route('site.cart.add') }}" method="POST">
+                                        @csrf
+
+                                        <input type="hidden" name="slug" value="{{ $product->slug }}">
+                                        <button class="btn btn-primary icon" type="submit">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                    </form>
 
                                 </li>
 

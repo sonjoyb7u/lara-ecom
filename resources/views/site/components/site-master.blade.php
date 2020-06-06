@@ -15,24 +15,38 @@
     <title>@yield('title', 'Lara-Ecom | Home')</title>
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap.min.css') }}">
+    <!--PAGE-LOADER css-->
+    <!-- ========================================================= -->
+    <link rel="stylesheet" href="{{ asset('assets/site/css/page-loader.css') }}">
     <!-- Customizable CSS -->
     <link rel="stylesheet" href="{{ asset('assets/site/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/site/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/owl.transitions.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/site/plugins/toastr/css/toastr.min.css') }}">
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{ asset('assets/site/css/font-awesome.css') }}">
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
     @stack('css')
 
 </head>
 <body class="cnt-home">
+
+{{--Page Loder...--}}
+{{--<button id="button" type="button">Click</button>--}}
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
 
 @includeIf('site.components.partials.header')
 
@@ -40,20 +54,20 @@
     <div class="container">
 
         <div class="row {{ request()->is('product-detail/*') ? 'single-product' : '' }}">
-            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+{{--            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">--}}
 
                 @yield('left-sidebar')
 
-                <div class="home-banner">
-                    <img src="{{ asset('assets/site/images/banners/LHS-banner.jpg') }}" alt="Image">
-                </div>
-            </div>
+{{--                <div class="home-banner">--}}
+{{--                    <img src="{{ asset('assets/site/images/banners/LHS-banner.jpg') }}" alt="Image">--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <!-- /.sidemenu-holder -->
 
 
-            <div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
+{{--            <div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">--}}
                 @yield('content')
-            </div>
+{{--            </div>--}}
             <!-- /.homebanner-holder -->
 
         </div><!-- /.row -->
@@ -82,6 +96,21 @@
     <script src="{{ asset('assets/site/js/wow.min.js') }}"></script>
     <script src="{{ asset('assets/site/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/site/custom/custom.js') }}"></script>
+    <script src="{{ asset('assets/site/plugins/toastr/js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
+    <script src="{{ asset('assets/site/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    // Gobally Handle Toastr Message js...
+    <script>
+        // Toastr Message generate js...
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+            toastr.error('{{ $error }}', 'Error', {
+                closeButton: true,
+                progressBar: true,
+            });
+            @endforeach
+        @endif
+    </script>
 
     @stack('js')
 

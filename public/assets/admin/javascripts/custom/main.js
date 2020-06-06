@@ -1,5 +1,5 @@
 const SITE_URL_SUPER_ADMIN = 'http://lara-ecom.sonjoy/super-admin/';
-const SITE_URL_ADMIN = 'http://lara-ecom.sonjoy/-admin/';
+const SITE_URL_ADMIN = 'http://lara-ecom.sonjoy/admin/';
 
 // Page Testing Purpose...
 // alert();
@@ -165,25 +165,25 @@ $('body').on('change', 'input[name="warranty"]', function () {
 });
 
 // SPECIAL-PRICE BOX SHOW/HIDE using js...
-$('body').on('change', 'input[name="is_special_price"]', function () {
+$('body').on('change', 'input[name="special_price"]', function () {
     var val = $(this).val();
     // console.log(val);
     if(val === 'yes') {
-        $('.special-price-box').slideDown();
+        $('.special-price-date-box').slideDown();
     } else {
-        $('.special-price-box').slideUp();
+        $('.special-price-date-box').slideUp();
     }
 
 });
 
 // OFFER-PRICE BOX SHOW/HIDE using js...
-$('body').on('change', 'input[name="is_offer_price"]', function () {
+$('body').on('change', 'input[name="offer_price"]', function () {
     var val = $(this).val();
     // console.log(val);
     if(val === 'yes') {
-        $('.offer-price-box').slideDown();
+        $('.offer-price-date-box').slideDown();
     } else {
-        $('.offer-price-box').slideUp();
+        $('.offer-price-date-box').slideUp();
     }
 
 });

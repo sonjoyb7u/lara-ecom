@@ -3,6 +3,7 @@
 @section('title', 'Brand Wise Products | Lara-Ecomm')
 
 @section('left-sidebar')
+<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-inner">
@@ -78,11 +79,16 @@
     <!-- ============== Testimonials: END ==================== -->
 
     <!-- ================ SIDEBAR : END ====================== -->
+    <div class="home-banner">
+        <img src="{{ asset('assets/site/images/banners/LHS-banner.jpg') }}" alt="Image">
+    </div>
+</div>
+<!-- /.sidemenu-holder -->
 @endsection
 
 
 @section('content')
-
+<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
     <!-- ====================== SECTION – HERO BANNER =================== -->
     <div id="category" class="category-carousel hidden-xs">
         <div class="item">
@@ -293,7 +299,8 @@
 
     </div>
     <!-- /.search-result-container -->
-
+</div>
+<!-- /.homebanner-holder -->
 @endsection
 
 

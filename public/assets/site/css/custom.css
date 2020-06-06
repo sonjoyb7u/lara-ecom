@@ -1,0 +1,57 @@
+ /* Special Price Percent (Grid) css... */
+.product .product-image .special-price-percent {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    height: 50px;
+    text-transform: uppercase;
+    top: 2%;
+    left: 5px;
+    width: 50px;
+    z-index: 100;
+    position: absolute;
+    text-align: center;
+}
+
+.special-price-percent span {
+    position: relative;
+    z-index: 100;
+    top: 10px;
+}
+
+ /* Special Price Percent (List) css... */
+ .special-price-percent-list {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    height: 50px;
+    text-transform: uppercase;
+    top: 3%;
+    left: 23px;
+    width: 50px;
+    z-index: 100;
+    position: absolute;
+    text-align: center;
+}
+
+.special-price-percent-list span {
+    position: relative;
+    z-index: 100;
+    top: 10px;
+}
+
+/* Cart Item Quantity input css... */
+ input.quantity {
+    width: 70px;
+    display: inline-block;
+    padding: 15px 10px;
+    height: 0;
+ }
+ .quantity-update-btn {
+     margin-top: -5px;
+     width: 60px;
+ }

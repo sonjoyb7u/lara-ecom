@@ -1,5 +1,5 @@
 <div class="best-deal wow fadeInUp outer-bottom-xs">
-    <h3 class="section-title">Best seller</h3>
+    <h3 class="section-title">Best Salling Products</h3>
     <div class="sidebar-widget-body outer-top-xs">
         <div class="owl-carousel best-seller custom-carousel owl-theme outer-top-xs">
             <div class="item">

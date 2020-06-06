@@ -27,10 +27,18 @@ Route::namespace('Site')->name('site.')->group(function () {
     Route::get('sub-category/{slug}', 'SiteController@subCatWiseProduct')->name('sub-category');
     // Single product Detail Route...
     Route::get('product-detail/{slug}', 'SiteController@productDetail')->name('product-detail');
-    // Fetch Sub Category List style product using Ajax Route...
-    Route::post('load-subcat-product', 'SiteController@loadSubCatProduct')->name('load-subcat-product');
     // Fetch Sub Category Grid style product using Ajax Route...
+    Route::post('load-subcat-product', 'SiteController@loadSubCatProduct')->name('load-subcat-product');
+    // Fetch Sub Category List style product using Ajax Route...
     Route::post('load-subcat-list-product', 'SiteController@loadSubCatListProduct')->name('load-subcat-list-product');
+    // Shopping Cart Item CRUD route...
+    Route::group(['prefix'=>'cart', 'namespace'=>'Cart', 'as'=>'cart.'], function () {
+        Route::get('show', 'CartController@index')->name('show');
+        Route::post('add', 'CartController@addCart')->name('add');
+        Route::post('delete', 'CartController@deleteCart')->name('delete');
+        Route::post('update', 'CartController@updateCart')->name('update');
+//        Route::post('update-grand-totel-price', 'CartController@updateGrandTotalPrice');
+    });
 
 });
 

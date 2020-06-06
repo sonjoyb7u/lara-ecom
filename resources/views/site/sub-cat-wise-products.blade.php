@@ -3,19 +3,20 @@
 @section('title', 'Sub Category Wise Products | Lara-Ecomm')
 
 @section('left-sidebar')
-        <div class="breadcrumb">
-            <div class="container">
-                <div class="breadcrumb-inner">
-                    <ul class="list-inline list-unstyled">
-                        <li><a href="#">Home</a></li>
-                        <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $sub_category->category->category_slug) }}">{{ $sub_category->category->category_name }}</a></li>
-                        <li class='{{ request()->is('sub-category/*') ? 'active' : '' }}'><a href="{{ route('site.sub-category', $sub_category->sub_category_slug) }}">{{ $sub_category->sub_category_name }}</a></li>
-                    </ul>
-                </div>
-                <!-- /.breadcrumb-inner -->
+<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $sub_category->category->category_slug) }}">{{ $sub_category->category->category_name }}</a></li>
+                    <li class='{{ request()->is('sub-category/*') ? 'active' : '' }}'><a href="{{ route('site.sub-category', $sub_category->sub_category_slug) }}">{{ $sub_category->sub_category_name }}</a></li>
+                </ul>
             </div>
-            <!-- /.container -->
+            <!-- /.breadcrumb-inner -->
         </div>
+        <!-- /.container -->
+    </div>
 
     <!-- ==================== SIDEBAR ======================= -->
 
@@ -79,17 +80,22 @@
     <!-- ============== Testimonials: END ==================== -->
 
     <!-- ================ SIDEBAR : END ====================== -->
+    <div class="home-banner">
+        <img src="{{ asset('assets/site/images/banners/LHS-banner.jpg') }}" alt="Image">
+    </div>
+</div>
+<!-- /.sidemenu-holder -->
 @endsection
 
 @section('content')
-
+<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
     <!-- ====================== SECTION – HERO BANNER =================== -->
     <div id="category" class="category-carousel hidden-xs">
         <div class="item">
             <div class="image"> <img src="{{ asset('uploads/images/sub-category/'.$sub_category->banner) }}" alt="{{ $sub_category->banner }}" class="img-responsive"> </div>
             <div class="container-fluid">
                 <div class="caption vertical-top text-left">
-                    <div class="big-text" style="color: #59B210; font-size: 50px;"> {{ ucwords($sub_category->sub_category_name) }} </div>
+                    <div class="big-text" style="color: #59B210; font-size: 50px;"> {{ ucwords($sub_category->sub_category_name) }}                     </div>
 {{--                        <div class="excerpt hidden-sm hidden-md"> Save up to 49% off </div>--}}
 {{--                        <div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit </div>--}}
                 </div>
@@ -165,6 +171,8 @@
 
     </div>
     <!-- /.search-result-container -->
+</div>
+<!-- /.homebanner-holder -->
 
 @endsection
 

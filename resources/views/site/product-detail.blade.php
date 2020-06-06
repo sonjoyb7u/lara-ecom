@@ -3,7 +3,7 @@
 @section('title', 'Product Detail | Lara-Ecomm')
 
 @section('left-sidebar')
-
+<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
     <!-- ==================== SIDEBAR ======================= -->
 
     <!-- =================== TOP NAVIGATION =================== -->
@@ -11,7 +11,7 @@
     <!-- =================== TOP NAVIGATION : END ================== -->
 
     <!-- ====================== SPECIAL OFFER ======================== -->
-    @includeIf('site.components.partials.leftside-special-offer')
+    @includeIf('site.components.partials.leftside-new-product')
     <!-- ====================== SPECIAL OFFER : END ==================== -->
 
     <!-- ====================== SPECIAL DEALS ===================== -->
@@ -23,9 +23,15 @@
     <!-- ============== Newsletter: END ==================== -->
 
     <!-- ================ SIDEBAR : END ====================== -->
+    <div class="home-banner">
+        <img src="{{ asset('assets/site/images/banners/LHS-banner.jpg') }}" alt="Image">
+    </div>
+</div>
+<!-- /.sidemenu-holder -->
 @endsection
 
 @section('content')
+<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-inner">
@@ -72,9 +78,7 @@
                     <div class="single-product-gallery-thumbs gallery-thumbs">
 
                         <div id="owl-single-product-thumbnails">
-                            @php
-                                $galleries = json_decode($product_detail->gallery);
-                            @endphp
+                            @php($galleries = json_decode($product_detail->gallery))
                             @if($galleries > 0)
                                 @foreach($galleries as $gallery)
                                     <div class="item">
@@ -445,5 +449,7 @@
 
     <div class="clearfix"></div>
 
+</div>
+<!-- /.homebanner-holder -->
 @endsection
 

@@ -1332,7 +1332,7 @@ header{background:#333333}
   min-width: 0;
   padding: 24px 22px;
   right: 0;
-  width: 230px;
+  width: 260px;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -5258,7 +5258,7 @@ age-container #owl-main .owl-next {
 }
 
 .shopping-cart .shopping-cart-table {
-  margin-bottom: 50px;
+  /*margin-bottom: 50px;*/
 }
 .shopping-cart .shopping-cart-table table {
   margin-bottom: 0px !important;
@@ -5458,7 +5458,7 @@ age-container #owl-main .owl-next {
   height: 35px;
   left: 0;
   padding: 0 20px 0 18px;
-  position: absolute;
+  /*position: absolute;*/
   top: 0;
   width: 70px;
   z-index: 1;

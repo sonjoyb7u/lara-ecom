@@ -28,8 +28,8 @@ class CreateProductsTable extends Migration
             $table->string('product_color', 100)->nullable();
             $table->string('product_size', 100)->nullable();
             $table->string('image')->default('product_default.png');
-            $table->date('image_start')->nullable();
-            $table->date('image_end')->nullable();
+            $table->dateTime('image_start')->nullable();
+            $table->dateTime('image_end')->nullable();
             $table->string('gallery')->nullable();
             $table->string('product_video_url')->nullable();
             $table->integer('quantity')->default(1);
@@ -39,11 +39,11 @@ class CreateProductsTable extends Migration
             $table->decimal('original_price', 10, 3);
             $table->decimal('sales_price', 10, 3);
             $table->decimal('special_price', 10, 3)->nullable();
-            $table->date('special_start')->nullable();
-            $table->date('special_end')->nullable();
+            $table->dateTime('special_start')->nullable();
+            $table->dateTime('special_end')->nullable();
             $table->decimal('offer_price', 10, 3)->nullable();
-            $table->date('offer_start')->nullable();
-            $table->date('offer_end')->nullable();
+            $table->dateTime('offer_start')->nullable();
+            $table->dateTime('offer_end')->nullable();
             $table->enum('is_featured', ['yes', 'no'])->default('no');
             $table->enum('is_new', ['yes', 'no'])->default('no');
             $table->enum('available', ['in stock', 'out of stock', 'stock limit'])->default('in stock');

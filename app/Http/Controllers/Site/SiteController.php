@@ -20,7 +20,24 @@ class SiteController extends Controller
             ->get();
         $categories = Category::with('user', 'subCategories')->get();
 
-        View::share(['brands'=>$brands, 'categories'=>$categories]);
+//      Left side New Special Deal products showing...
+        $no_special_price = null;
+        $special_deal_products = Product::with('user', 'brand', 'category', 'subCategory')
+            ->where('status',Product::ACTIVE_STATUS)
+            ->where('special_price', '<>', $no_special_price)
+            ->latest()
+            ->get();
+//        return $special_deal_products;
+
+        //Left side New products showing...
+        $new_special_products = Product::with('user', 'brand', 'category', 'subCategory')
+                                ->where('status',Product::ACTIVE_STATUS)
+                                ->limit(10)
+                                ->latest()
+                                ->get();
+//        return $new_special_products;
+
+        View::share(['brands'=>$brands, 'categories'=>$categories, 'new_special_products'=>$new_special_products,  'special_deal_products'=>$special_deal_products]);
     }
 
     public function index()
@@ -37,10 +54,11 @@ class SiteController extends Controller
 
         // Featured Products show on Home page...
         $featured_products = Product::with('user', 'brand', 'category', 'subCategory')->where('is_featured', Product::FEATURED)->where('status', Product::ACTIVE_STATUS)->latest()->get();
-        // New Arriaval Products show on Home page...
-        $new_products = Product::with('user', 'brand', 'category', 'subCategory')->where('is_new', Product::NEW_ARRIVAL)->where('status', Product::ACTIVE_STATUS)->latest()->get();
 
-        return view('site.index', compact( 'sliders', 'products', 'featured_products', 'new_products'));
+        // New Arriaval Products show on Home page...
+        $new_arriaval_products = Product::with('user', 'brand', 'category', 'subCategory')->where('is_new', Product::NEW_ARRIVAL)->where('status', Product::ACTIVE_STATUS)->latest()->get();
+
+        return view('site.index', compact( 'sliders', 'products', 'featured_products', 'new_arriaval_products'));
     }
 
     /**
@@ -50,10 +68,12 @@ class SiteController extends Controller
     public function brandWiseProduct($slug) {
         $brand_id = Brand::where('brand_slug', $slug)->pluck('id');
 //        return $brand_id;
+
         $brand = Brand::where('id', $brand_id)
             ->where('status', Brand::ACTIVE_BRAND)
             ->first();
 //        return $brand;
+
         $brand_wise_products = Product::where('brand_id', $brand_id)->get();
 //        return $brand_wise_products;
 

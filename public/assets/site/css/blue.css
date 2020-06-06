@@ -110,6 +110,31 @@ a {
   background: #fdd922;
   color:#333
 }
+
+.special-price-percent.special {
+    background: #fdd922;
+    color:#333
+}
+.special-price-percent.hot {
+    background: #ff7878;
+    color:#FFF;
+}
+.special-price-percent.new {
+    background: #46aad7;;
+    color:#333
+}
+.special-price-percent-list.special {
+    background: #fdd922;
+    color:#333
+}
+.special-price-percent-list.hot {
+    background: #ff7878;
+    color:#FFF;
+}
+.special-price-percent-list.new {
+    background: #46aad7;;
+    color:#333
+}
 .copyright-bar .copyright a {
   color: #333;
 }

@@ -3,6 +3,7 @@
 @section('title', 'Category Wise Products | Lara-Ecomm')
 
 @section('left-sidebar')
+<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-inner">
@@ -78,11 +79,12 @@
     <!-- ============== Testimonials: END ==================== -->
 
     <!-- ================ SIDEBAR : END ====================== -->
+</div>
 @endsection
 
 
 @section('content')
-
+<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
     <!-- ====================== SECTION – HERO BANNER =================== -->
     <div id="category" class="category-carousel hidden-xs">
         <div class="item">
@@ -123,7 +125,7 @@
 {{--                        @if(count($cat_wise_products) > 0)--}}
                         @if(!$cat_wise_products->isEmpty())
                             @foreach($cat_wise_products as $product)
-                                <div class="col-sm-6 col-md-3 col-lg-3 wow fadeInUp">
+                            <div class="col-sm-6 col-md-3 col-lg-3 wow fadeInUp">
                                     <div class="products">
                                         <div class="product">
                                             <div class="product-image">
@@ -143,14 +145,14 @@
                                                     @php($special_price = true)
                                                 @endif
                                                 <span class="price">
-                                                &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
+                                                &#2547;{{ sprintf('%.3f', $special_price ? $product->special_price : $product->sales_price) }}
                                                 </span>
                                                 @if($special_price)
                                                     <span class="special-price-percent">
-                                                {{ sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
+                                                {{ sprintf('%.3f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
                                                     </span>
                                                     <span class="price-before-discount pull-right">
-                                                &#2547;{{ $product->sales_price }}
+                                                &#2547;{{ sprintf('%.3f', $product->sales_price) }}
                                                     </span>
                                                 @endif
                                                 <!-- /.product-price -->
@@ -162,10 +164,16 @@
                                                 <div class="action">
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
-                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                            <form action="{{ route('site.cart.add') }}" method="POST">
+                                                                @csrf
+
+                                                                <input type="hidden" name="slug" value="{{ $product->slug }}">
+                                                                <button class="btn btn-primary icon" type="submit">
+                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                </button>
+                                                            </form>
                                                         </li>
-                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="#" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
                                                         <li class="lnk"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="Compare"> <i class="fa fa-eye"></i> </a> </li>
                                                     </ul>
                                                 </div>
@@ -293,6 +301,7 @@
 
     </div>
     <!-- /.search-result-container -->
-
+</div>
+<!-- /.homebanner-holder -->
 @endsection
 

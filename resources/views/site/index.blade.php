@@ -4,7 +4,8 @@
 
 
 @section('left-sidebar')
-<!-- ==================== SIDEBAR ======================= -->
+<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+    <!-- ==================== SIDEBAR ======================= -->
 
     <!-- =================== TOP NAVIGATION =================== -->
     @includeIf('site.components.partials.leftside-category-list')
@@ -15,7 +16,7 @@
     <!-- ===================== HOT DEALS: END ===================== -->
 
     <!-- ====================== SPECIAL OFFER ======================== -->
-    @includeIf('site.components.partials.leftside-special-offer')
+    @includeIf('site.components.partials.leftside-new-product')
     <!-- ====================== SPECIAL OFFER : END ==================== -->
 
     <!-- ======================== PRODUCT TAGS ====================== -->
@@ -35,12 +36,17 @@
     <!-- ============== Testimonials: END ==================== -->
 
 <!-- ================ SIDEBAR : END ====================== -->
+    <div class="home-banner">
+        <img src="{{ asset('assets/site/images/banners/LHS-banner.jpg') }}" alt="Image">
+    </div>
+</div>
+<!-- /.sidemenu-holder -->
 @endsection
 
 
 <!-- ========================== CONTENT ============================= -->
 @section('content')
-
+<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
     <!-- ============= SECTION – HERO ====================== -->
     @includeIf('site.components.partials.content-slider')
     <!-- ============= SECTION – HERO : END ================ -->
@@ -69,7 +75,8 @@
     <!-- ====================== FEATURED PRODUCTS ==================== -->
     @includeIf('site.components.partials.content-new-arrival')
     <!-- ===================== FEATURED PRODUCTS : END ====================== -->
-
+</div>
+<!-- /.homebanner-holder -->
 @endsection
 <!-- ====================== CONTENT : END ========================== -->
 

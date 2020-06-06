@@ -1,5 +1,5 @@
 <div class="sidebar-widget outer-bottom-small wow fadeInUp">
-    <h3 class="section-title">Special Deals</h3>
+    <h3 class="section-title">Special Price Deals</h3>
     <div class="sidebar-widget-body outer-top-xs">
         <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
             <div class="item">

@@ -50,7 +50,8 @@
 
                         </a>
                     </div><!-- /.logo -->
-                    <!-- ============================================================= LOGO : END ============================================================= -->				</div><!-- /.logo-holder -->
+                    <!-- ============================================================= LOGO : END ============================================================= -->
+                </div><!-- /.logo-holder -->
 
                 <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
                     <!-- /.contact-row -->
@@ -65,7 +66,8 @@
                             </div>
                         </form>
                     </div><!-- /.search-area -->
-                    <!-- ============================================================= SEARCH AREA : END ============================================================= -->				</div><!-- /.top-search-holder -->
+                    <!-- ============================================================= SEARCH AREA : END ============================================================= -->
+                </div><!-- /.top-search-holder -->
 
                 <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
                     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
@@ -76,12 +78,12 @@
                                 <div class="basket">
                                     <i class="glyphicon glyphicon-shopping-cart"></i>
                                 </div>
-                                <div class="basket-item-count"><span class="count">2</span></div>
+                                <div class="basket-item-count"><span class="count">{{ Cart::getTotalQuantity() }}</span></div>
                                 <div class="total-price-basket">
                                     <span class="lbl">cart -</span>
                                     <span class="total-price">
-						<span class="sign">$</span><span class="value">600.00</span>
-					</span>
+						            <span class="sign">&#2547;&nbsp;</span><span class="value">{{ Cart::getTotal() }}</span>
+					                </span>
                                 </div>
 
 
@@ -89,35 +91,43 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
+                                @php($cart_items = \Cart::getContent())
+                                @foreach($cart_items as $item)
                                 <div class="cart-item product-summary">
                                     <div class="row">
                                         <div class="col-xs-4">
                                             <div class="image">
-                                                <a href="detail.html"><img src="{{ asset('assets/site/images/cart.jpg') }}" alt=""></a>
+                                                <a href="{{ route('site.product-detail', $item->attributes->slug) }}"><img src="{{ asset('uploads/images/product/images/'.$item->attributes->image) }}" alt="{{ $item->attributes->image }}"></a>
                                             </div>
                                         </div>
                                         <div class="col-xs-7">
 
-                                            <h3 class="name"><a href="index8a95.html?page-detail">Simple Product</a></h3>
-                                            <div class="price">$600.00</div>
+                                            <h3 class="name"><a href="{{ route('site.product-detail', $item->attributes->slug) }}">{{ $item->name }}</a>&nbsp;&nbsp;<strong>({{ $item->quantity  }})</strong></h3>
+                                            <div class="price">&#2547;&nbsp;{{ $item->price * $item->quantity }}</div>
                                         </div>
                                         <div class="col-xs-1 action">
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <form action="{{ route('site.cart.delete') }}" method="post" id="delete-form-cart-{{ $item->id }}">
+                                                @csrf
+
+                                                <input type="hidden" name="id" value="{{ $item->id }}">
+                                            </form>
+                                            <a style="cursor: pointer;" type="submit" onclick="deleteCartItem({{ $item->id }});"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div><!-- /.cart-item -->
+                                @endforeach
                                 <div class="clearfix"></div>
                                 <hr>
 
                                 <div class="clearfix cart-total">
                                     <div class="pull-right">
 
-                                        <span class="text">Sub Total :</span><span class='price'>$600.00</span>
+                                        <span class="text">Sub Total :</span><span class='price'>&#2547;&nbsp;{{ Cart::getSubTotal() }}</span>
 
                                     </div>
                                     <div class="clearfix"></div>
-
-                                    <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                                    <a href="{{ route('site.cart.show') }}" class="btn btn-upper btn-primary btn-sm m-t-20 pull-left">View Cart</a>
+                                    <a href="#" class="btn btn-upper btn-primary btn-sm m-t-20 pull-right">Checkout</a>
                                 </div><!-- /.cart-total-->
 
 
@@ -179,3 +189,40 @@
     <!-- ============================================== NAVBAR : END ============================================== -->
 
 </header>
+
+<script>
+    // DELETE CART ITEM FROM CART LIST using Sweetalert package js...
+    function deleteCartItem(id) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You Want to be Delete this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('delete-form-cart-'+id).submit();
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your Cart Item is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>

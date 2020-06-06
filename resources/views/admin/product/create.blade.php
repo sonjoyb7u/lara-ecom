@@ -26,10 +26,10 @@
         .warranty-box {
             display: none;
         }
-        .special-price-box {
+        .special-price-date-box {
             display: none;
         }
-        .offer-price-box {
+        .offer-price-date-box {
             display: none;
         }
 
@@ -211,11 +211,26 @@
                                             </div>
 
                                             <label for="product-range-datepicker" class="control-label">Product Image Date Range</label>
-                                            <div class="input-daterange input-group" id="product-range-datepicker">
-                                                <input type="text" class="input-sm form-control" name="image_start" />
-                                                <span class="input-group-addon x-primary"><i class="fa fa-calendar"></i></span>
-                                                <input type="text" class="input-sm form-control" name="image_end" />
+                                            <div class="clear-fix"></div>
+                                            <div class="col-sm-5 col-md-5 input-group date" id="datetimepicker" style="float: left;">
+                                                <input type="text" name="image_start" value="{{ old('image_start') }}" class="form-control" placeholder="YYYY-MM-DD HH:MM:SS" />
+                                                <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
                                             </div>
+                                            <span style="float: left; margin: 5px 30px;"><strong>To</strong></span>
+                                            <div class="col-sm-5 col-md-5 input-group date" id="datetimepicker" style="float: left;">
+                                                <input type="text" name="image_end" value="{{ old('image_end') }}" class="form-control" placeholder="YYYY-MM-DD HH:MM:SS" />
+                                                <span class="input-group-addon">
+                                                  <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+
+{{--                                            <div class="input-daterange input-group" id="product-range-datepicker">--}}
+{{--                                                <input type="text" class="input-sm form-control" name="image_start" />--}}
+{{--                                                <span class="input-group-addon x-primary"><i class="fa fa-calendar"></i></span>--}}
+{{--                                                <input type="text" class="input-sm form-control" name="image_end" />--}}
+{{--                                            </div>--}}
 
                                         </div>
 
@@ -266,27 +281,38 @@
                                                 <label for="righticon" class="control-label">Product Special Price</label>
                                                 <br>
                                                 <div class="radio radio-custom radio-inline radio-success">
-                                                    <input type="radio" id="radioCustom1" name="is_special_price" value="yes">
+                                                    <input type="radio" id="radioCustom1" name="special_price" value="yes">
                                                     <label for="radioCustom1">YES</label>
                                                 </div>
                                                 <div class="radio radio-custom radio-inline radio-danger">
-                                                    <input type="radio" id="radioCustom4" name="is_special_price" value="no">
+                                                    <input type="radio" id="radioCustom4" name="special_price" value="no">
                                                     <label for="radioCustom4">NO</label>
                                                 </div>
-                                                <div class="special-price-box">
-                                                    <div class="col-md-6">
+                                                <div class="special-price-date-box">
+                                                    <div class="col-md-12">
                                                         <label for="special_price" class="control-label">Product Special Price</label>
                                                         <input type="number" name="special_price" class="form-control" id="special_price" value="{{ old('special_price') }}" placeholder="Enter Product Special Price" style="height: 30px;">
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="range-datepicker" class="control-label">Special price Date Range</label>
-                                                        <div class="input-daterange input-group" id="special-range-datepicker">
-                                                            <input type="text" class="input-sm form-control" name="special_start" />
-                                                            <span class="input-group-addon x-primary"><i class="fa fa-calendar"></i></span>
-                                                            <input type="text" class="input-sm form-control" name="special_end" />
-                                                        </div>
-                                                    </div>
 
+                                                    <div class="col-md-12">
+                                                        <label for="range-datepicker" class="control-label">Special price Date Range</label>
+                                                        <div class="clear-fix"></div>
+
+                                                        <div class="col-sm-5 col-md-5 input-group date" id="datetimepicker" style="float: left;">
+                                                            <input type="text" name="image_start" value="{{ old('image_start') }}" class="form-control" placeholder="YYYY-MM-DD HH:MM:SS" />
+                                                            <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                        <span style="float: left; margin: 5px 30px;"><strong>To</strong></span>
+                                                        <div class="col-sm-5 col-md-5 input-group date" id="datetimepicker" style="float: left;">
+                                                            <input type="text" name="image_end" value="{{ old('image_end') }}" class="form-control" placeholder="YYYY-MM-DD HH:MM:SS" />
+                                                            <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -294,28 +320,40 @@
                                                 <label for="righticon" class="control-label">Product Offer Price</label>
                                                 <br>
                                                 <div class="radio radio-custom radio-inline radio-success">
-                                                    <input type="radio" id="radioCustom2" name="is_offer_price" value="yes">
+                                                    <input type="radio" id="radioCustom2" name="offer_price" value="yes">
                                                     <label for="radioCustom2">YES</label>
                                                 </div>
                                                 <div class="radio radio-custom radio-inline radio-danger">
-                                                    <input type="radio" id="radioCustom6" name="is_offer_price" value="no">
+                                                    <input type="radio" id="radioCustom6" name="offer_price" value="no">
                                                     <label for="radioCustom6">NO</label>
                                                 </div>
 
-                                                <div class="offer-price-box">
-                                                    <div class="col-md-6">
+                                                <div class="offer-price-date-box">
+                                                    <div class="col-md-12">
                                                         <label for="offer_price" class="control-label">Product Offer Price</label>
                                                         <input type="number" name="offer_price" class="form-control" id="offer_price" value="{{ old('offer_price') }}" placeholder="Enter Product Offer Price" style="height: 30px;">
                                                     </div>
 
-                                                    <div class="col-sm-6">
-                                                        <label for="range-datepicker" class="control-label">Offer Date Range</label>
-                                                        <div class="input-daterange input-group" id="offer-range-datepicker">
-                                                            <input type="text" class="input-sm form-control" name="offer_start" />
-                                                            <span class="input-group-addon x-primary"><i class="fa fa-calendar"></i></span>
-                                                            <input type="text" class="input-sm form-control" name="offer_end" />
+                                                    <div class="col-md-12">
+                                                        <label for="range-datepicker" class="control-label">Offer price Date Range</label>
+                                                        <div class="clear-fix"></div>
+
+                                                        <div class="col-sm-5 col-md-5 input-group date" id="datetimepicker" style="float: left;">
+                                                            <input type="text" name="image_start" value="{{ old('image_start') }}" class="form-control" placeholder="YYYY-MM-DD HH:MM:SS" />
+                                                            <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
                                                         </div>
+                                                        <span style="float: left; margin: 5px 30px;"><strong>To</strong></span>
+                                                        <div class="col-sm-5 col-md-5 input-group date" id="datetimepicker" style="float: left;">
+                                                            <input type="text" name="image_end" value="{{ old('image_end') }}" class="form-control" placeholder="YYYY-MM-DD HH:MM:SS" />
+                                                            <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
