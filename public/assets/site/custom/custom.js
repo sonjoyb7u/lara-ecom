@@ -112,8 +112,19 @@ $('.quantity').on('change keyup', function () {
     // console.log(id);
     var quantity = $(this).val();
     // console.log(quantity);
+    var price = $("input[name='price']").val();
+    // console.log(price);
 
-    $("#overlay").fadeIn(300);
+    if(quantity > 1) {
+        grandTotalPricePlus = quantity * price;
+        // console.log(grandTotalPricePlus);
+
+    } else if(quantity <= 1) {
+        grandTotalPriceMinus = grandTotalPricePlus - price;
+        // console.log(grandTotalPriceMinus);
+    }
+
+    $("#overlay").fadeIn(200);
     $.ajax({
         data: {
             id: id,
@@ -128,10 +139,16 @@ $('.quantity').on('change keyup', function () {
         success: function (result) {
             // console.log(result);
             // $("#showMsg").show();
-            // $("#grandTotalPrice").html(result);
-            location.reload(true);
-            $("#showMsg").html(result);
-            $("#overlay").fadeOut(300);
+            // location.reload(true);
+            if(quantity > 1) {
+                $("#grandTotalPrice").html("&#2547; " + grandTotalPricePlus);
+
+            } else if(quantity <= 1) {
+                $("#grandTotalPrice").html("&#2547; " + grandTotalPriceMinus);
+            }
+
+            // $("#showMsg").html(result);
+            $("#overlay").fadeOut(200);
 
         }
 

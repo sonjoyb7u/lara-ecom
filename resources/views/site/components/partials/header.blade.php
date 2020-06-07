@@ -92,6 +92,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 @php($cart_items = \Cart::getContent())
+                                @if(!$cart_items->isEmpty())
                                 @foreach($cart_items as $item)
                                 <div class="cart-item product-summary">
                                     <div class="row">
@@ -130,6 +131,9 @@
                                     <a href="#" class="btn btn-upper btn-primary btn-sm m-t-20 pull-right">Checkout</a>
                                 </div><!-- /.cart-total-->
 
+                                @else
+                                    <p class="text-center text-danger">Your Cart Item is Empty</p>
+                                @endif
 
                             </li>
                         </ul><!-- /.dropdown-menu-->

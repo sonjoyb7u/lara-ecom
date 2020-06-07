@@ -45,7 +45,7 @@
         <div class="container">
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{ route('site.index') }}">Home</a></li>
                     <li class='{{ request()->is('contact-us') ? 'active' : '' }}'><a href="{{ route('site.contact-us') }}">Contact Us</a></li>
                 </ul>
             </div>
@@ -71,25 +71,38 @@
                 <div class="col-sm-8 col-md-8">
                     <div class="contact-form">
                         <h2>Contact Us</h2>
-                        <form action="" method="post">
+
+                        @includeIf('messages.show-message')
+
+                        <form action="{{ route('site.contact-us.send-mail') }}" method="POST">
+                            @csrf
+
                             <div class="form-group">
-                                <span><label>NAME</label></span>
-                                <span><input class="form-control" name="name" type="text" value=""></span>
+                                <span><label for="to">To</label></span>
+                                <span><input class="form-control" name="to" id="to" type="text" value="{{ old('to') }}" placeholder="Enter Sender Mail"></span>
                             </div>
                             <div class="form-group">
-                                <span><label>E-MAIL</label></span>
-                                <span><input class="form-control" name="email" type="text" value=""></span>
+                                <span><label for="name">NAME</label></span>
+                                <span><input class="form-control" name="name" id="name" type="text" value="{{ old('name') }}" placeholder="Enter Name"></span>
                             </div>
                             <div class="form-group">
-                                <span><label>MOBILE.NO</label></span>
-                                <span><input class="form-control" name="phone" type="text" value=""></span>
+                                <span><label for="email">E-MAIL</label></span>
+                                <span><input class="form-control" name="email" id="email" type="text" value="{{ old('email') }}" placeholder="Enter Email Address"></span>
                             </div>
                             <div class="form-group">
-                                <span><label>SUBJECT</label></span>
-                                <span><textarea class="form-control" name="message"> </textarea></span>
+                                <span><label for="subject">SUBJECT</label></span>
+                                <span><input class="form-control" name="subject" id="subject" type="text" value="{{ old('subject') }}" placeholder="Enter Subject"></span>
+                            </div>
+                            <div class="form-group">
+                                <span><label for="phone">MOBILE.NO</label></span>
+                                <span><input class="form-control" name="phone" id="ohone" type="text" value="{{ old('phone') }}" placeholder="Enter Phone Number"></span>
+                            </div>
+                            <div class="form-group">
+                                <span><label for="message">Message</label></span>
+                                <span><textarea class="form-control" name="message" id="message"> {{ old('message') }}</textarea></span>
                             </div>
                             <div class="clearfix pull-right contact-us-btn">
-                                <span><button class="btn-upper btn btn-primary" type="submit">SUBMIT</button></span>
+                                <span><button class="btn-upper btn btn-primary" type="submit">Send Message</button></span>
                             </div>
                         </form>
                     </div>

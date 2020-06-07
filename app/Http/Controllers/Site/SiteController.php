@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactUsRequest;
+use App\Mail\ContactUsMail;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\SubCategory;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 
 class SiteController extends Controller
@@ -199,19 +203,40 @@ class SiteController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function faqContent() {
-        return view('site.components.partials.faq');
+    public function faq() {
+        return view('site.pages.faq');
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function helpCenterContent() {
-        return view('site.components.partials.help-center');
+    public function termsCondition() {
+        return view('site.pages.terms-condition');
     }
 
     public function contactUs() {
         return view('site.pages.contact-us');
+    }
+
+    public function sendMail(ContactUsRequest $request) {
+        $from_email = config("mail.from['address']", $request->email);
+//        return $from_email;
+
+        $contact_us_info_detail = [
+            'name' => $request->name,
+            'email' => $from_email,
+            'subject' => $request->subject,
+            'phone' => $request->phone,
+            'message' => $request->message,
+        ];
+//        return $contact_us_info_detail;
+
+        Mail::to($request->to)->send(new ContactUsMail($contact_us_info_detail));
+
+        getMessage('success', 'Success, Your Message Has Been Sent Success. We Contact You Soon.');
+//        Toastr::success('Your Message Has Been Sent Success. We Contact You Soon.', 'Success');
+        return redirect()->back();
+
     }
 
 

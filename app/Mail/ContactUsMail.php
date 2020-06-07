@@ -10,15 +10,16 @@ use Illuminate\Queue\SerializesModels;
 class ContactUsMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $contact_us_info_detail;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($contact_us_info_detail)
     {
-        //
+        $this->contact_us_info_detail = $contact_us_info_detail;
     }
 
     /**
@@ -28,7 +29,7 @@ class ContactUsMail extends Mailable
      */
     public function build()
     {
-//        return $this->view('view.name');
-        return $this->html("Thanks for Contact with Us.");
+        return $this->view('site.mail.contact-us-mail');
+//        return $this->html("Thanks for Contact with Us.");
     }
 }

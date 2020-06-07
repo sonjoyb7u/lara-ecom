@@ -41,13 +41,22 @@ Route::namespace('Site')->name('site.')->group(function () {
     });
     // CONTACT US Content show route...
     Route::get('contact-us', 'SiteController@contactUs')->name('contact-us');
+    Route::post('contact-us/send-mail', 'SiteController@sendMail')->name('contact-us.send-mail');
+
+    // Sending mail Just For Testing purpose route...
     Route::get('send-mail', function () {
-        
+        $mail_detail = [
+            'title' => 'Mail Title: Mail Title',
+            'subject' => 'Subject: Write to Mail Subject',
+            'message' => 'Message: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet animi asperiores, at cum eaque eligendi eos ipsa laborum nam obcaecati odio pariatur quas ratione sunt. Ex in praesentium qui.',
+        ];
+        \Illuminate\Support\Facades\Mail::to("test@gmail.com")->send(new \App\Mail\ContactUsMail($mail_detail));
     });
+
     // FAQ Content show route...
-    Route::get('faq', 'SiteController@faqContent')->name('faq');
+    Route::get('faq', 'SiteController@faq')->name('faq');
     // Help Center Content show route...
-    Route::get('help-center', 'SiteController@helpCenterContent')->name('help-center');
+    Route::get('terms-condition', 'SiteController@termsCondition')->name('terms-condition');
 
 });
 

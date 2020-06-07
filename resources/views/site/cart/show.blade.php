@@ -20,6 +20,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12 homebanner-holder">
 
     <div id="showMsg"></div>
+    @includeIf('messages.show-message')
 
     @if(Cart::isEmpty())
     <div class="shopping-cart">
@@ -75,7 +76,8 @@
                                         @csrf
 
                                         <input type="hidden" name="id" value="{{ $item->id }}">
-                                        <input type="number" name="quantity" value="{{ $item->quantity }}" class="form-control quantity" id="quantity" data-id="{{ $item->id }}">
+                                        <input type="hidden" name="price" value="{{ $item->price }}">
+                                        <input type="number" min="1" name="quantity" value="{{ $item->quantity }}" class="form-control quantity" id="quantity" data-id="{{ $item->id }}">
 {{--                                        <span>--}}
 {{--                                            <button type="submit" class="btn btn-success btn-sm quantity-update-btn">Update</button>--}}
 {{--                                        </span>--}}
@@ -259,8 +261,6 @@
                 }
             })
         }
-
-
 
     </script>
 @endpush

@@ -38,7 +38,7 @@
                     </span>
                                 </div>
                                 <div class="media-body">
-                                    <span><a href="#">sonjoy.john@gmail.com</a></span>
+                                    <span><a href="#">Lara.ecomm@gmail.com</a></span>
                                 </div>
                             </li>
 
@@ -53,8 +53,8 @@
 
                     <div class="module-body">
                         <ul class='list-unstyled'>
-                            <li class="first"><a href="#" title="Contact us">My Account</a></li>
-                            <li><a href="#" title="About us">Order History</a></li>
+                            <li class="first"><a href="#" title="My Account">My Account</a></li>
+                            <li><a href="#" title="Order History">Order History</a></li>
                             <li><a href="{{ route('site.faq') }}" title="faq">FAQ</a></li>
                             <li><a href="#" title="Popular Searches">Specials</a></li>
                             <li class="last"><a href="#" title="Where is my order?">Help Center</a></li>
@@ -69,10 +69,10 @@
 
                     <div class="module-body">
                         <ul class='list-unstyled'>
-                            <li class="first"><a title="Your Account" href="#">About us</a></li>
-                            <li><a title="Information" href="{{ route('site.help-center') }}">Customer Service</a></li>
-                            <li><a title="Addresses" href="#">Company</a></li>
-                            <li><a title="Addresses" href="#">Investor Relations</a></li>
+                            <li class="first"><a title="About Us" href="#">About us</a></li>
+                            <li><a title="Customer Information" href="#">Customer Service</a></li>
+                            <li><a href="{{ route('site.terms-condition') }}" title="Terms & Conditions">Terms & Conditions</a></li>
+                            <li><a title="Investor Relations" href="#">Investor Relations</a></li>
                             <li class="last"><a title="Orders History" href="#">Advanced Search</a></li>
                         </ul>
                     </div><!-- /.module-body -->
@@ -85,10 +85,9 @@
 
                     <div class="module-body">
                         <ul class='list-unstyled'>
-                            <li class="first"><a href="#" title="About us">Shopping Guide</a></li>
+                            <li class="first"><a href="#" title="Shopping Guide">Shopping Guide</a></li>
                             <li><a href="#" title="Blog">Blog</a></li>
-                            <li><a href="#" title="Company">Company</a></li>
-                            <li><a href="#" title="Investor Relations">Investor Relations</a></li>
+                            <li><a title="Company Information" href="#">Company</a></li>
                             <li class=" last"><a href="{{ route('site.contact-us') }}" title="Live Support">Contact Us</a></li>
                         </ul>
                     </div><!-- /.module-body -->

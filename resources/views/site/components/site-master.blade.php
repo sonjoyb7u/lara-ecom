@@ -95,13 +95,13 @@
     <script src="{{ asset('assets/site/js/jquery.rateit.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/site/js/lightbox.min.js') }}"></script>
     <script src="{{ asset('assets/site/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/site/custom/custom.js') }}"></script>
     <script src="{{ asset('assets/site/js/wow.min.js') }}"></script>
     <script src="{{ asset('assets/site/js/scripts.js') }}"></script>
-    <script src="{{ asset('assets/site/custom/custom.js') }}"></script>
     <script src="{{ asset('assets/site/plugins/toastr/js/toastr.min.js') }}"></script>
     {!! Toastr::message() !!}
     <script src="{{ asset('assets/site/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
-{{--    Gobally Handle Toastr Message js...--}}
+    {{-- Gobally Handle Toastr Message js... --}}
     <script>
         // Toastr Message generate js...
         @if ($errors->any())

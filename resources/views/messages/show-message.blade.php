@@ -16,8 +16,16 @@
 {{--@endif--}}
 
 @if(session()->has('message'))
+    <div class="alert alert-{{ session('type') }} fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{ session('message') }}
+    </div>
+@endif
+
+@if(session()->has('message'))
 <div class="alert alert-{{ session('type') }} fade in" id="showMsg">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     {{ session('message') }}
 </div>
 @endif
+
