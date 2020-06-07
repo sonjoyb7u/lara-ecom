@@ -2,8 +2,7 @@
 
 @section('title', 'Sub Category Wise Products | Lara-Ecomm')
 
-@section('left-sidebar')
-<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+@section('breadcrumb')
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-inner">
@@ -17,7 +16,10 @@
         </div>
         <!-- /.container -->
     </div>
+@endsection
 
+@section('left-sidebar')
+<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
     <!-- ==================== SIDEBAR ======================= -->
 
     <!-- =================== TOP NAVIGATION =================== -->

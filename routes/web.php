@@ -39,6 +39,15 @@ Route::namespace('Site')->name('site.')->group(function () {
         Route::post('update', 'CartController@updateCart')->name('update');
 //        Route::post('update-grand-totel-price', 'CartController@updateGrandTotalPrice');
     });
+    // CONTACT US Content show route...
+    Route::get('contact-us', 'SiteController@contactUs')->name('contact-us');
+    Route::get('send-mail', function () {
+        
+    });
+    // FAQ Content show route...
+    Route::get('faq', 'SiteController@faqContent')->name('faq');
+    // Help Center Content show route...
+    Route::get('help-center', 'SiteController@helpCenterContent')->name('help-center');
 
 });
 

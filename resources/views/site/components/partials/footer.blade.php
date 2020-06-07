@@ -16,7 +16,7 @@
                     </span>
                                 </div>
                                 <div class="media-body">
-                                    <p>ThemesGround, 789 Main rd, Anytown, CA 12345 USA</p>
+                                    <p>799/A, 1 No Lane; Dhumpara, Chittagong Wasa, Bangladesh</p>
                                 </div>
                             </li>
 
@@ -27,7 +27,7 @@
                     </span>
                                 </div>
                                 <div class="media-body">
-                                    <p>+(888) 123-4567<br>+(888) 456-7890</p>
+                                    <p>+(880) 123-456<br>+(880) 456-789</p>
                                 </div>
                             </li>
 
@@ -38,7 +38,7 @@
                     </span>
                                 </div>
                                 <div class="media-body">
-                                    <span><a href="#">flipmart@themesground.com</a></span>
+                                    <span><a href="#">sonjoy.john@gmail.com</a></span>
                                 </div>
                             </li>
 
@@ -55,7 +55,7 @@
                         <ul class='list-unstyled'>
                             <li class="first"><a href="#" title="Contact us">My Account</a></li>
                             <li><a href="#" title="About us">Order History</a></li>
-                            <li><a href="#" title="faq">FAQ</a></li>
+                            <li><a href="{{ route('site.faq') }}" title="faq">FAQ</a></li>
                             <li><a href="#" title="Popular Searches">Specials</a></li>
                             <li class="last"><a href="#" title="Where is my order?">Help Center</a></li>
                         </ul>
@@ -70,7 +70,7 @@
                     <div class="module-body">
                         <ul class='list-unstyled'>
                             <li class="first"><a title="Your Account" href="#">About us</a></li>
-                            <li><a title="Information" href="#">Customer Service</a></li>
+                            <li><a title="Information" href="{{ route('site.help-center') }}">Customer Service</a></li>
                             <li><a title="Addresses" href="#">Company</a></li>
                             <li><a title="Addresses" href="#">Investor Relations</a></li>
                             <li class="last"><a title="Orders History" href="#">Advanced Search</a></li>
@@ -89,7 +89,7 @@
                             <li><a href="#" title="Blog">Blog</a></li>
                             <li><a href="#" title="Company">Company</a></li>
                             <li><a href="#" title="Investor Relations">Investor Relations</a></li>
-                            <li class=" last"><a href="contact-us.html" title="Suppliers">Contact Us</a></li>
+                            <li class=" last"><a href="{{ route('site.contact-us') }}" title="Live Support">Contact Us</a></li>
                         </ul>
                     </div><!-- /.module-body -->
                 </div>

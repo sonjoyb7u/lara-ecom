@@ -50,6 +50,8 @@
 
 @includeIf('site.components.partials.header')
 
+@yield('breadcrumb')
+
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
     <div class="container">
 
@@ -99,7 +101,7 @@
     <script src="{{ asset('assets/site/plugins/toastr/js/toastr.min.js') }}"></script>
     {!! Toastr::message() !!}
     <script src="{{ asset('assets/site/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
-    // Gobally Handle Toastr Message js...
+{{--    Gobally Handle Toastr Message js...--}}
     <script>
         // Toastr Message generate js...
         @if ($errors->any())

@@ -2,6 +2,33 @@
 
 @section('title', 'Product Detail | Lara-Ecomm')
 
+@section('breadcrumb')
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    @if($product_detail->sub_category_id != null)
+                        <li><a href="#">Home</a></li>
+                        <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $product_detail->category->category_slug) }}">{{ $product_detail->category->category_slug }}</a></li>
+                        <li class='{{ request()->is('sub-category/*') ? 'active' : '' }}'>
+                            <a href="{{ route('site.sub-category', $product_detail->subCategory->sub_category_slug) }}" >
+                                {{ $product_detail->subCategory->sub_category_slug }}
+                            </a>
+                        </li>
+                        <li class='{{ request()->is('product-detail/*') ? 'active' : '' }}'><a href="{{ route('site.product-detail', $product_detail->slug) }}">{{ $product_detail->slug }}</a></li>
+                    @else
+                        <li><a href="#">Home</a></li>
+                        <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $product_detail->category->category_slug) }}">{{ $product_detail->category->category_slug }}</a></li>
+                        <li class='{{ request()->is('product-detail/*') ? 'active' : '' }}'><a href="{{ route('site.product-detail', $product_detail->slug) }}">{{ $product_detail->slug }}</a></li>
+                    @endif
+                </ul>
+            </div>
+            <!-- /.breadcrumb-inner -->
+        </div>
+        <!-- /.container -->
+    </div>
+@endsection
+
 @section('left-sidebar')
 <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
     <!-- ==================== SIDEBAR ======================= -->
@@ -32,31 +59,6 @@
 
 @section('content')
 <div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
-    <div class="breadcrumb">
-        <div class="container">
-            <div class="breadcrumb-inner">
-                <ul class="list-inline list-unstyled">
-                    @if($product_detail->sub_category_id != null)
-                    <li><a href="#">Home</a></li>
-                    <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $product_detail->category->category_slug) }}">{{ $product_detail->category->category_slug }}</a></li>
-                    <li class='{{ request()->is('sub-category/*') ? 'active' : '' }}'>
-                        <a href="{{ route('site.sub-category', $product_detail->subCategory->sub_category_slug) }}" >
-                            {{ $product_detail->subCategory->sub_category_slug }}
-                        </a>
-                    </li>
-                    <li class='{{ request()->is('product-detail/*') ? 'active' : '' }}'><a href="{{ route('site.product-detail', $product_detail->slug) }}">{{ $product_detail->slug }}</a></li>
-                    @else
-                        <li><a href="#">Home</a></li>
-                        <li class='{{ request()->is('category/*') ? 'active' : '' }}'><a href="{{ route('site.category', $product_detail->category->category_slug) }}">{{ $product_detail->category->category_slug }}</a></li>
-                        <li class='{{ request()->is('product-detail/*') ? 'active' : '' }}'><a href="{{ route('site.product-detail', $product_detail->slug) }}">{{ $product_detail->slug }}</a></li>
-                    @endif
-                </ul>
-            </div>
-            <!-- /.breadcrumb-inner -->
-        </div>
-        <!-- /.container -->
-    </div>
-
     <!-- /.Product Detail... -->
     <div class="detail-block">
         <div class="row  wow fadeInUp">

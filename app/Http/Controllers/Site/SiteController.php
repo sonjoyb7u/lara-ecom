@@ -196,5 +196,23 @@ class SiteController extends Controller
 
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function faqContent() {
+        return view('site.components.partials.faq');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function helpCenterContent() {
+        return view('site.components.partials.help-center');
+    }
+
+    public function contactUs() {
+        return view('site.pages.contact-us');
+    }
+
 
 }
