@@ -219,19 +219,19 @@ class SiteController extends Controller
     }
 
     public function sendMail(ContactUsRequest $request) {
-        $from_email = config("mail.from['address']", $request->email);
+//        $from_email = config("mail.from['address']", $request->email);
 //        return $from_email;
 
         $contact_us_info_detail = [
             'name' => $request->name,
-            'email' => $from_email,
+            'email' => $request->email,
             'subject' => $request->subject,
             'phone' => $request->phone,
             'message' => $request->message,
         ];
 //        return $contact_us_info_detail;
 
-        Mail::to($request->to)->send(new ContactUsMail($contact_us_info_detail));
+        Mail::to('sonjoy.profile@gmail.com')->send(new ContactUsMail($contact_us_info_detail));
 
         getMessage('success', 'Success, Your Message Has Been Sent Success. We Contact You Soon.');
 //        Toastr::success('Your Message Has Been Sent Success. We Contact You Soon.', 'Success');

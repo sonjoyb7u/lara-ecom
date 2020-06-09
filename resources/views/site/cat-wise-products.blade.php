@@ -176,7 +176,7 @@
                                                             </form>
                                                         </li>
                                                         <li class="lnk wishlist"> <a class="add-to-cart" href="#" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-                                                        <li class="lnk"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="Compare"> <i class="fa fa-eye"></i> </a> </li>
+                                                        <li class="lnk"> <a class="add-to-cart" href="{{ route('site.product-detail', $product->slug) }}" title="View"> <i class="fa fa-eye"></i> </a> </li>
                                                     </ul>
                                                 </div>
                                                 <!-- /.action -->

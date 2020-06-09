@@ -35,6 +35,7 @@ Route::namespace('Site')->name('site.')->group(function () {
     Route::group(['prefix'=>'cart', 'namespace'=>'Cart', 'as'=>'cart.'], function () {
         Route::get('show', 'CartController@index')->name('show');
         Route::post('add', 'CartController@addCart')->name('add');
+        Route::post('add-single-product-cart', 'CartController@addSingleProductCart')->name('add-single-product-cart');
         Route::post('delete', 'CartController@deleteCart')->name('delete');
         Route::post('update', 'CartController@updateCart')->name('update');
 //        Route::post('update-grand-totel-price', 'CartController@updateGrandTotalPrice');

@@ -158,7 +158,7 @@
                                     <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Wishlist" href="#">
                                         <i class="fa fa-heart"></i>
                                     </a>
-                                    <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Add to Compare" href="{{ route('site.product-detail', $product_detail->slug) }}">
+                                    <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Add to Compare" href="#">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="E-mail" href="#">
@@ -169,6 +169,10 @@
 
                         </div><!-- /.row -->
                     </div><!-- /.price-container -->
+
+                    <form action="{{ route('site.cart.add-single-product-cart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="slug" value="{{ $product_detail->slug }}">
 
                     <div class="quantity-container info-container">
                         <div class="row">
@@ -184,18 +188,22 @@
                                             <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
                                             <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
                                         </div>
-                                        <input type="text" value="1">
+                                        <input type="text" name="quantity" value="{{ $product_detail->quantity }}">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-7">
-                                <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+                                <input type="hidden" name="slug" value="{{ $product_detail->slug }}">
+                                <button class="btn btn-primary icon" type="submit">ADD TO CART</button>
+{{--                                <a href="" class="btn btn-primary" type="submit"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>--}}
                             </div>
 
 
                         </div><!-- /.row -->
                     </div><!-- /.quantity-container -->
+
+                    </form>
 
 
 
