@@ -5759,7 +5759,7 @@ age-container #owl-main .owl-next {
 .body-content .sign-in-page .sign-in .social-sign-in a:hover,
 .body-content .sign-in-page .sign-in .social-sign-in a:focus {
   border-radius: 3px;
-  padding: 14px 30px;
+  padding: 12px 7px;
   font-size: 15px;
   display: inline-block;
   color: #fff;
@@ -5768,9 +5768,17 @@ age-container #owl-main .owl-next {
 .body-content .sign-in-page .sign-in .social-sign-in a i {
   padding-right: 6px;
 }
+.body-content .sign-in-page .sign-in .social-sign-in .google-sign-in {
+    background-color: #21A34D;
+    /*margin-right: 10px;*/
+}
 .body-content .sign-in-page .sign-in .social-sign-in .facebook-sign-in {
   background-color: #3d5c98;
-  margin-right: 10px;
+  /*margin-right: 10px;*/
+}
+.body-content .sign-in-page .sign-in .social-sign-in .google-sign-in-sign-in:hover,
+.body-content .sign-in-page .sign-in .social-sign-in .google-sign-in:focus {
+    background-color: #3DA955;
 }
 .body-content .sign-in-page .sign-in .social-sign-in .facebook-sign-in:hover,
 .body-content .sign-in-page .sign-in .social-sign-in .facebook-sign-in:focus {

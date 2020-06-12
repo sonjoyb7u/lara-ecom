@@ -40,9 +40,21 @@ Route::namespace('Site')->name('site.')->group(function () {
         Route::post('update', 'CartController@updateCart')->name('update');
 //        Route::post('update-grand-totel-price', 'CartController@updateGrandTotalPrice');
     });
+    // CHECKOUT show route...
+    Route::get('checkout', 'Checkout\CheckoutController@index')->name('checkout');
+    Route::post('customer-register', 'Checkout\CheckoutController@customerRegister')->name('customer.register');
+    Route::get('customer-account-verify', 'Checkout\CheckoutController@customerAccountVerify')->name('customer.account.verify');
+    Route::post('check-account-verify', 'Checkout\CheckoutController@checkAccountVerify')->name('check.account.verify');
+    Route::get('checkout/customer-shipping', 'Checkout\CheckoutController@checkoutCustomerShipping')->name('checkout.customer-shipping');
+    Route::post('checkout/customer-shipping', 'Checkout\CheckoutController@checkoutCustomerShippingInfo')->name('checkout.customer-shipping.info');
+    Route::get('checkout/customer-payment', 'Checkout\CheckoutController@checkoutCustomerPayment')->name('checkout.customer-payment');
+    Route::post('checkout/customer-payment', 'Checkout\CheckoutController@checkoutCustomerPaymentInfo')->name('checkout.customer-payment.info');
     // CONTACT US Content show route...
     Route::get('contact-us', 'SiteController@contactUs')->name('contact-us');
     Route::post('contact-us/send-mail', 'SiteController@sendMail')->name('contact-us.send-mail');
+
+    // NEWSLETTER/SUBSCRIBER show route...
+    Route::resource('newsletter-subscriber','Newsletter\NewsletterSubscriberController');
 
     // Sending mail Just For Testing purpose route...
     Route::get('send-mail', function () {
