@@ -208,7 +208,7 @@ class SiteController extends Controller
      */
     public function faq()
     {
-        return view('site.pages.faq');
+        return view('site.page-error.faq');
     }
 
     /**
@@ -216,12 +216,12 @@ class SiteController extends Controller
      */
     public function termsCondition()
     {
-        return view('site.pages.terms-condition');
+        return view('site.page-error.terms-condition');
     }
 
     public function contactUs()
     {
-        return view('site.pages.contact-us');
+        return view('site.page-error.contact-us');
     }
 
     public function sendMail(ContactUsRequest $request)

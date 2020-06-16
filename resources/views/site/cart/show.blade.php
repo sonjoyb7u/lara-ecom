@@ -209,7 +209,7 @@
                     <tr>
                         <td>
                             <div class="cart-checkout-btn pull-right">
-                                <a href="{{ route('site.checkout') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+                                <a href="{{ route('site.checkout.login') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
                                 <span class="">Checkout with multiples address!</span>
                             </div>
                         </td>
@@ -227,6 +227,16 @@
 
 @push('js')
     <script>
+        // Toastr Message generate js...
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+            toastr.error('{{ $error }}', 'Error', {
+                closeButton: true,
+                progressBar: true,
+            });
+            @endforeach
+        @endif
+
         // DELETE CART ITEM FROM CART LIST using Sweetalert package js...
         function deleteCartItem(id) {
             const swalWithBootstrapButtons = Swal.mixin({

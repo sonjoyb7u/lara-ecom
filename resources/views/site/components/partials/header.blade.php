@@ -5,11 +5,37 @@
             <div class="header-top-inner">
                 <div class="cnt-account">
                     <ul class="list-unstyled">
-                        <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
                         <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                        <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
-                        <li><a href="#"><i class="icon fa fa-lock"></i>Login</a></li>
+                        @if(Session::get('customer_id'))
+                        <li><a href="{{ route('site.checkout.customer-shipping') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        @endif
+                        @if(Cart::getTotalQuantity() > 0)
+                        <li><a href="{{ route('site.cart.show') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                        @endif
+                        @if(!empty(Session::get('customer_id')))
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon fa fa-user"></i>{{ Session::get('customer_name') }}<span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="padding: 15px;">
+                                <a href="#" style="color: #000; display: block; margin-bottom: 10px;"><i class="fa fa-user"></i>&nbsp;Profile
+                                </a>
+                                <div class="divider"></div>
+                                <a href="{{ route('site.customer.logout') }}" onclick="event.preventDefault(); document.getElementById('customer-logout-form').submit();" style="color: #000;">
+                                    <i class="fa fa-sign-out"></i>&nbsp;Logout
+                                </a>
+                                <form id="customer-logout-form" action="{{ route('site.customer.logout') }}" method="POST" style="display: none;">
+                                    @csrf
+
+                                </form>
+
+                            </div>
+                        </li>
+                        @else
+                        <li><a href="{{ route('site.customer.login') }}"><i class="icon fa fa-lock"></i>Login</a></li>
+                        <li><a href="{{ route('site.customer.register') }}"><i class="icon fa fa-registered"></i>Register</a></li>
+                        @endif
+
                     </ul>
                 </div><!-- /.cnt-account -->
 

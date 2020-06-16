@@ -187,3 +187,17 @@
 
     </div><!-- /.tab-content -->
 </div><!-- /.scroll-tabs -->
+
+@push('js')
+    <script>
+        // Toastr Message generate js...
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        toastr.error('{{ $error }}', 'Error', {
+            closeButton: true,
+            progressBar: true,
+        });
+        @endforeach
+        @endif
+    </script>
+@endpush

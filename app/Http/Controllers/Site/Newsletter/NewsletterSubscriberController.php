@@ -25,7 +25,7 @@ class NewsletterSubscriberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -38,32 +38,55 @@ class NewsletterSubscriberController extends Controller
      */
     public function store(Request $request)
     {
+        //
+    }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function checkSubscriber(Request $request) {
         if($request->ajax()) {
             $email = $request->email;
-            $check_email = [];
-            $check_email[] = NewsletterSubscriber::where('email', $email)
-                                                ->where('status', NewsletterSubscriber::STATUS_ACTIVE)->first();
-            if(count($check_email) > 0) {
-                return 'Sorry! You have already been subscribed!';
-
-            } else {
-                return 'Thanks For Subscribe With Us.';
+            $check_email = NewsletterSubscriber::where('email', $email)
+                ->where('status', NewsletterSubscriber::STATUS_ACTIVE)->count();
+            if($check_email > 0) {
+                Toastr::error('Sorry! This email already been subscribed!', 'Exists');
+                return 'exists';
 
             }
 
 
         }
+    }
 
-//        if ( ! Newsletter::isSubscribed($request->email) )
-//        {
-//            Newsletter::subscribePending($request->email);
-//            Toastr::success('Thanks For Subscribe With Us.', 'Success');
-//            return redirect()->back();
-//        }
-//
-//        Toastr::error('Sorry! You have already subscribed!', 'Error');
-        return redirect()->back();
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function addSubscriber(Request $request) {
+        if($request->ajax()) {
+            $email = $request->email;
+            $check_email = NewsletterSubscriber::where('email', $email)
+                ->where('status', NewsletterSubscriber::STATUS_ACTIVE)->count();
+            if($check_email > 0) {
+                Toastr::error('Sorry! This email already been subscribed!', 'Exists');
+                return 'exists';
 
+            } else {
+                $new_email = [
+                    'email' => $email,
+                    'status' => 0,
+                ];
+                $add_email = NewsletterSubscriber::create($new_email);
+                if($add_email) {
+                    Toastr::error('Wow, Thanks for subscribed.', 'Success');
+                    echo 'saved';
+                }
+            }
+
+
+        }
     }
 
     /**

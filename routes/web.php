@@ -40,21 +40,34 @@ Route::namespace('Site')->name('site.')->group(function () {
         Route::post('update', 'CartController@updateCart')->name('update');
 //        Route::post('update-grand-totel-price', 'CartController@updateGrandTotalPrice');
     });
+
     // CHECKOUT show route...
-    Route::get('checkout', 'Checkout\CheckoutController@index')->name('checkout');
-    Route::post('customer-register', 'Checkout\CheckoutController@customerRegister')->name('customer.register');
-    Route::get('customer-account-verify', 'Checkout\CheckoutController@customerAccountVerify')->name('customer.account.verify');
-    Route::post('check-account-verify', 'Checkout\CheckoutController@checkAccountVerify')->name('check.account.verify');
-    Route::get('checkout/customer-shipping', 'Checkout\CheckoutController@checkoutCustomerShipping')->name('checkout.customer-shipping');
-    Route::post('checkout/customer-shipping', 'Checkout\CheckoutController@checkoutCustomerShippingInfo')->name('checkout.customer-shipping.info');
-    Route::get('checkout/customer-payment', 'Checkout\CheckoutController@checkoutCustomerPayment')->name('checkout.customer-payment');
-    Route::post('checkout/customer-payment', 'Checkout\CheckoutController@checkoutCustomerPaymentInfo')->name('checkout.customer-payment.info');
+    Route::get('checkout/login', 'Checkout\CheckoutController@checkoutLogin')->name('checkout.login');
+    Route::post('checkout/login', 'Checkout\CheckoutController@processLogin')->name('checkout.login');
+    Route::get('checkout/register', 'Checkout\CheckoutController@checkoutRegister')->name('checkout.register');
+    Route::post('checkout/register', 'Checkout\CheckoutController@processRegister')->name('customer.register');
+    Route::get('checkout/account/verify', 'Checkout\CheckoutController@checkoutCustomerAccountVerify')->name('checkout.account.verify');
+    Route::post('checkout/account/verify', 'Checkout\CheckoutController@processCheckoutCustomerAccountVerify')->name('checkout.account.verify');
+    Route::get('checkout/shipping', 'Checkout\CheckoutController@checkoutCustomerShipping')->name('checkout.customer-shipping');
+    Route::post('checkout/shipping', 'Checkout\CheckoutController@checkoutCustomerShippingInfo')->name('checkout.customer-shipping.info');
+    Route::get('checkout/payment', 'Checkout\CheckoutController@checkoutCustomerPayment')->name('checkout.customer-payment');
+    Route::post('checkout/order', 'Checkout\CheckoutController@checkoutCustomerOrder')->name('checkout.customer-order');
+
+    //CUSTOMER/VISITOR LOGIN-REGISTER show route...
+    Route::get('customer/login', 'Customer\CustomerController@customerLogin')->name('customer.login');
+    Route::post('customer/login', 'Customer\CustomerController@processLogin')->name('customer.login');
+    Route::get('customer/register', 'Customer\CustomerController@customerRegister')->name('customer.register');
+    Route::post('customer/register', 'Customer\CustomerController@processRegister')->name('customer.register');
+    Route::get('account-verify', 'Customer\CustomerController@customerAccountVerify')->name('customer.account.verify');
+    Route::post('check-account-verify', 'Customer\CustomerController@checkAccountVerify')->name('check.account.verify');
+    Route::post('customer/logout', 'Customer\CustomerController@processLogout')->name('customer.logout');
+
     // CONTACT US Content show route...
     Route::get('contact-us', 'SiteController@contactUs')->name('contact-us');
     Route::post('contact-us/send-mail', 'SiteController@sendMail')->name('contact-us.send-mail');
-
-    // NEWSLETTER/SUBSCRIBER show route...
-    Route::resource('newsletter-subscriber','Newsletter\NewsletterSubscriberController');
+    // NEWSLETTER-SUBSCRIBER show route...
+    Route::post('check-subscriber','Newsletter\NewsletterSubscriberController@checkSubscriber');
+    Route::post('add-subscriber','Newsletter\NewsletterSubscriberController@addSubscriber');
 
     // Sending mail Just For Testing purpose route...
     Route::get('send-mail', function () {

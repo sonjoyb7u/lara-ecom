@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Models\Brand;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -50,6 +51,41 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($this->isHttpException($exception)) {
+            $code = $exception->getStatusCode();
+            if($code == '403') {
+                $brands = Brand::where('level', Brand::TOP_BRAND)
+                    ->where('status', Brand::ACTIVE_BRAND)
+                    ->get();
+                // (404)Page Not Found...
+                return Response()->view('page-error.403', compact('brands'));
+
+            } elseif($code == '404') {
+                $brands = Brand::where('level', Brand::TOP_BRAND)
+                    ->where('status', Brand::ACTIVE_BRAND)
+                    ->get();
+                // (403)Not Authorized/Forbidden...
+                return Response()->view('page-error.404', compact('brands'));
+
+            } elseif($code == '500') {
+                $brands = Brand::where('level', Brand::TOP_BRAND)
+                    ->where('status', Brand::ACTIVE_BRAND)
+                    ->get();
+                // (500)Internal/Server Error...
+                return Response()->view('page-error.500', compact('brands'));
+
+            } else {
+                $brands = Brand::where('level', Brand::TOP_BRAND)
+                    ->where('status', Brand::ACTIVE_BRAND)
+                    ->get();
+                // Normal Error...
+                return Response()->view('page-error.normal-error', compact('brands'));
+            }
+
+        }
         return parent::render($request, $exception);
+
     }
+
+
 }

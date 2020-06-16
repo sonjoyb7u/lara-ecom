@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 class CartController extends Controller
@@ -49,8 +50,16 @@ class CartController extends Controller
     public function index() {
 //        $cart_item = \Cart::getContent();
 //        return $cart_item;
+        $customer_id = Session::get('customer_id');
+        if($customer_id === 1) {
+            $redirect = view('site.cart.show');
 
-        return view('site.cart.show');
+        } else {
+            $redirect = redirect()->back();
+        }
+
+        return $redirect;
+
     }
 
     /**

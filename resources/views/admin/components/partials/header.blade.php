@@ -43,7 +43,7 @@
         <div class="header-separator"></div>
         <!--Log out -->
         <div class="header-section">
-                <a href="{{ route('logout') }}" data-toggle="tooltip" data-placement="left" title="Logout"   onclick="event.preventDefault();
+                <a href="{{ route('logout') }}" data-toggle="tooltip" data-placement="left" title="Logout" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out log-out" aria-hidden="true"></i>
                 </a>

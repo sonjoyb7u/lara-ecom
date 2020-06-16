@@ -84,7 +84,7 @@
 @includeIf('site.components.partials.footer')
 
 
-    <!-- JavaScripts placed at the end of the document so the pages load faster -->
+    <!-- JavaScripts placed at the end of the document so the page-error load faster -->
     <script src="{{ asset('assets/site/js/jquery-1.11.1.min.js') }}"></script>
     <script src="{{ asset('assets/site/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/site/js/bootstrap-hover-dropdown.min.js') }}"></script>
@@ -104,14 +104,14 @@
     {{-- Gobally Handle Toastr Message js... --}}
     <script>
         // Toastr Message generate js...
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-            toastr.error('{{ $error }}', 'Error', {
-                closeButton: true,
-                progressBar: true,
-            });
-            @endforeach
-        @endif
+{{--        @if ($errors->any())--}}
+{{--            @foreach ($errors->all() as $error)--}}
+{{--            toastr.error('{{ $error }}', 'Error', {--}}
+{{--                closeButton: true,--}}
+{{--                progressBar: true,--}}
+{{--            });--}}
+{{--            @endforeach--}}
+{{--        @endif--}}
     </script>
 
     @stack('js')

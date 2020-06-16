@@ -1,14 +1,22 @@
 @extends('site.components.site-master')
 
-@section('title', 'Checkout | Lara-Ecomm')
+@section('title', 'Checkout Register | Lara-Ecomm')
+
+@push('css')
+    <style>
+        .create-new-account {
+            padding: 30px;
+        }
+    </style>
+@endpush
 
 @section('breadcrumb')
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li class='{{ request()->is('checkout') ? 'active' : '' }}'><a href="{{ route('site.checkout') }}">Checkout</a></li>
+                    <li><a href="{{ route('site.index') }}">Home</a></li>
+                    <li class='{{ request()->is('customer/register') ? 'active' : '' }}'><a href="{{ route('site.checkout.register') }}">Customer Register</a></li>
                 </ul>
             </div>
             <!-- /.breadcrumb-inner -->
@@ -18,39 +26,12 @@
 @endsection
 
 @section('content')
-    <div class="sign-in-page">
-        <div class="row">
-            <!-- Sign-in -->
-            <div class="col-md-6 col-sm-6 sign-in">
-                <h4 class="">Sign in</h4>
-                <p class="">Hello, Welcome to your Login Info.</p>
-                <div class="social-sign-in outer-top-xs">
-                    <a href="#" class="google-sign-in"><i class="fa fa-google"></i> Sign In with Google</a>
-                    <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
-                    <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
-                </div>
-                <form class="register-form outer-top-xs" role="form">
-                    <div class="form-group">
-                        <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-                        <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" >
-                    </div>
-                    <div class="form-group">
-                        <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-                        <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" >
-                    </div>
-                    <div class="radio outer-xs">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Remember me!
-                        </label>
-                        <a href="#" class="forgot-password pull-right">Forgot your Password?</a>
-                    </div>
-                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
-                </form>
-            </div>
-            <!-- Sign-in -->
 
-            <!-- create a new account -->
-            <div class="col-md-6 col-sm-6 create-new-account">
+    <!-- create a new account -->
+    <div class="col-md-6 col-sm-6 col-md-offset-3 sign-in-page">
+        <div class="row">
+
+            <div class="create-new-account">
                 <h4 class="checkout-subtitle">Create a new account</h4>
                 <p class="text title-tag-line">Create your new account.</p>
 
@@ -80,15 +61,31 @@
                         <input type="password" name="password_confirmation" class="form-control unicase-form-control text-input" id="password_confirmation" placeholder="Enter Confirm Password">
                     </div>
 
-                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button" style="margin-bottom: 20px;">Sign Up</button>
+                    <div>
+                        <a href="{{ route('site.customer.login') }}" class="forgot-password">Have an account, Please&nbsp;<span style="color: #59B210; font-weight: bold">Login</span></a>
+                    </div>
                 </form>
 
-
             </div>
-            <!-- create a new account -->
-        </div><!-- /.row -->
-    </div><!-- /.sigin-in-->
+        </div>
+    </div>
+    <!-- create a new account -->
 
 @endsection
 
+
+@push('js')
+    <script>
+        // Toastr Message generate js...
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        toastr.error('{{ $error }}', 'Error', {
+            closeButton: true,
+            progressBar: true,
+        });
+        @endforeach
+        @endif
+    </script>
+@endpush
 

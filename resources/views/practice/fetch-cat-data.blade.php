@@ -22,7 +22,7 @@
 
 
 
-<!-- JavaScripts placed at the end of the document so the pages load faster -->
+<!-- JavaScripts placed at the end of the document so the page-error load faster -->
 <script src="{{ asset('assets/site/js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ asset('assets/site/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/site/custom/custom.js') }}"></script>

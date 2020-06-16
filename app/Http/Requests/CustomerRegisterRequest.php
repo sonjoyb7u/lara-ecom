@@ -26,14 +26,14 @@ class CustomerRegisterRequest extends FormRequest
         if ($this->method() === 'PUT') {
             $rules = [
                 'name' => 'required|min:3|max:30',
-                'email' => 'required|unique:customers, email',
+                'email' => 'required|unique:customers,email',
                 'phone' => 'required|min:11|max:11',
                 'password' => 'required|min:6|max:25|required_with:password_confirmation|same:password_confirmation',
             ];
         } elseif ($this->method() === 'PATCH') {
             $rules = [
                 'name' => 'required|min:3|max:30',
-                'email' => 'required|unique:customers, email',
+                'email' => 'required|unique:customers,email',
                 'phone' => 'required|min:11|max:11',
                 'password' => 'required|min:6|max:25|required_with:password_confirmation|same:password_confirmation',
             ];
@@ -41,7 +41,7 @@ class CustomerRegisterRequest extends FormRequest
         } else {
             $rules = [
                 'name' => 'required|min:3|max:30',
-                'email' => 'required|unique:customers, email',
+                'email' => 'required|unique:customers,email',
                 'phone' => 'required|min:11|max:11',
                 'password' => 'required|min:6|max:25|required_with:password_confirmation|same:password_confirmation',
 //                'address' => 'required|max:255',

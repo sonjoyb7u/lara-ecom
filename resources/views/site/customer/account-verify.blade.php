@@ -29,7 +29,7 @@
                 <h4 class="">Account Verification Form</h4>
                 <p class="">Hello, Welcome to input verify your account.</p>
 
-                <form class="register-form outer-top-xs" role="form" action="{{ route('site.check.account.verify') }}" method="post">
+                <form class="register-form outer-top-xs" role="form" action="{{ route('site.checkout.account.verify') }}" method="post">
                     @csrf
 
                     <div class="form-group">
@@ -41,7 +41,7 @@
                         <input type="number" name="verify_code" class="form-control unicase-form-control text-input" id="verify_code" placeholder="Enter Valid Verify Code">
                     </div>
 
-                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Verified Now</button>
+                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Verify Your Account</button>
                 </form>
             </div>
             <!-- Sign-in -->
@@ -50,6 +50,21 @@
     </div><!-- /.sigin-in-->
 
 @endsection
+
+
+@push('js')
+    <script>
+        // Toastr Message generate js...
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        toastr.error('{{ $error }}', 'Error', {
+            closeButton: true,
+            progressBar: true,
+        });
+        @endforeach
+        @endif
+    </script>
+@endpush
 
 
 

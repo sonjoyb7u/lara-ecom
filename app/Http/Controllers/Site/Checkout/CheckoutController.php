@@ -8,8 +8,13 @@ use App\Mail\WelcomeCustomer;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Shipping;
+use Brian2694\Toastr\Facades\Toastr;
+use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -17,6 +22,9 @@ use Illuminate\Support\Facades\View;
 
 class CheckoutController extends Controller
 {
+    /**
+     * CheckoutController constructor.
+     */
     public function __construct()
     {
         $brands = Brand::where('level', Brand::TOP_BRAND)
@@ -26,12 +34,50 @@ class CheckoutController extends Controller
         View::share(['brands' => $brands]);
     }
 
-    public function index()
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function checkoutLogin()
     {
-        return view('site.checkout.index');
+        $customer_id = Session::get('customer_id');
+        if(\Cart::getTotalQuantity() < 1 && !$customer_id) {
+            $redirect = redirect()->route('site.index');
+
+        } elseif($customer_id && \Cart::getTotalQuantity() > 0) {
+            $redirect = redirect()->route('site.checkout.customer-shipping.info');
+
+        } else {
+            $redirect = view('site.checkout.login');
+        }
+        return $redirect;
     }
 
-    public function customerRegister(CustomerRegisterRequest $request)
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function checkoutRegister()
+    {
+        $customer_id = Session::get('customer_id');
+        if(\Cart::getTotalQuantity() < 1 && !$customer_id) {
+            $redirect = redirect()->route('site.index');
+
+        } elseif($customer_id && \Cart::getTotalQuantity() > 0) {
+            $redirect = redirect()->route('site.checkout.customer-shipping.info');
+
+        } else {
+            $redirect = view('site.checkout.register');
+        }
+
+        return $redirect;
+
+    }
+
+    /**
+     * @param CustomerRegisterRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function processRegister(CustomerRegisterRequest $request)
     {
         $verify_code = random_int(10000, 90000);
         $customer_detail = [
@@ -54,18 +100,34 @@ class CheckoutController extends Controller
         ];
 
         Mail::to($customer->email)->send(new WelcomeCustomer($customer_info));
-        getMessage('success', 'Your Account has been successfully created, please check your mail to confirm.');
+        getMessage('success', 'Your Account has been successfully created, please check your email and enter verification code to active your account.');
         return redirect()->route('site.customer.account.verify');
 
 
     }
 
-    public function customerAccountVerify()
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function checkoutCustomerAccountVerify()
     {
-        return view('site.customer.account-verify');
+        $customer_id = Session::get('customer_id');
+        if($customer_id) {
+            return view('site.customer.account-verify');
+        } else {
+            return redirect()->back();
+        }
+
+
+
     }
 
-    public function checkAccountVerify(Request $request)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function processCheckoutCustomerAccountVerify(Request $request)
     {
         $this->validate($request, [
             'email' => 'required',
@@ -84,13 +146,60 @@ class CheckoutController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function processLogin(Request $request) {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required|min:6|max:25',
+        ], [
+            'email.required' => 'Email field must be filled out!',
+            'password.required' => 'Password field must be filled out!',
+            'password.min:6' => 'Mobile Number must be 6 Character\'s',
+            'password.max:25' => 'Mobile Number must be less than 26 Character\'s',
+        ]);
+
+        $customer_detail = Customer::where('email', $request->email)->select('id', 'name', 'email', 'password')->first();
+        if($customer_detail) {
+            if(password_verify($request->password, $customer_detail->password)) {
+                Session::put('customer_id', $customer_detail->id);
+                Session::put('customer_name', $customer_detail->name);
+                return redirect()->route('site.checkout.customer-shipping');
+
+            } else {
+                getMessage('danger', 'This Credential password is invalid!');
+                return redirect()->back();
+            }
+
+        } else {
+            getMessage('danger', 'This Credentials do not matched!');
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function checkoutCustomerShipping()
     {
         $customer_id = Session::get('customer_id');
-        $customer_info = Customer::find($customer_id)->select('name', 'email', 'phone')->first();
-        return view('site.checkout.customer-shipping', compact('customer_info'));
+        if($customer_id) {
+            $customer_info = Customer::find($customer_id)->select('id', 'name', 'email', 'phone')->first();
+            return view('site.checkout.customer-shipping', compact('customer_info'));
+        } else {
+            return redirect()->back();
+        }
+
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function checkoutCustomerShippingInfo(Request $request)
     {
         $this->validate($request, [
@@ -112,8 +221,89 @@ class CheckoutController extends Controller
         return redirect()->route('site.checkout.customer-payment');
     }
 
-    public function checkoutCustomerPayment() {
-        return view('site.checkout.customer-payment');
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function checkoutCustomerPayment()
+    {
+        $customer_id = Session::get('customer_id');
+        if($customer_id) {
+            return view('site.checkout.customer-payment');
+
+        } else {
+            return redirect()->back();
+        }
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function checkoutCustomerOrder(Request $request)
+    {
+        $customer_id = Session::get('customer_id');
+//        dd($request->isMethod('POST'));
+        if($request->isMethod('POST') && $customer_id) {
+            $order_info = $this->insertOrder();
+            $customer_detail = Customer::where('id', $order_info->customer_id)->first();
+//        return $customer_detail;
+
+            Payment::create([
+                'order_id' => $order_info->id,
+                'type' => $request->type,
+            ]);
+
+            $this->insertOrderItems($order_info->id);
+            $order_item_details = OrderItem::where('order_id', $order_info->id)->get();
+//        return $order_item_details;
+            $cart_total_qty = \Cart::getTotalQuantity();
+            $cart_total_price = \Cart::getTotal();
+
+            \Cart::clear();
+
+            Toastr::success('Your Order has been Submitted To Confirmed.', 'Success');
+            return view('site.checkout.order-success', compact('customer_detail', 'order_item_details', 'cart_total_qty', 'cart_total_price'));
+
+        } else {
+            return redirect()->back();
+        }
+
+
+
+    }
+
+    /**
+     * @return mixed
+     */
+    private function insertOrder()
+    {
+        $order_info = Order::create([
+            'customer_id' => Session::get('customer_id'),
+            'shipping_id' => Session::get('shipping_id'),
+            'total' => \Cart::getTotal(),
+
+        ]);
+
+        return $order_info;
+    }
+
+    /**
+     * @param $order_id
+     */
+    private function insertOrderItems($order_id)
+    {
+        foreach (\Cart::getContent() as $item) {
+            OrderItem::create([
+                'order_id' => $order_id,
+                'product_id' => $item->id,
+                'product_name' => $item->name,
+                'product_price' => $item->price,
+                'product_qty' => $item->quantity,
+            ]);
+
+        }
+
     }
 
 
