@@ -59,12 +59,20 @@
                         </ul>
                     </li>
 
-                    <!-- SLIDER SECTION -->
+                    <!-- PRODUCT SECTION -->
                     <li class="has-child-item {{ request()->is('super-admin/products','super-admin/products/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/products', 'admin/products/*') ? 'open-item active-item' : 'close-item' }}">
                         <a><i class="fa fa-cube" aria-hidden="true"></i><span>PRODUCT SECTION</span></a>
                         <ul class="nav child-nav level-1">
                             <li class="{{ request()->is('super-admin/products/create') ? 'active-item' : '' }} {{ request()->is('admin/products/create') ? 'active-item' : '' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.product.create') : route('admin.product.create') }}">Add Product</a></li>
                             <li  class="{{ request()->is('super-admin/products', 'super-admin/products/edit/*') ? 'active-item' : '' }} {{ request()->is('admin/products', 'admin/products/edit/*') ? 'active-item' : '' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.product.index') : route('admin.product.index') }}">Manage Products</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- ORDER SECTION -->
+                    <li class="has-child-item {{ request()->is('super-admin/orders','super-admin/orders/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/orders', 'admin/orders/*') ? 'open-item active-item' : 'close-item' }}">
+                        <a><i class="fa fa-cube" aria-hidden="true"></i><span>ORDER SECTION</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li  class="{{ request()->is('super-admin/orders', 'super-admin/orders/edit/*') ? 'active-item' : '' }} {{ request()->is('admin/orders', 'admin/orders/edit/*') ? 'active-item' : '' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.order.index') : route('admin.order.index') }}">Manage Orders</a></li>
                         </ul>
                     </li>
 

@@ -156,6 +156,15 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::get('create', 'ProductController@create')->name('create');
         Route::post('store/{user_id}', 'ProductController@store')->name('store');
     });
+
+    /**
+     * NORMAL ADMIN ORDERS route...
+     */
+    Route::prefix('orders')->namespace('Order')->name('order.')->group(function () {
+        Route::get('/', 'OrderController@index')->name('index');
+        Route::get('show', 'OrderController@show')->name('show');
+
+    });
 });
 
 /**
@@ -240,5 +249,18 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::post('update-sales-price', 'ProductController@updateSalesPrice');
         Route::get('update-special-price/{id}/{price}', 'ProductController@updateSpecialPrice');
         Route::get('update-offer-price/{id}/{price}', 'ProductController@updateOfferPrice');
+    });
+
+    /**
+     * SUPER ADMIN ORDERS route...
+     */
+    Route::prefix('orders')->namespace('Order')->name('order.')->group(function () {
+        Route::get('/', 'OrderController@index')->name('index');
+        Route::get('show', 'OrderController@show')->name('show');
+        Route::delete('delete/{order_id}', 'OrderController@destroy')->name('delete');
+        Route::get('edit/{order_id}', 'OrderController@edit')->name('edit');
+        Route::put('update/{order_id}/{customer_id}', 'OrderController@update')->name('update');
+        Route::get('status/{order_id}/{product_status}', 'OrderController@updateStatus')->name('status');
+
     });
 });
