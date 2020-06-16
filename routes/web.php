@@ -62,6 +62,9 @@ Route::namespace('Site')->name('site.')->group(function () {
     Route::post('check-account-verify', 'Customer\CustomerController@checkAccountVerify')->name('check.account.verify');
     Route::post('customer/logout', 'Customer\CustomerController@processLogout')->name('customer.logout');
 
+    // SEARCH FUNCTION PRODUCT show route...
+    Route::post('search/products', 'SiteController@searchProducts')->name('search.products');
+
     // CONTACT US Content show route...
     Route::get('contact-us', 'SiteController@contactUs')->name('contact-us');
     Route::post('contact-us/send-mail', 'SiteController@sendMail')->name('contact-us.send-mail');

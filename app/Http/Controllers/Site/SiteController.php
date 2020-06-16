@@ -73,16 +73,14 @@ class SiteController extends Controller
     {
         $brand_id = Brand::where('brand_slug', $slug)->pluck('id');
 //        return $brand_id;
-
         $brand = Brand::where('id', $brand_id)
             ->where('status', Brand::ACTIVE_BRAND)
             ->first();
 //        return $brand;
-
         $brand_wise_products = Product::where('brand_id', $brand_id)->get();
 //        return $brand_wise_products;
 
-        return view('site.brand-wise-products', compact('brand', 'brand_wise_products'));
+        return view('site.pages.brand-wise-products', compact('brand', 'brand_wise_products'));
 
     }
 
@@ -104,7 +102,7 @@ class SiteController extends Controller
             ->get();
 //        return $cat_wise_products;
 
-        return view('site.cat-wise-products', compact('category', 'cat_wise_products'));
+        return view('site.pages.cat-wise-products', compact('category', 'cat_wise_products'));
 
     }
 
@@ -121,7 +119,7 @@ class SiteController extends Controller
             ->first();
 //        return $sub_category;
 
-        return view('site.sub-cat-wise-products', compact('sub_cat_id', 'sub_category'));
+        return view('site.pages.sub-cat-wise-products', compact('sub_cat_id', 'sub_category'));
 
     }
 
@@ -147,7 +145,7 @@ class SiteController extends Controller
             }
 
         }
-        return view('site.load-sub-cat-grid-product', compact('products'));
+        return view('site.pages.load-sub-cat-grid-product', compact('products'));
     }
 
     /**
@@ -172,7 +170,7 @@ class SiteController extends Controller
             }
 
         }
-        return view('site.load-sub-cat-list-product', compact('products'));
+        return view('site.pages.load-sub-cat-list-product', compact('products'));
     }
 
     /**
@@ -199,7 +197,7 @@ class SiteController extends Controller
             ->get();
 //        return $related_subcat_products;
 
-        return view('site.product-detail', compact('product_detail', 'related_subcat_products'));
+        return view('site.pages.product-detail', compact('product_detail', 'related_subcat_products'));
 
     }
 
@@ -238,12 +236,25 @@ class SiteController extends Controller
         ];
 //        return $contact_us_info_detail;
 
-        Mail::to('sonjoy.profile@gmail.com')->send(new ContactUsMail($contact_us_info_detail));
+        Mail::to('lara.ecomm@gmail.com')->send(new ContactUsMail($contact_us_info_detail));
 
         getMessage('success', 'Success, Your Message Has Been Sent Success. We Contact You Soon.');
 //        Toastr::success('Your Message Has Been Sent Success. We Contact You Soon.', 'Success');
         return redirect()->back();
 
+    }
+
+    public function searchProducts(Request $request) {
+        if($request->isMethod('POST')) {
+            $search = $request->search;
+
+            $all_search_products = Product::where('title', 'LIKE', '%' . $search . '%')->orwhere('slug', 'LIKE', '%' . $search . '%')->orwhere('desc', 'LIKE', '%' . $search . '%')->orwhere('long_desc', 'LIKE', '%' . $search . '%')->orwhere('sales_price', $search)->orwhere('product_code', $search)->where('status', Product::ACTIVE_STATUS)->get();
+//            return $all_search_products;
+
+            return view('site.pages.search-products', compact('all_search_products'));
+
+
+        }
     }
 
 

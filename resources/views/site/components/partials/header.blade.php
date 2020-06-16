@@ -83,12 +83,12 @@
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        <form>
+                        <form action="{{ route('site.search.products') }}" method="post">
+                            @csrf
+
                             <div class="control-group">
-                                <input class="search-field" placeholder="Search here..." />
-
-                                <a class="search-button" href="#" ></a>
-
+                                <input class="search-field" name="search" placeholder="Search here..." />
+                                <button type="submit" class="search-button" ></button>
                             </div>
                         </form>
                     </div><!-- /.search-area -->
