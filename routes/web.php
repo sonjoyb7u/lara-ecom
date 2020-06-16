@@ -256,7 +256,7 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
      */
     Route::prefix('orders')->namespace('Order')->name('order.')->group(function () {
         Route::get('/', 'OrderController@index')->name('index');
-        Route::get('show', 'OrderController@show')->name('show');
+        Route::get('show/{order_id}', 'OrderController@show')->name('show');
         Route::delete('delete/{order_id}', 'OrderController@destroy')->name('delete');
         Route::get('edit/{order_id}', 'OrderController@edit')->name('edit');
         Route::put('update/{order_id}/{customer_id}', 'OrderController@update')->name('update');

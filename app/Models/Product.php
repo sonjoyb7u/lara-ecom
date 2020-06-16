@@ -33,4 +33,8 @@ class Product extends Model
     public function subCategory() {
         return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id')->where('status', SubCategory::ACTIVE_STATUS);
     }
+
+    public function orderItems() {
+        return $this->hasMany(Product::class);
+    }
 }
