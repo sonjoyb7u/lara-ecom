@@ -19,7 +19,7 @@ class ProductsTableSeeder extends Seeder
     {
         $product_faker = Faker\Factory::create();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 200) as $index) {
             $title = $product_faker->jobTitle;
             Product::create([
                 'user_id' => User::get()->random()->id,
@@ -32,8 +32,7 @@ class ProductsTableSeeder extends Seeder
                 'long_desc' => $product_faker->realText(),
                 'product_code' => randomCode(),
                 'product_model' => randomModel(),
-                'product_color' => randomColor(),
-                'product_size' => randomSize(),
+                'image' => randomImage(),
                 'gallery' => $product_faker->imageUrl(),
                 'product_video_url' => $product_faker->imageUrl(),
                 'quantity' => rand(1, 5),
@@ -48,10 +47,15 @@ class ProductsTableSeeder extends Seeder
 //                'offer_price' => rand(810, 1220),
 //                'offer_start' => $product_faker->dateTime(),
 //                'offer_end' => $product_faker->dateTime(),
-                'available' => randomProductAvailable(),
-                'status' => randomStatus(),
+                'is_featured' => randomIsFeatured(),
+                'is_new' => randomIsNew(),
+//                'available' => randomProductAvailable(),
+//                'status' => randomStatus(),
 
             ]);
         }
+
     }
+
+
 }

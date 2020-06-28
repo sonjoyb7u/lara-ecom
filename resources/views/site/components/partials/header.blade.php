@@ -6,31 +6,59 @@
                 <div class="cnt-account">
                     <ul class="list-unstyled">
                         <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                        @if(Session::get('customer_id'))
+                        @php
+                            $customer_id = Session::get('cuStOmArId');
+                            $customer_name = Session::get('cuStOmArNaMe');
+                        @endphp
+                        @if($customer_id && Cart::getTotalQuantity() > 0)
                         <li><a href="{{ route('site.checkout.customer-shipping') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
                         @endif
                         @if(Cart::getTotalQuantity() > 0)
-                        <li><a href="{{ route('site.cart.show') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        @endif
-                        @if(!empty(Session::get('customer_id')))
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="icon fa fa-user"></i>{{ Session::get('customer_name') }}<span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="padding: 15px;">
-                                <a href="#" style="color: #000; display: block; margin-bottom: 10px;"><i class="fa fa-user"></i>&nbsp;Profile
-                                </a>
-                                <div class="divider"></div>
-                                <a href="{{ route('site.customer.logout') }}" onclick="event.preventDefault(); document.getElementById('customer-logout-form').submit();" style="color: #000;">
-                                    <i class="fa fa-sign-out"></i>&nbsp;Logout
-                                </a>
-                                <form id="customer-logout-form" action="{{ route('site.customer.logout') }}" method="POST" style="display: none;">
-                                    @csrf
-
-                                </form>
-
-                            </div>
+                        <li class="dropdown dropdown-small">
+                            <a href="{{ route('site.cart.show') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a>
+{{--                            @if(!$customer_id)--}}
+{{--                            <ul class="dropdown-menu">--}}
+{{--                                <li><p class="text-center text-danger">Please Login!</p></li>--}}
+{{--                            </ul>--}}
+{{--                            @endif--}}
                         </li>
+                        @endif
+                        @if(!empty($customer_id))
+                        <li class="dropdown dropdown-small">
+                            <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value"><i class="fa fa-user"></i>&nbsp; {{ $customer_name }} </span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('site.customer.account', base64_encode($customer_id)) }}" style="color: #000;"><i class="fa fa-user"></i>&nbsp; My Account</a></li>
+                                <div class="divider"></div>
+                                <li>
+                                    <form id="customer-logout-form" action="{{ route('site.customer.logout') }}" method="POST" style="display: none;">
+                                        @csrf
+
+                                    </form>
+                                    <a href="{{ route('site.customer.logout') }}" onclick="event.preventDefault(); document.getElementById('customer-logout-form').submit();" style="color: #000;">
+                                        <i class="fa fa-sign-out"></i>&nbsp;Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+{{--                        <li class="dropdown">--}}
+{{--                            <a href="#" class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                <i class="icon fa fa-user"></i>{{ Session::get('customer_name') }}<span class="caret"></span>--}}
+{{--                            </a>--}}
+{{--                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="padding: 15px;">--}}
+{{--                                <a href="#" style="color: #000; display: block; margin-bottom: 10px;"><i class="fa fa-user"></i>&nbsp;Profile--}}
+{{--                                </a>--}}
+{{--                                <div class="divider"></div>--}}
+{{--                                <a href="{{ route('site.customer.logout') }}" onclick="event.preventDefault(); document.getElementById('customer-logout-form').submit();" style="color: #000;">--}}
+{{--                                    <i class="fa fa-sign-out"></i>&nbsp;Logout--}}
+{{--                                </a>--}}
+{{--                                <form id="customer-logout-form" action="{{ route('site.customer.logout') }}" method="POST" style="display: none;">--}}
+{{--                                    @csrf--}}
+
+{{--                                </form>--}}
+
+{{--                            </div>--}}
+{{--                        </li>--}}
+
                         @else
                         <li><a href="{{ route('site.customer.login') }}"><i class="icon fa fa-lock"></i>Login</a></li>
                         <li><a href="{{ route('site.customer.register') }}"><i class="icon fa fa-registered"></i>Register</a></li>
@@ -117,48 +145,53 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                @php($cart_items = \Cart::getContent())
-                                @if(!$cart_items->isEmpty())
-                                @foreach($cart_items as $item)
-                                <div class="cart-item product-summary">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <div class="image">
-                                                <a href="{{ route('site.product-detail', $item->attributes->slug) }}"><img src="{{ asset('uploads/images/product/images/'.$item->attributes->image) }}" alt="{{ $item->attributes->image }}"></a>
+                                @if(!empty(Cart::getTotalQuantity() > 0))
+                                    @php($cart_items = \Cart::getContent())
+                                    @if(!$cart_items->isEmpty())
+                                    @foreach($cart_items as $item)
+                                    <div class="cart-item product-summary">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="image">
+                                                    <a href="{{ route('site.product-detail', $item->attributes->slug) }}"><img src="{{ asset('uploads/images/product/images/'.$item->attributes->image) }}" alt="{{ $item->attributes->image }}"></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+
+                                                <h3 class="name"><a href="{{ route('site.product-detail', $item->attributes->slug) }}">{{ $item->name }}</a>&nbsp;&nbsp;<strong>({{ $item->quantity  }})</strong></h3>
+                                                <div class="price">&#2547;&nbsp;{{ $item->price * $item->quantity }}</div>
+                                            </div>
+                                            <div class="col-xs-1 action">
+                                                <form action="{{ route('site.cart.delete') }}" method="post" id="delete-form-cart-{{ $item->id }}">
+                                                    @csrf
+
+                                                    <input type="hidden" name="id" value="{{ $item->id }}">
+                                                </form>
+                                                <a style="cursor: pointer;" type="submit" onclick="deleteCartItem({{ $item->id }});"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </div>
-                                        <div class="col-xs-7">
-
-                                            <h3 class="name"><a href="{{ route('site.product-detail', $item->attributes->slug) }}">{{ $item->name }}</a>&nbsp;&nbsp;<strong>({{ $item->quantity  }})</strong></h3>
-                                            <div class="price">&#2547;&nbsp;{{ $item->price * $item->quantity }}</div>
-                                        </div>
-                                        <div class="col-xs-1 action">
-                                            <form action="{{ route('site.cart.delete') }}" method="post" id="delete-form-cart-{{ $item->id }}">
-                                                @csrf
-
-                                                <input type="hidden" name="id" value="{{ $item->id }}">
-                                            </form>
-                                            <a style="cursor: pointer;" type="submit" onclick="deleteCartItem({{ $item->id }});"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.cart-item -->
-                                @endforeach
-                                <div class="clearfix"></div>
-                                <hr>
-
-                                <div class="clearfix cart-total">
-                                    <div class="pull-right">
-
-                                        <span class="text">Sub Total :</span><span class='price'>&#2547;&nbsp;{{ Cart::getSubTotal() }}</span>
-
-                                    </div>
+                                    </div><!-- /.cart-item -->
+                                    @endforeach
                                     <div class="clearfix"></div>
-                                    <a href="{{ route('site.cart.show') }}" class="btn btn-upper btn-primary btn-sm m-t-20 pull-left">View Cart</a>
-                                    <a href="#" class="btn btn-upper btn-primary btn-sm m-t-20 pull-right">Checkout</a>
-                                </div><!-- /.cart-total-->
+                                    <hr>
+
+                                    <div class="clearfix cart-total">
+                                        <div class="pull-right">
+
+                                            <span class="text">Sub Total :</span><span class='price'>&#2547;&nbsp;{{ Cart::getSubTotal() }}</span>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <a href="{{ route('site.cart.show') }}" class="btn btn-upper btn-primary btn-sm m-t-20 pull-left">View Cart</a>
+                                        <a href="#" class="btn btn-upper btn-primary btn-sm m-t-20 pull-right">Checkout</a>
+                                    </div><!-- /.cart-total-->
+
+                                    @else
+                                        <p class="text-center text-danger">Your Cart Item is Empty</p>
+                                    @endif
 
                                 @else
-                                    <p class="text-center text-danger">Your Cart Item is Empty</p>
+                                    <p class="text-center text-danger">Please Login!</p>
                                 @endif
 
                             </li>
@@ -188,11 +221,11 @@
                     <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
-                                <li class="active dropdown yamm-fw">
+                                <li class="dropdown yamm-fw {{ request()->is('/') ? 'active' : '' }}">
                                     <a href="{{ route('site.index') }}">Home</a>
                                 </li>
                                 @foreach($brands as $brand)
-                                <li class="dropdown yamm mega-menu">
+                                <li class="yamm {{ request()->is('brand/'.$brand->brand_slug) ? 'active' : '' }}">
                                     <a href="{{ route('site.brand', $brand->brand_slug) }}" >{{ $brand->brand_name }}
 {{--                                        <span class="menu-label hot-menu hidden-xs">--}}
 {{--                                            {{ $brand->level === 'top' ? 'Hot' : 'New' }}--}}

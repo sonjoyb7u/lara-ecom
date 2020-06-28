@@ -1,12 +1,12 @@
 <div id="hero">
     <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
         @foreach($sliders as $slider)
-            @php
-                $slider_images = json_decode($slider->image);
-            @endphp
-            @foreach($slider_images as $slider_image)
-                <div class="item" style="background-image: url({{ asset('uploads/images/slider/'. $slider_image) }});">
-                    @endforeach
+{{--            @php--}}
+{{--                $slider_images = json_decode($slider->image);--}}
+{{--            @endphp--}}
+{{--            @foreach($slider_images as $slider_image)--}}
+                <div class="item" style="background-image: url({{ asset('uploads/images/slider/'. $slider->image) }});">
+{{--                    @endforeach--}}
                     <div class="container-fluid">
                         <div class="caption bg-color vertical-center text-left">
                             <div class="slider-header fadeInDown-1" style="color: #59B210;">{{ $slider->message }}</div>

@@ -15,17 +15,29 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker_category = Faker\Factory::create();
+        $categories = ["Groceries", "Mobiles & Tablets", "Computers & Laptops", "Bags & Travel", "Watches & Accessories", "Sports & Outdoors", "Men's Fashion", "Women's Fashion", "Home & Lifestyle", "Health & Beauty"];
 
-        foreach (range(1, 10) as $index) {
-            $category_name = $faker_category->name;
+        foreach ($categories as $category) {
             Category::create([
-                'user_id' => User::get()-random()->id,
-                'category_name' => $category_name,
-                'category_slug' => Str::slug($category_name),
-                'status' => random_int(0, 1),
-
+                'user_id' => User::get()->random()->id,
+                'category_name'   => $category,
+                'category_slug'   => Str::slug($category),
             ]);
         }
+
+
+//        $faker_category = Faker\Factory::create();
+//
+//        foreach (range(1, 10) as $index) {
+//            $category_name = $faker_category->name;
+//            Category::create([
+//                'user_id' => User::get()-random()->id,
+//                'category_name' => $category_name,
+//                'category_slug' => Str::slug($category_name),
+//                'status' => random_int(0, 1),
+//
+//            ]);
+//        }
+
     }
 }

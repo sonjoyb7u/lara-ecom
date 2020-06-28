@@ -49,7 +49,7 @@ class NewsletterSubscriberController extends Controller
         if($request->ajax()) {
             $email = $request->email;
             $check_email = NewsletterSubscriber::where('email', $email)
-                ->where('status', NewsletterSubscriber::STATUS_ACTIVE)->count();
+                ->where('status', NewsletterSubscriber::ACTIVE_STATUS)->count();
             if($check_email > 0) {
                 Toastr::error('Sorry! This email already been subscribed!', 'Exists');
                 return 'exists';
@@ -68,7 +68,7 @@ class NewsletterSubscriberController extends Controller
         if($request->ajax()) {
             $email = $request->email;
             $check_email = NewsletterSubscriber::where('email', $email)
-                ->where('status', NewsletterSubscriber::STATUS_ACTIVE)->count();
+                ->where('status', NewsletterSubscriber::ACTIVE_STATUS)->count();
             if($check_email > 0) {
                 Toastr::error('Sorry! This email already been subscribed!', 'Exists');
                 return 'exists';
@@ -76,11 +76,11 @@ class NewsletterSubscriberController extends Controller
             } else {
                 $new_email = [
                     'email' => $email,
-                    'status' => 0,
+                    'status' => 1,
                 ];
                 $add_email = NewsletterSubscriber::create($new_email);
                 if($add_email) {
-                    Toastr::error('Wow, Thanks for subscribed.', 'Success');
+                    Toastr::success('Wow, Thanks for subscribed & Get in touched.', 'Success');
                     echo 'saved';
                 }
             }

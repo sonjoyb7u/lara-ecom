@@ -21,6 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->unsignedInteger('verify_code');
             $table->string('address')->nullable();
+            $table->string('image')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->timestamps();
         });

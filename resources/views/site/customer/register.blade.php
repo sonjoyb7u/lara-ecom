@@ -1,6 +1,6 @@
 @extends('site.components.site-master')
 
-@section('title', 'Checkout Register | Lara-Ecomm')
+@section('title', 'Customer Register | Lara-Ecomm')
 
 @push('css')
     <style>
@@ -16,7 +16,7 @@
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
                     <li><a href="{{ route('site.index') }}">Home</a></li>
-                    <li class='{{ request()->is('customer/register') ? 'active' : '' }}'><a href="{{ route('site.checkout.register') }}">Customer Register</a></li>
+                    <li class='{{ request()->is('customer/register') ? 'active' : '' }}'><a href="{{ route('site.customer.register') }}">Customer Register</a></li>
                 </ul>
             </div>
             <!-- /.breadcrumb-inner -->
@@ -32,7 +32,7 @@
         <div class="row">
 
             <div class="create-new-account">
-                <h4 class="checkout-subtitle">Create a new account</h4>
+                <h4 class="checkout-subtitle">Create Account</h4>
                 <p class="text title-tag-line">Create your new account.</p>
 
                 @includeIf('messages.show-message')
@@ -41,24 +41,35 @@
                     @csrf
 
                     <div class="form-group">
-                        <label class="info-title" for="name">Name <span>*</span></label>
-                        <input type="text" name="name" class="form-control unicase-form-control text-input" id="name" value="{{ old('name') }}" placeholder="Enter Your Full Name">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="name"><i class="fa fa-user"></i></span>
+                            <input type="text" name="name" class="form-control unicase-form-control text-input"  aria-describedby="name" id="name" value="{{ old('name') }}" placeholder="Enter Your Full Name">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="info-title" for="email">Email Address <span>*</span></label>
-                        <input type="email" name="email" class="form-control unicase-form-control text-input" id="email" value="{{ old('email') }}" placeholder="Enter Email Address">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="email"><i class="fa fa-envelope"></i></span>
+                            <input type="email" name="email" class="form-control unicase-form-control text-input"  aria-describedby="email" id="email" value="{{ old('email') }}" placeholder="Enter Email Address">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="info-title" for="phone">Phone Number <span>*</span></label>
-                        <input type="number" name="phone" class="form-control unicase-form-control text-input" id="phone" value="{{ old('phone') }}" pattern="01[0|3|5|6|7|8|9][0-9]{8}" placeholder="Enter Mobile Number">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="phone"><i class="fa fa-phone"></i></span>
+                            <input type="number" name="phone" class="form-control unicase-form-control text-input"  aria-describedby="phone" id="phone" value="{{ old('phone') }}" pattern="01[0|3|5|6|7|8|9][0-9]{8}" placeholder="Enter Mobile Number">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="info-title" for="password">Password <span>*</span></label>
-                        <input type="password" name="password" class="form-control unicase-form-control text-input" id="password" placeholder="Enter Password">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="password"><i class="fa fa-unlock-alt"></i></span>
+                            <input type="password" name="password" class="form-control unicase-form-control text-input" aria-describedby="password" id="password" placeholder="Enter Password">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="info-title" for="password_confirmation">Confirm Password <span>*</span></label>
-                        <input type="password" name="password_confirmation" class="form-control unicase-form-control text-input" id="password_confirmation" placeholder="Enter Confirm Password">
+                        <div class="input-group">
+{{--                            <label class="info-title" for="password_confirmation">Confirm Password <span>*</span></label>--}}
+                            <span class="input-group-addon" id="password_confirmation"><i class="fa fa-unlock-alt"></i></span>
+                            <input type="password" name="password_confirmation" class="form-control unicase-form-control text-input" aria-describedby="password_confirmation" id="password_confirmation" placeholder="Enter Confirm Password">
+                        </div>
                     </div>
 
                     <button type="submit" class="btn-upper btn btn-primary checkout-page-button" style="margin-bottom: 20px;">Sign Up</button>

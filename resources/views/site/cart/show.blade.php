@@ -54,11 +54,11 @@
                                     <form action="{{ route('site.cart.delete') }}" method="post" id="delete-form-cart-{{ $item->id }}">
                                         @csrf
 
-                                        <input type="hidden" name="id" value="{{ $item->id }}">
+{{--                                        <input type="hidden" name="id" value="{{ $item->id }}">--}}
                                     </form>
-                                    <button type="sudmit" class="btn btn-danger btn-sm" onclick="deleteCartItem({{ $item->id }});">
+                                    <a type="sudmit" class="btn btn-danger btn-sm" onclick="deleteCartItem({{ $item->id }});">
                                         <i class="fa fa-trash-o"></i>
-                                    </button>
+                                    </a>
                                 </td>
                                 <td class="text-center">
 {{--                                @foreach($item->attributes as $attribute)--}}
@@ -209,7 +209,7 @@
                     <tr>
                         <td>
                             <div class="cart-checkout-btn pull-right">
-                                <a href="{{ route('site.checkout.login') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+                                <a href="{{ !Session::get('cuStOmArId') ? route('site.customer.login') : route('site.customer.register') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
                                 <span class="">Checkout with multiples address!</span>
                             </div>
                         </td>

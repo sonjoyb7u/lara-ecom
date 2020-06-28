@@ -2,6 +2,10 @@
 
 @section('title', 'Product Detail | Lara-Ecomm')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('assets/site/custom/plugins/easy-zoom-image/css/easyzoom.css') }}" />
+@endpush
+
 @section('breadcrumb')
     <div class="breadcrumb">
         <div class="container">
@@ -68,8 +72,8 @@
 
                     <div id="owl-single-product">
 
-                        <div class="single-product-gallery-item" id="slide1">
-                            <a data-lightbox="image-1" data-title="Gallery" href="{{ route('site.product-detail', $product_detail->slug) }}">
+                        <div class="easyzoom easyzoom--overlay single-product-gallery-item" id="slide1">
+                            <a data-lightbox="image-1" data-title="Gallery" href="{{ asset('uploads/images/product/images/'.$product_detail->image) }}">
                                 <img class="img-responsive" alt="" src="{{ asset('uploads/images/product/images/'.$product_detail->image) }}" data-echo="{{ asset('uploads/images/product/images/'.$product_detail->image) }}" />
                             </a>
                         </div>
@@ -368,11 +372,13 @@
     <!-- ============================================== UPSELL PRODUCTS ============================================== -->
     <section class="section featured-product wow fadeInUp">
         <h3 class="section-title">Related products</h3>
-        @if(!$related_subcat_products->isEmpty())
-            @foreach($related_subcat_products as $product)
         <div class="owl-carousel home-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
-            <div class="item item-carousel">
+
+            @if(!$related_subcat_products->isEmpty())
+                @foreach($related_subcat_products as $product)
+                <div class="item item-carousel">
                 <div class="products">
+
                     <div class="product">
                         <div class="product-image">
                             <div class="image">
@@ -389,21 +395,23 @@
                             <div class="description"></div>
 
                             <div class="product-price">
+
                                 @php($special_price = false)
                                 @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
                                     @php($special_price = true)
                                 @endif
                                 <span class="price">
-                                                    &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
-                                                </span>
+                                    &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
+                                </span>
                                 @if($special_price)
                                     <span class="special-price-percent">
-                                                    {{ sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
-                                                </span>
+                                        {{ sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) }}% off
+                                    </span>
                                     <span class="price-before-discount pull-right">
-                                                    &#2547;{{ $product->sales_price }}
-                                                </span>
+                                        &#2547;{{ $product->sales_price }}
+                                    </span>
                                 @endif
+
                             </div><!-- /.product-price -->
 
                         </div><!-- /.product-info -->
@@ -436,26 +444,27 @@
 
                 </div><!-- /.products -->
             </div><!-- /.item -->
-        </div><!-- /.home-owl-carousel -->
-        @endforeach
-        @else
-            @if($product_detail->sub_category_id != null)
-            <h2 class="text-center">No Related Product Found Under This,
-                    <span style="color: #59B210;">
+                @endforeach
+            @else
+                @if($product_detail->sub_category_id != null)
+                    <h2 class="text-center">No Related Product Found Under This,
+                        <span style="color: #59B210;">
                     {{ 'Category - ( ' . $product_detail->category->category_name .
                     ' ) wise Sub Category - ( ' . $product_detail->subCategory->sub_category_name . ' )!' }}         </span>
-            </h2>
-            @else()
-                <h2 class="text-center">No Related Product Found Under This,
-                    <span style="color: #59B210;">
+                    </h2>
+                @else
+                    <h2 class="text-center">No Related Product Found Under This,
+                        <span style="color: #59B210;">
                     {{ 'Category - ( ' . $product_detail->category->category_name .
                     ' )!' }}
                     </span>
-                </h2>
+                    </h2>
+                @endif
             @endif
-        @endif
+
+        </div><!-- /.home-owl-carousel -->
     </section><!-- /.section -->
-    <!-- ============================================== UPSELL PRODUCTS : END ============================================== -->
+    <!-- ===================== RELATED PRODUCTS : END ====================== -->
 
     <div class="clearfix"></div>
 
@@ -465,6 +474,7 @@
 
 
 @push('js')
+    <script src="{{ asset('assets/site/custom/plugins/easy-zoom-image/js/easyzoom.js') }}"></script>
     <script>
         // Toastr Message generate js...
         @if ($errors->any())
@@ -475,6 +485,43 @@
         });
         @endforeach
         @endif
+
+        $(function () {
+            $('.easyzoom').easyZoom({
+                // The text to display within the notice box while loading the zoom image.
+                loadingNotice: 'Loading image',
+
+                // The text to display within the notice box if an error occurs when loading the zoom image.
+                errorNotice: 'The image could not be loaded',
+
+                // The time (in milliseconds) to display the error notice.
+                errorDuration: 2500,
+
+                // Attribute to retrieve the zoom image URL from.
+                linkAttribute: 'href',
+
+                // Prevent clicks on the zoom image link.
+                preventClicks: true,
+
+                // Callback function to execute before the flyout is displayed.
+                beforeShow: $.noop,
+
+                // Callback function to execute before the flyout is removed.
+                beforeHide: $.noop,
+
+                // Callback function to execute when the flyout is displayed.
+                onShow: $.noop,
+
+                // Callback function to execute when the flyout is removed.
+                onHide: $.noop,
+
+                // Callback function to execute when the cursor is moved while over the image.
+                onMove: $.noop
+            });
+        });
+
+
+
     </script>
 @endpush
 

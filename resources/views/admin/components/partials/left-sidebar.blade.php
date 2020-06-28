@@ -76,6 +76,30 @@
                         </ul>
                     </li>
 
+                    <!--  CUSTOMER SECTION -->
+                    <li class="has-child-item {{ request()->is('super-admin/customers','super-admin/customers/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/customers', 'admin/customers/*') ? 'open-item active-item' : 'close-item' }}">
+                        <a><i class="fa fa-cube" aria-hidden="true"></i><span>CUSTOMER'S SECTION</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li  class="{{ request()->is('super-admin/customers', 'super-admin/customers/edit/*') ? 'active-item' : '' }} {{ request()->is('admin/contacts', 'admin/customers/edit/*') ? 'active-item' : '' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.customer.index') : route('admin.customer.index') }}">Manage Customer's</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- CONTACT US SECTION -->
+                    <li class="has-child-item {{ request()->is('super-admin/contacts','super-admin/contacts/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/contacts', 'admin/contacts/*') ? 'open-item active-item' : 'close-item' }}">
+                        <a><i class="fa fa-cube" aria-hidden="true"></i><span>CONTACT-US SECTION</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li  class="{{ request()->is('super-admin/contacts', 'super-admin/contacts/edit/*') ? 'active-item' : '' }} {{ request()->is('admin/contacts', 'admin/contacts/edit/*') ? 'active-item' : '' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.contact.index') : route('admin.contact.index') }}">Manage Contact Us</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- NEWSLETTER SUBSCRIBER SECTION -->
+                    <li class="has-child-item {{ request()->is('super-admin/subscribers','super-admin/subscribers/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/subscribers', 'admin/subscribers/*') ? 'open-item active-item' : 'close-item' }}">
+                        <a><i class="fa fa-cube" aria-hidden="true"></i><span>SUBSCRIBER SECTION</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li  class="{{ request()->is('super-admin/subscribers', 'super-admin/subscribers/edit/*') ? 'active-item' : '' }} {{ request()->is('admin/subscribers', 'admin/subscribers/edit/*') ? 'active-item' : '' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.subscriber.index') : route('admin.subscriber.index') }}">Manage Subscriber's</a></li>
+                        </ul>
+                    </li>
+
 
                 </ul>
             </nav>

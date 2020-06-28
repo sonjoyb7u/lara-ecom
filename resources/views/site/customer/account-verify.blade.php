@@ -29,7 +29,7 @@
                 <h4 class="">Account Verification Form</h4>
                 <p class="">Hello, Welcome to input verify your account.</p>
 
-                <form class="register-form outer-top-xs" role="form" action="{{ route('site.checkout.account.verify') }}" method="post">
+                <form class="register-form outer-top-xs" role="form" action="{{ route('site.check.account.verify') }}" method="post">
                     @csrf
 
                     <div class="form-group">

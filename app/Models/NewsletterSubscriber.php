@@ -10,6 +10,6 @@ class NewsletterSubscriber extends Model
         'email', 'status',
     ];
 
-    public const STATUS_ACTIVE = 1;
+    public const ACTIVE_STATUS = 1;
 
 }

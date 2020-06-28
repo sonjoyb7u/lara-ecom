@@ -19,7 +19,7 @@ class CreateBrandsTable extends Migration
             $table->string('brand_name', 30)->unique();
             $table->string('brand_slug', 100)->unique();
             $table->string('image', 150)->default('brand_default.png');
-            $table->enum('level', ['top', 'mid', 'low'])->default('mid');
+            $table->enum('level', ['top', 'mid', 'low'])->default('top');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
 

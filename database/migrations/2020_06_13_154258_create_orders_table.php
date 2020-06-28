@@ -18,8 +18,9 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('shipping_id');
             $table->decimal('total', 10, 2);
-            $table->enum('status', ['pending', 'success', 'return', 'shipped'])->default('pending');
+            $table->enum('status', ['pending', 'success', 'return', 'shipped', 'canceled'])->default('pending');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('customer_id')->references('id')->on('customers')->cascadeOnDelete();
             $table->foreign('shipping_id')->references('id')->on('shippings')->cascadeOnDelete();

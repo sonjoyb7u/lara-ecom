@@ -25,7 +25,7 @@ class ContactUsRequest extends FormRequest
     {
 
         $rules = [
-            'to' => 'required',
+//            'to' => 'required',
             'name' => 'required',
             'email' => 'required',
             'subject' => 'required',

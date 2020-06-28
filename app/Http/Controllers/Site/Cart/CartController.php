@@ -13,36 +13,6 @@ use Illuminate\Support\Facades\View;
 
 class CartController extends Controller
 {
-    /**
-     * CartController constructor.
-     */
-    public function __construct()
-    {
-        $brands = Brand::where('level', Brand::TOP_BRAND)
-            ->where('status', Brand::ACTIVE_BRAND)
-            ->get();
-        $categories = Category::with('user', 'subCategories')->get();
-
-//      Left side New Special Deal products showing...
-        $no_special_price = null;
-        $special_deal_products = Product::with('user', 'brand', 'category', 'subCategory')
-            ->where('status',Product::ACTIVE_STATUS)
-            ->where('special_price', '<>', $no_special_price)
-            ->latest()
-            ->get();
-//        return $special_deal_products;
-
-        //Left side New products showing...
-        $new_special_products = Product::with('user', 'brand', 'category', 'subCategory')
-            ->where('status',Product::ACTIVE_STATUS)
-            ->limit(10)
-            ->latest()
-            ->get();
-//        return $new_special_products;
-
-        View::share(['brands'=>$brands, 'categories'=>$categories, 'new_special_products'=>$new_special_products,  'special_deal_products'=>$special_deal_products]);
-
-    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -50,13 +20,13 @@ class CartController extends Controller
     public function index() {
 //        $cart_item = \Cart::getContent();
 //        return $cart_item;
-        $customer_id = Session::get('customer_id');
-        if($customer_id === 1) {
+        $customer_id = Session::get('cuStOmArId');
+//        if($customer_id === 1) {
             $redirect = view('site.cart.show');
 
-        } else {
-            $redirect = redirect()->back();
-        }
+//        } else {
+//            $redirect = redirect()->back();
+//        }
 
         return $redirect;
 
@@ -71,7 +41,7 @@ class CartController extends Controller
         $product_id = Product::where('slug', $request->slug)->pluck('id');
 //        return $product_id;
 
-        $cart_item = Product::with('user', 'brand', 'category', 'subCategory')->select('id', 'title', 'slug', 'product_code', 'product_model', 'product_color', 'product_size', 'image', 'image_start', 'image_end', 'quantity', 'sales_price', 'special_price', 'special_start', 'special_end')->find($product_id)->first();
+        $cart_item = Product::with('user', 'brand', 'category', 'subCategory')->select('id', 'title', 'slug', 'product_code', 'product_model', 'image', 'image_start', 'image_end', 'quantity', 'sales_price', 'special_price', 'special_start', 'special_end')->find($product_id)->first();
 //        return $cart_item;
 
         $special_price = false;
@@ -119,7 +89,7 @@ class CartController extends Controller
 //        return $product_id;
         $quantity = $request->quantity;
 
-        $cart_item = Product::with('user', 'brand', 'category', 'subCategory')->select('id', 'title', 'slug', 'product_code', 'product_model', 'product_color', 'product_size', 'image', 'image_start', 'image_end', 'quantity', 'sales_price', 'special_price', 'special_start', 'special_end')->find($product_id)->first();
+        $cart_item = Product::with('user', 'brand', 'category', 'subCategory')->select('id', 'title', 'slug', 'product_code', 'product_model', 'image', 'image_start', 'image_end', 'quantity', 'sales_price', 'special_price', 'special_start', 'special_end')->find($product_id)->first();
 //        return $cart_item;
 
         $special_price = false;

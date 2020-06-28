@@ -42,12 +42,12 @@ Route::namespace('Site')->name('site.')->group(function () {
     });
 
     // CHECKOUT show route...
-    Route::get('checkout/login', 'Checkout\CheckoutController@checkoutLogin')->name('checkout.login');
-    Route::post('checkout/login', 'Checkout\CheckoutController@processLogin')->name('checkout.login');
-    Route::get('checkout/register', 'Checkout\CheckoutController@checkoutRegister')->name('checkout.register');
-    Route::post('checkout/register', 'Checkout\CheckoutController@processRegister')->name('customer.register');
-    Route::get('checkout/account/verify', 'Checkout\CheckoutController@checkoutCustomerAccountVerify')->name('checkout.account.verify');
-    Route::post('checkout/account/verify', 'Checkout\CheckoutController@processCheckoutCustomerAccountVerify')->name('checkout.account.verify');
+//    Route::get('checkout/login', 'Checkout\CheckoutController@checkoutLogin')->name('checkout.login');
+//    Route::post('checkout/login', 'Checkout\CheckoutController@processLogin')->name('checkout.login');
+//    Route::get('checkout/register', 'Checkout\CheckoutController@checkoutRegister')->name('checkout.register');
+//    Route::post('checkout/register', 'Checkout\CheckoutController@processRegister')->name('checkout.register');
+//    Route::get('checkout/account/verify', 'Checkout\CheckoutController@checkoutCustomerAccountVerify')->name('checkout.account.verify');
+//    Route::post('checkout/account/verify', 'Checkout\CheckoutController@processCheckoutCustomerAccountVerify')->name('checkout.account.verify');
     Route::get('checkout/shipping', 'Checkout\CheckoutController@checkoutCustomerShipping')->name('checkout.customer-shipping');
     Route::post('checkout/shipping', 'Checkout\CheckoutController@checkoutCustomerShippingInfo')->name('checkout.customer-shipping.info');
     Route::get('checkout/payment', 'Checkout\CheckoutController@checkoutCustomerPayment')->name('checkout.customer-payment');
@@ -58,8 +58,9 @@ Route::namespace('Site')->name('site.')->group(function () {
     Route::post('customer/login', 'Customer\CustomerController@processLogin')->name('customer.login');
     Route::get('customer/register', 'Customer\CustomerController@customerRegister')->name('customer.register');
     Route::post('customer/register', 'Customer\CustomerController@processRegister')->name('customer.register');
-    Route::get('account-verify', 'Customer\CustomerController@customerAccountVerify')->name('customer.account.verify');
+    Route::get('customer-account-verify', 'Customer\CustomerController@customerAccountVerify')->name('customer.account.verify');
     Route::post('check-account-verify', 'Customer\CustomerController@checkAccountVerify')->name('check.account.verify');
+    Route::get('customer/account/{customer_id}', 'Customer\CustomerController@customerAccount')->name('customer.account');
     Route::post('customer/logout', 'Customer\CustomerController@processLogout')->name('customer.logout');
 
     // SEARCH FUNCTION PRODUCT show route...
@@ -168,6 +169,15 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
         Route::get('show', 'OrderController@show')->name('show');
 
     });
+
+    /**
+     * NORMAL ADMIN CONTACT US route...
+     */
+    Route::prefix('contacts')->namespace('ContactUs')->name('contact.')->group(function () {
+        Route::get('/', 'ContactUsController@index')->name('index');
+        Route::get('show', 'ContactUsController@show')->name('show');
+
+    });
 });
 
 /**
@@ -260,10 +270,58 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
     Route::prefix('orders')->namespace('Order')->name('order.')->group(function () {
         Route::get('/', 'OrderController@index')->name('index');
         Route::get('show/{order_id}', 'OrderController@show')->name('show');
-        Route::delete('delete/{order_id}', 'OrderController@destroy')->name('delete');
         Route::get('edit/{order_id}', 'OrderController@edit')->name('edit');
-        Route::put('update/{order_id}/{customer_id}', 'OrderController@update')->name('update');
-        Route::get('status/{order_id}/{product_status}', 'OrderController@updateStatus')->name('status');
+        Route::post('update', 'OrderController@update')->name('update');
+        Route::delete('delete/{order_id}', 'OrderController@destroy')->name('delete');
+        Route::get('payment/status/{payment_id}/{payment_status}', 'OrderController@updatePaymentStatus')->name('payment.status');
+        Route::post('order-status-update', 'OrderController@orderStatusUpdate')->name('order-status-update');
+        Route::post('payment-status-update', 'OrderController@paymentStatusUpdate')->name('payment-status-update');
+        Route::post('shipping-charge-update', 'OrderController@shippingChargeUpdate')->name('shipping-charge-update');
+        Route::post('order-info-mail', 'OrderController@orderInfoMail')->name('order-info-mail');
+        Route::get('order-invoice/{order_id}', 'OrderController@orderInvoice')->name('order-invoice');
+        Route::get('order-invoice-print/{order_id}', 'OrderController@orderInvoicePrint')->name('order-invoice-print');
 
     });
+
+    /**
+     * SUPER ADMIN CONTACT US route...
+     */
+    Route::prefix('contacts')->namespace('ContactUs')->name('contact.')->group(function () {
+        Route::get('/', 'ContactUsController@index')->name('index');
+        Route::get('show/{contact_id}', 'ContactUsController@show')->name('show');
+        Route::delete('delete/{contact_id}', 'ContactUsController@destroy')->name('delete');
+        Route::get('edit/{contact_id}', 'ContactUsController@edit')->name('edit');
+        Route::put('update/{contact_id}', 'ContactUsController@update')->name('update');
+        Route::get('status/{contact_id}/{contact_status}', 'ContactUsController@updateStatus')->name('status');
+
+    });
+
+    /**
+     * SUPER ADMIN SIDE CUSTOMER show route...
+     */
+    Route::prefix('customers')->namespace('Customer')->name('customer.')->group(function () {
+        Route::get('/', 'CustomerController@index')->name('index');
+        Route::get('show/{customer_id}', 'CustomerController@show')->name('show');
+        Route::delete('delete/{customer_id}', 'CustomerController@destroy')->name('delete');
+        Route::get('edit/{customer_id}', 'CustomerController@edit')->name('edit');
+        Route::put('update/{customer_id}', 'CustomerController@update')->name('update');
+        Route::get('status/{customer_id}/{customer_status}', 'CustomerController@updateStatus')->name('status');
+
+    });
+
+    /**
+     * SUPER ADMIN SIDE NEWSLETTER SUBSCRIBER show route...
+     */
+    Route::prefix('subscribers')->namespace('Subscriber')->name('subscriber.')->group(function () {
+        Route::get('/', 'SubscriberController@index')->name('index');
+        Route::get('show/{subscriber_id}', 'SubscriberController@show')->name('show');
+        Route::delete('delete/{subscriber_id}', 'SubscriberController@destroy')->name('delete');
+        Route::get('edit/{subscriber_id}', 'SubscriberController@edit')->name('edit');
+        Route::put('update/{subscriber_id}', 'SubscriberController@update')->name('update');
+        Route::get('status/{subscriber_id}/{subscriber_status}', 'SubscriberController@updateStatus')->name('status');
+
+    });
+
+
+
 });

@@ -78,10 +78,6 @@
                             @csrf
 
                             <div class="form-group">
-                                <span><label for="to">To</label></span>
-                                <span><input class="form-control" name="to" id="to" type="text" value="{{ old('to') }}" placeholder="Enter Sender Mail"></span>
-                            </div>
-                            <div class="form-group">
                                 <span><label for="name">NAME</label></span>
                                 <span><input class="form-control" name="name" id="name" type="text" value="{{ old('name') }}" placeholder="Enter Name"></span>
                             </div>
@@ -94,11 +90,15 @@
                                 <span><input class="form-control" name="subject" id="subject" type="text" value="{{ old('subject') }}" placeholder="Enter Subject"></span>
                             </div>
                             <div class="form-group">
-                                <span><label for="phone">MOBILE.NO</label></span>
-                                <span><input class="form-control" name="phone" id="ohone" type="text" value="{{ old('phone') }}" placeholder="Enter Phone Number"></span>
+                                <span><label for="phone">MOBILE NO.</label></span>
+                                <span><input class="form-control" name="phone" id="phone" type="text" value="{{ old('phone') }}" placeholder="Enter Phone Number"></span>
                             </div>
                             <div class="form-group">
-                                <span><label for="message">Message</label></span>
+                                <span><label for="address">ADDRESS</label></span>
+                                <span><input class="form-control" name="address" id="address" type="text" value="{{ old('address') }}" placeholder="Enter your address"></span>
+                            </div>
+                            <div class="form-group">
+                                <span><label for="message">MESSAGE</label></span>
                                 <span><textarea class="form-control" name="message" id="message"> {{ old('message') }}</textarea></span>
                             </div>
                             <div class="clearfix pull-right contact-us-btn">

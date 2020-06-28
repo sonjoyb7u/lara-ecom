@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'verify_code', 'address',
+        'name', 'email', 'phone', 'password', 'verify_code', 'address', 'image', 'status',
     ];
 
     public function orders() {

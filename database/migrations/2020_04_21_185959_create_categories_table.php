@@ -16,10 +16,10 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('category_name', 50)->unique();
+            $table->string('category_name', 70)->unique();
             $table->string('category_slug', 100)->unique();
             $table->string('banner', 200)->default('cat_banner.png');
-            $table->string('logo', 100)->default('fa-default');
+            $table->string('logo', 100)->default('fa fa-icons');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
 

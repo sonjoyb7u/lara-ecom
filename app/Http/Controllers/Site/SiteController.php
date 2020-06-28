@@ -7,6 +7,7 @@ use App\Http\Requests\ContactUsRequest;
 use App\Mail\ContactUsMail;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\ContactUs;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\SubCategory;
@@ -17,33 +18,10 @@ use Illuminate\Support\Facades\View;
 
 class SiteController extends Controller
 {
-    public function __construct()
-    {
-        $brands = Brand::where('level', Brand::TOP_BRAND)
-            ->where('status', Brand::ACTIVE_BRAND)
-            ->get();
-        $categories = Category::with('user', 'subCategories')->get();
 
-//      Left side New Special Deal products showing...
-        $no_special_price = null;
-        $special_deal_products = Product::with('user', 'brand', 'category', 'subCategory')
-            ->where('status', Product::ACTIVE_STATUS)
-            ->where('special_price', '<>', $no_special_price)
-            ->latest()
-            ->get();
-//        return $special_deal_products;
-
-        //Left side New products showing...
-        $new_special_products = Product::with('user', 'brand', 'category', 'subCategory')
-            ->where('status', Product::ACTIVE_STATUS)
-            ->limit(10)
-            ->latest()
-            ->get();
-//        return $new_special_products;
-
-        View::share(['brands' => $brands, 'categories' => $categories, 'new_special_products' => $new_special_products, 'special_deal_products' => $special_deal_products]);
-    }
-
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $sliders = Slider::with('user')->orderBy('id', 'asc')
@@ -191,10 +169,11 @@ class SiteController extends Controller
         $sub_cat_id = $product_detail->sub_category_id;
 //        return $sub_cat_id;
 
-        $related_subcat_products = Product::with('user', 'brand', 'category', 'subCategory')->where('sub_category_id', $sub_cat_id)
-            ->where('id', '!=', $product_id)
-            ->where('status', Product::ACTIVE_STATUS)
-            ->get();
+        $related_subcat_products = Product::with('user', 'brand', 'category', 'subCategory')
+                                            ->where('sub_category_id', $sub_cat_id)
+                                            ->where('id', '!=', $product_id)
+                                            ->where('status', Product::ACTIVE_STATUS)
+                                            ->get();
 //        return $related_subcat_products;
 
         return view('site.pages.product-detail', compact('product_detail', 'related_subcat_products'));
@@ -217,11 +196,18 @@ class SiteController extends Controller
         return view('site.page-error.terms-condition');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function contactUs()
     {
-        return view('site.page-error.contact-us');
+        return view('site.pages.contact-us');
     }
 
+    /**
+     * @param ContactUsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function sendMail(ContactUsRequest $request)
     {
 //        $from_email = config("mail.from['address']", $request->email);
@@ -232,15 +218,22 @@ class SiteController extends Controller
             'email' => $request->email,
             'subject' => $request->subject,
             'phone' => $request->phone,
+            'address' => $request->address,
             'message' => $request->message,
         ];
 //        return $contact_us_info_detail;
+        $contact_info = ContactUs::create($contact_us_info_detail);
+        if($contact_info) {
+            Mail::to('lara.ecomm@gmail.com')->send(new ContactUsMail($contact_us_info_detail));
 
-        Mail::to('lara.ecomm@gmail.com')->send(new ContactUsMail($contact_us_info_detail));
-
-        getMessage('success', 'Success, Your Message Has Been Sent Success. We Contact You Soon.');
-//        Toastr::success('Your Message Has Been Sent Success. We Contact You Soon.', 'Success');
-        return redirect()->back();
+            getMessage('success', 'Success, Your Message Has Been Sent Success, Thanks for get in touch and contact soon.');
+            Toastr::success('Your Message Has Been Sent Success, Thanks for get in touch and contact soon.', 'Success');
+            return redirect()->back();
+        } else {
+            getMessage('danger', 'Failed, Your Message Has Not Been Sent.');
+            Toastr::success('Your Message Has Not Been Sent.', 'Failed');
+            return redirect()->back();
+        }
 
     }
 

@@ -127,6 +127,30 @@ $('body').on('change', '#productStatus', function () {
 
 });
 
+// UPDATE ORDER STATUS using js...
+$('body').on('change', '#paymentStatus', function () {
+    var id = $(this).attr('data-id');
+
+    if (this.checked) {
+        var status = 'success';
+    } else {
+        var status = 'pending';
+    }
+    // alert(id + status);
+
+    $('.loader-overlay').show();
+    $.ajax({
+        url: "orders/payment/status/" + id + '/' + status,
+        method: 'get',
+        success: function (result) {
+            // console.log(result);
+            $('.loader-overlay').hide();
+        }
+
+    });
+
+});
+
 
 // DATETIME-PICKER START/END using js...
 $('body').on('click', '#datetimepicker', function () {
@@ -340,6 +364,48 @@ $('#gallery-image').magnificPopup({
         preload: [1, 1]
     },
     tLoading: 'Loading image #%curr%...'
+});
+
+// ORDER DELETE SWEETALERT JS...
+$(document).ready(function() {
+    $('body').on('click', '#deleteOrder', function (e) {
+        e.preventDefault();
+        var csrf_token = $("meta[name='csrf-token']").attr('content');
+        var id = $(this).data('id');
+        // alert(id);
+
+        swal({
+            title: "Are you sure?",
+            text: "Once Order deleted, you will not be able to recover this Data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    data: {id: id, _token: csrf_token},
+                    url: "/super-admin/orders/delete/"+id,
+                    type: "DELETE",
+                    success: function (response) {
+                        // alert(response);
+                        swal(response.status, {
+                            icon: "success",
+                        })
+                        .then((result) => {
+                            location.reload();
+                        });
+                    }
+
+                });
+
+            } else {
+                swal("Your Order is safe!");
+            }
+
+        });
+    });
+
 });
 
 

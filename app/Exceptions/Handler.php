@@ -54,32 +54,20 @@ class Handler extends ExceptionHandler
         if ($this->isHttpException($exception)) {
             $code = $exception->getStatusCode();
             if($code == '403') {
-                $brands = Brand::where('level', Brand::TOP_BRAND)
-                    ->where('status', Brand::ACTIVE_BRAND)
-                    ->get();
                 // (404)Page Not Found...
-                return Response()->view('page-error.403', compact('brands'));
+                return Response()->view('page-error.403', array(), 403);
 
             } elseif($code == '404') {
-                $brands = Brand::where('level', Brand::TOP_BRAND)
-                    ->where('status', Brand::ACTIVE_BRAND)
-                    ->get();
                 // (403)Not Authorized/Forbidden...
-                return Response()->view('page-error.404', compact('brands'));
+                return Response()->view('page-error.404', array(), 403);
 
             } elseif($code == '500') {
-                $brands = Brand::where('level', Brand::TOP_BRAND)
-                    ->where('status', Brand::ACTIVE_BRAND)
-                    ->get();
                 // (500)Internal/Server Error...
-                return Response()->view('page-error.500', compact('brands'));
+                return Response()->view('page-error.500', array(), 403);
 
             } else {
-                $brands = Brand::where('level', Brand::TOP_BRAND)
-                    ->where('status', Brand::ACTIVE_BRAND)
-                    ->get();
                 // Normal Error...
-                return Response()->view('page-error.normal-error', compact('brands'));
+                return Response()->view('page-error.normal-error', array(), 403);
             }
 
         }

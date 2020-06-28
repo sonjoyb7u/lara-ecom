@@ -5803,7 +5803,7 @@ age-container #owl-main .owl-next {
   font-size: 16px;
 }
 .body-content .sign-in-page form .form-group span {
-  color: red;
+    color: #65B210;
 }
 .body-content .sign-in-page .register-form label {
   font-size: 14px;

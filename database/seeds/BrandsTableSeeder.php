@@ -2,10 +2,10 @@
 
 
 use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
-
-
+use Illuminate\Support\Str;
 
 
 class BrandsTableSeeder extends Seeder
@@ -23,9 +23,9 @@ class BrandsTableSeeder extends Seeder
             $brand_name = $faker_brand->unique()->name;
 
             Brand::create([
-                'user_id' => random_int(1, 2),
+                'user_id' => User::get()->random()->id,
                 'brand_name' => $brand_name,
-                'brand_slug' => Illuminate\Support\Str::slug($brand_name),
+                'brand_slug' => Str::slug($brand_name),
                 'status' => random_int(0, 1),
             ]);
 
