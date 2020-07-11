@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use phpDocumentor\Reflection\Types\Void_;
 
 class CustomerController extends Controller
 {
@@ -19,21 +20,50 @@ class CustomerController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function customerLogin() {
-        $customer_id = Session::get('cuStOmArId');
+        return view('site.customer.login');
 
-        if(!$customer_id && \Cart::getTotalQuantity() < 1) {
-            $redirect = redirect()->route('site.index');
+    }
 
-        } elseif($customer_id && \Cart::getTotalQuantity() > 0) {
-            $redirect = redirect()->route('site.checkout.customer-shipping.info');
+    /**
+     * @param Request $request
+     */
+    public function processLogin(Request $request) {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required|min:6|max:25',
+        ], [
+            'email.required' => 'Email field must be filled out!',
+            'password.required' => 'Password field must be filled out!',
+            'password.min:6' => 'Password Number must be 6 Character\'s',
+            'password.max:25' => 'Password Number must be less than 26 Character\'s',
+        ]);
 
-        } elseif(!$customer_id && \Cart::getTotalQuantity() > 0) {
-            $redirect = view('site.customer.login');
+        $customer_detail = Customer::where('email', $request->email)->select('id', 'name', 'email', 'phone', 'password')->first();
+        if($customer_detail) {
+            if(password_verify($request->password, $customer_detail->password)) {
+                Session::put('cuStOmArId', $customer_detail->id);
+                Session::put('cuStOmArNaMe', $customer_detail->name);
+                Session::put('cuStOmArEmAiL', $customer_detail->email);
+                Session::put('cuStOmArPhOnE', $customer_detail->phone);
 
+                if(Session::get('cuStOmArId')) {
+                    getMessage('success', 'Your are succesfully Logged In.');
+                    return redirect()->route('site.index');
+
+                } elseif(Session::get('cuStOmArId') && \Cart::getTotalQuantity() > 0) {
+                    getMessage('success', 'Your are succesfully Logged In.');
+                    return redirect()->route('site.cart.show');
+                }
+
+            } else {
+                getMessage('danger', 'This Credential password is invalid!');
+                return redirect()->back();
+            }
+
+        } else {
+            getMessage('danger', 'This Credentials do not matched!');
+            return redirect()->back();
         }
-
-        return $redirect;
-
     }
 
     /**
@@ -117,46 +147,6 @@ class CustomerController extends Controller
 
     }
 
-    /**
-     * @param Request $request
-     */
-    public function processLogin(Request $request) {
-        $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required|min:6|max:25',
-        ], [
-            'email.required' => 'Email field must be filled out!',
-            'password.required' => 'Password field must be filled out!',
-            'password.min:6' => 'Password Number must be 6 Character\'s',
-            'password.max:25' => 'Password Number must be less than 26 Character\'s',
-        ]);
-        $customer_id = Session::get('cuStOmArId');
-
-        $customer_detail = Customer::where('email', $request->email)->select('id', 'name', 'email', 'password')->first();
-        if($customer_detail) {
-            if(password_verify($request->password, $customer_detail->password)) {
-                Session::put('cuStOmArId', $customer_detail->id);
-                Session::put('cuStOmArNaMe', $customer_detail->name);
-
-                if($customer_id && \Cart::getTotalQuantity() > 0) {
-                    getMessage('success', 'Your are succesfully Logged In.');
-                    return redirect()->route('site.checkout.customer-shipping');
-
-                } else {
-                    getMessage('success', 'Your are succesfully Logged In.');
-                    return redirect()->route('site.index');
-                }
-
-            } else {
-                getMessage('danger', 'This Credential password is invalid!');
-                return redirect()->back();
-            }
-
-        } else {
-            getMessage('danger', 'This Credentials do not matched!');
-            return redirect()->back();
-        }
-    }
 
     /**
      * @param $customer_id
@@ -176,8 +166,18 @@ class CustomerController extends Controller
      */
     public function processLogout()
     {
+//        $customer_id = Session::get('cuStOmArId');
+//        \Cart::session($customer_id)->clear();
+
         Session::forget('cuStOmArId');
+        getMessage('success', 'You Are Successfully Logged Out.');
         return redirect()->route('site.index');
+//        return redirect()->back();
+
+
+
+
+
     }
 
 

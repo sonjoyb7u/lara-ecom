@@ -37,7 +37,7 @@
 
             @includeIf('messages.show-message')
 
-            <form class="register-form outer-top-xs" role="form" action="{{ route('site.checkout.register') }}" method="post">
+            <form class="register-form outer-top-xs" role="form" action="" method="post">
                 @csrf
 
                 <div class="form-group">

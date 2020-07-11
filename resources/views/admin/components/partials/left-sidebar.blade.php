@@ -100,6 +100,14 @@
                         </ul>
                     </li>
 
+                    <!-- CUSTOMER REVIEW SECTION -->
+                    <li class="has-child-item {{ request()->is('super-admin/customers-reviews','super-admin/customers-reviews/*') ? 'open-item active-item' : 'close-item' }} {{ request()->is('admin/customers-reviews', 'admin/customers-reviews/*') ? 'open-item active-item' : 'close-item' }}">
+                        <a><i class="fa fa-cube" aria-hidden="true"></i><span>REVIEW SECTION</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li  class="{{ request()->is('super-admin/customers-reviews', 'super-admin/customers-reviews/edit/*') ? 'active-item' : '' }} {{ request()->is('admin/customers-reviews', 'admin/customers-reviews/edit/*') ? 'active-item' : '' }}"><a href="{{ auth()->user()->is_admin === 1 ? route('super-admin.customer-review.index') : route('admin.customer-review.index') }}">Manage Review's</a></li>
+                        </ul>
+                    </li>
+
 
                 </ul>
             </nav>

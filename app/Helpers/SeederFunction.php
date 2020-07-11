@@ -13,6 +13,16 @@ function randomStatus() {
 /**
  * @return array|mixed
  */
+function randomCustomerReviewStatus() {
+    $status = ['visible', 'hidden'];
+    $status = $status[array_rand($status)];
+
+    return $status;
+}
+
+/**
+ * @return array|mixed
+ */
 function randomCode() {
     $codes = ['S-501', 'S-502', 'P-501', 'P-502', 'JP-501', 'JP-502', 'TS-501', 'TS-502', 'M-501', 'M-502', 'T-501', 'T-502'];
     $codes = $codes[array_rand($codes)];

@@ -25,8 +25,6 @@
                 <h4 class="checkout-subtitle">Customer Shipping Information Form</h4>
                 <p class="text title-tag-line">Enter Your Shipping Details.</p>
 
-                @includeIf('messages.show-message')
-
                 <form class="register-form outer-top-xs" role="form" action="{{ route('site.checkout.customer-shipping.info') }}" method="post">
                     @csrf
 
@@ -49,7 +47,7 @@
                     </div>
 
 
-                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Next Step</button>
+                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Next Payment Proccess</button>
                 </form>
 
 

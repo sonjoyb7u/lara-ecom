@@ -31,6 +31,12 @@ Route::namespace('Site')->name('site.')->group(function () {
     Route::post('load-subcat-product', 'SiteController@loadSubCatProduct')->name('load-subcat-product');
     // Fetch Sub Category List style product using Ajax Route...
     Route::post('load-subcat-list-product', 'SiteController@loadSubCatListProduct')->name('load-subcat-list-product');
+    // SEARCH FUNCTION PRODUCT using get request show route...
+    Route::get('search/products', 'SiteController@searchGetProducts')->name('search.products');
+    // SEARCH FUNCTION PRODUCT using Post of ajax request show route...
+    Route::post('search/products', 'SiteController@searchPostProducts');
+    // Review & Rating Store proccess...
+    Route::post('review/store', 'SiteController@reviewStore')->name('review.store');
     // Shopping Cart Item CRUD route...
     Route::group(['prefix'=>'cart', 'namespace'=>'Cart', 'as'=>'cart.'], function () {
         Route::get('show', 'CartController@index')->name('show');
@@ -40,18 +46,18 @@ Route::namespace('Site')->name('site.')->group(function () {
         Route::post('update', 'CartController@updateCart')->name('update');
 //        Route::post('update-grand-totel-price', 'CartController@updateGrandTotalPrice');
     });
-
     // CHECKOUT show route...
-//    Route::get('checkout/login', 'Checkout\CheckoutController@checkoutLogin')->name('checkout.login');
-//    Route::post('checkout/login', 'Checkout\CheckoutController@processLogin')->name('checkout.login');
-//    Route::get('checkout/register', 'Checkout\CheckoutController@checkoutRegister')->name('checkout.register');
-//    Route::post('checkout/register', 'Checkout\CheckoutController@processRegister')->name('checkout.register');
+    Route::get('checkout/login', 'Checkout\CheckoutController@checkoutLogin')->name('checkout.login');
+    Route::post('checkout/login', 'Checkout\CheckoutController@processLogin')->name('checkout.login');
+    Route::get('checkout/register', 'Checkout\CheckoutController@checkoutRegister')->name('checkout.register');
+    Route::post('checkout/register', 'Checkout\CheckoutController@processRegister')->name('checkout.register');
 //    Route::get('checkout/account/verify', 'Checkout\CheckoutController@checkoutCustomerAccountVerify')->name('checkout.account.verify');
 //    Route::post('checkout/account/verify', 'Checkout\CheckoutController@processCheckoutCustomerAccountVerify')->name('checkout.account.verify');
     Route::get('checkout/shipping', 'Checkout\CheckoutController@checkoutCustomerShipping')->name('checkout.customer-shipping');
-    Route::post('checkout/shipping', 'Checkout\CheckoutController@checkoutCustomerShippingInfo')->name('checkout.customer-shipping.info');
+    Route::post('checkout/customer-shipping/info', 'Checkout\CheckoutController@checkoutCustomerShippingInfo')->name('checkout.customer-shipping.info');
     Route::get('checkout/payment', 'Checkout\CheckoutController@checkoutCustomerPayment')->name('checkout.customer-payment');
     Route::post('checkout/order', 'Checkout\CheckoutController@checkoutCustomerOrder')->name('checkout.customer-order');
+    Route::post('checkout/logout', 'Checkout\CheckoutController@processLogout')->name('checkout.logout');
 
     //CUSTOMER/VISITOR LOGIN-REGISTER show route...
     Route::get('customer/login', 'Customer\CustomerController@customerLogin')->name('customer.login');
@@ -62,16 +68,19 @@ Route::namespace('Site')->name('site.')->group(function () {
     Route::post('check-account-verify', 'Customer\CustomerController@checkAccountVerify')->name('check.account.verify');
     Route::get('customer/account/{customer_id}', 'Customer\CustomerController@customerAccount')->name('customer.account');
     Route::post('customer/logout', 'Customer\CustomerController@processLogout')->name('customer.logout');
-
-    // SEARCH FUNCTION PRODUCT show route...
-    Route::post('search/products', 'SiteController@searchProducts')->name('search.products');
-
+    // ORDER TRACK route...
+    Route::get('order/track', 'SiteController@orderTrack')->name('order.track');
+    Route::post('order/track/check', 'SiteController@orderTrackCheck')->name('order.track.check');
     // CONTACT US Content show route...
     Route::get('contact-us', 'SiteController@contactUs')->name('contact-us');
     Route::post('contact-us/send-mail', 'SiteController@sendMail')->name('contact-us.send-mail');
     // NEWSLETTER-SUBSCRIBER show route...
     Route::post('check-subscriber','Newsletter\NewsletterSubscriberController@checkSubscriber');
     Route::post('add-subscriber','Newsletter\NewsletterSubscriberController@addSubscriber');
+    // FAQ Content show route...
+    Route::get('faq', 'SiteController@faq')->name('faq');
+    // Help Center Content show route...
+    Route::get('terms-condition', 'SiteController@termsCondition')->name('terms-condition');
 
     // Sending mail Just For Testing purpose route...
     Route::get('send-mail', function () {
@@ -82,11 +91,6 @@ Route::namespace('Site')->name('site.')->group(function () {
         ];
         \Illuminate\Support\Facades\Mail::to("test@gmail.com")->send(new \App\Mail\ContactUsMail($mail_detail));
     });
-
-    // FAQ Content show route...
-    Route::get('faq', 'SiteController@faq')->name('faq');
-    // Help Center Content show route...
-    Route::get('terms-condition', 'SiteController@termsCondition')->name('terms-condition');
 
 });
 
@@ -319,6 +323,19 @@ Route::middleware('auth', 'is_admin')->prefix('super-admin')->namespace('Admin')
         Route::get('edit/{subscriber_id}', 'SubscriberController@edit')->name('edit');
         Route::put('update/{subscriber_id}', 'SubscriberController@update')->name('update');
         Route::get('status/{subscriber_id}/{subscriber_status}', 'SubscriberController@updateStatus')->name('status');
+
+    });
+
+    /**
+     * SUPER ADMIN SIDE CUSTOMER REVIEW show route...
+     */
+    Route::prefix('customers-reviews')->namespace('CustomerReview')->name('customer-review.')->group(function () {
+        Route::get('/', 'CustomerReviewController@index')->name('index');
+        Route::get('show/{customer_review_id}', 'CustomerReviewController@show')->name('show');
+        Route::delete('delete/{customer_review_id}', 'CustomerReviewController@destroy')->name('delete');
+        Route::get('edit/{customer_review_id}', 'CustomerReviewController@edit')->name('edit');
+        Route::put('update/{customer_review_id}', 'CustomerReviewController@update')->name('update');
+        Route::get('status/{customer_review_id}/{customer_review_status}', 'CustomerReviewController@updateStatus')->name('status');
 
     });
 

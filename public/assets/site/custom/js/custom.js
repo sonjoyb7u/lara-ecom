@@ -104,8 +104,9 @@ function loadSubCatListProduct() {
 
 // UPDATE QUANTITY OF CART SHOW PAGE using js...
 // First Way...
-$("#showMsg").hide();
+
 $('.quantity').on('change keyup', function () {
+    $("#showMsg").hide();
     var token = $("meta[name='csrf-token']").attr('content');
     // console.log(token);
     let id = $(this).attr('data-id');
@@ -183,6 +184,40 @@ $('.quantity').on('change keyup', function () {
 //     });
 //
 // });
+
+$('body').on('keyup', '#search', function() {
+    var token = $("meta[name='csrf-token']").attr('content');
+    let search = $(this).val();
+
+    // $("#search-overlay").fadeIn(300);
+    if(search.length > 0) {
+        $("#search-overlay").fadeIn(300);
+        $.ajax({
+            url: SITE_URL + 'search/products',
+            type: 'POST',
+            data: { _token: token, search: search},
+            success:function (response) {
+                // alert(response);
+                $('#search-result').html(response);
+                $("#search-overlay").fadeOut(300);
+            },
+            error:function () {
+                // alert("Error!");
+            }
+        });
+    } else {
+        $('#search-result').html('');
+    }
+
+});
+
+function search_result_show() {
+    $('#search-result').slideDown();
+}
+
+function search_result_hide() {
+    $('#search-result').slideUp();
+}
 
 
 

@@ -8,6 +8,10 @@ use App\Mail\ContactUsMail;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ContactUs;
+use App\Models\Customer;
+use App\Models\CustomerReview;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\SubCategory;
@@ -15,6 +19,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
 
 class SiteController extends Controller
 {
@@ -157,26 +162,77 @@ class SiteController extends Controller
      */
     public function productDetail($slug)
     {
-//        return $slug;
         $product_id = Product::where('slug', $slug)->pluck('id');
 //        return $product_id;
-        $product_detail = Product::with('user', 'brand', 'category', 'subCategory')
-            ->where('id', $product_id)
-            ->where('status', Product::ACTIVE_STATUS)
-            ->first();
-//        return $product_detail;
+        $product_detail = Product::with('user', 'brand', 'category', 'subCategory', 'reviews')
+                            ->where('id', $product_id)
+                            ->where('status', Product::ACTIVE_STATUS)
+                            ->first();
+//        return $product_detail->id;
 //        return json_decode($product_detail->gallery);
-        $sub_cat_id = $product_detail->sub_category_id;
-//        return $sub_cat_id;
 
+        $customer_reviews = CustomerReview::with('customer')->where('product_id', $product_detail->id)->where('status', CustomerReview::VISIBLE_STATUS)->latest()->get();
+//        return $customer_reviews;
+        $count_order_item = OrderItem::with('order')->where('product_id', '=', $product_detail->id)->count();
+//        return $count_order_item;
+
+
+        $sub_cat_id = $product_detail->sub_category_id;
         $related_subcat_products = Product::with('user', 'brand', 'category', 'subCategory')
-                                            ->where('sub_category_id', $sub_cat_id)
-                                            ->where('id', '!=', $product_id)
-                                            ->where('status', Product::ACTIVE_STATUS)
-                                            ->get();
+                                    ->where('sub_category_id', $sub_cat_id)
+                                    ->where('id', '!=', $product_id)
+                                    ->where('status', Product::ACTIVE_STATUS)
+                                    ->get();
 //        return $related_subcat_products;
 
-        return view('site.pages.product-detail', compact('product_detail', 'related_subcat_products'));
+        return view('site.pages.product-detail', compact('product_detail', 'related_subcat_products', 'customer_reviews', 'count_order_item'));
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function reviewStore(Request $request) {
+        $this->validate($request, [
+            'product' => 'required',
+            'rating' => 'required',
+            'message' => 'required',
+        ]);
+
+        $customer_review = CustomerReview::create([
+            'customer_id'=>Session::get('cuStOmArId'),
+            'product_id'=>$request->product,
+            'rating'=>$request->rating,
+            'message'=>$request->message,
+        ]);
+        if($customer_review) {
+            getMessage('success', 'Your Rating and Review has been sent.');
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function orderTrack() {
+        return view('site.pages.order-tracker');
+    }
+
+    public function orderTrackCheck(Request $request) {
+//        return $request->all();
+        $this->validate($request, [
+            'order_id' => 'required',
+        ]);
+        $order_status = Order::with('payment')->where('id', $request->order_id)->get();
+        if($order_status) {
+            return view('site.pages.order-tracker-status', compact('order_status'));
+
+        } else {
+            getMessage('danger', 'Your Order Number is Invalid, please valid Info!');
+            return redirect()->back();
+        }
 
     }
 
@@ -237,15 +293,39 @@ class SiteController extends Controller
 
     }
 
-    public function searchProducts(Request $request) {
-        if($request->isMethod('POST')) {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function searchGetProducts(Request $request) {
+        if($request->isMethod('GET')) {
+            $this->validate($request, [
+                'search' => 'required',
+            ]);
             $search = $request->search;
-
-            $all_search_products = Product::where('title', 'LIKE', '%' . $search . '%')->orwhere('slug', 'LIKE', '%' . $search . '%')->orwhere('desc', 'LIKE', '%' . $search . '%')->orwhere('long_desc', 'LIKE', '%' . $search . '%')->orwhere('sales_price', $search)->orwhere('product_code', $search)->where('status', Product::ACTIVE_STATUS)->get();
-//            return $all_search_products;
+            $all_search_products = Product::where('title', 'LIKE', '%' . $search . '%')->orWhere('slug', 'LIKE', '%' . $search . '%')->orWhere('desc', 'LIKE', '%' . $search . '%')->orWhere('long_desc', 'LIKE', '%' . $search . '%')->orWhere('sales_price', $search)->orWhere('product_code', $search)->orWhere('status', Product::ACTIVE_STATUS)->select('id', 'title', 'slug', 'image', 'image_start', 'image_end', 'sales_price', 'special_price', 'special_start', 'special_end')->get();
 
             return view('site.pages.search-products', compact('all_search_products'));
 
+
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function searchPostProducts(Request $request) {
+        if($request->isMethod('POST')) {
+            $this->validate($request, [
+                'search' => 'required',
+            ]);
+            $search = $request->search;
+            $all_search_products = Product::where('title', 'LIKE', '%' . $search . '%')->select('id', 'title', 'slug', 'image', 'image_start', 'image_end', 'sales_price', 'special_price', 'special_start', 'special_end')->take(5)->get();
+
+            return view('site.pages.search-result', compact('all_search_products'));
 
         }
     }

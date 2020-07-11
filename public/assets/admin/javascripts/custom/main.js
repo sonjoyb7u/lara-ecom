@@ -151,6 +151,30 @@ $('body').on('change', '#paymentStatus', function () {
 
 });
 
+// UPDATE CUSTOMER REVIEW STATUS using js...
+$('body').on('change', '#customerReviewStatus', function () {
+    var id = $(this).attr('data-id');
+
+    if (this.checked) {
+        var status = 'visible';
+    } else {
+        var status = 'hidden';
+    }
+    // alert(id + status);
+
+    $('.loader-overlay').show();
+    $.ajax({
+        url: "customers-reviews/status/" + id + '/' + status,
+        method: 'get',
+        success: function (result) {
+            // console.log(result);
+            $('.loader-overlay').hide();
+        }
+
+    });
+
+});
+
 
 // DATETIME-PICKER START/END using js...
 $('body').on('click', '#datetimepicker', function () {

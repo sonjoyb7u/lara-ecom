@@ -1,3 +1,4 @@
+
 <header class="header-style-1">
     <!-- ============================================== TOP MENU ============================================== -->
     <div class="top-bar animate-dropdown">
@@ -6,11 +7,12 @@
                 <div class="cnt-account">
                     <ul class="list-unstyled">
                         <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+                        <li><a href="{{ route('site.order.track') }}"><i class="icon fa fa-code"></i>Track Order</a></li>
                         @php
                             $customer_id = Session::get('cuStOmArId');
                             $customer_name = Session::get('cuStOmArNaMe');
                         @endphp
-                        @if($customer_id && Cart::getTotalQuantity() > 0)
+                        @if(!empty($customer_id && Cart::getTotalQuantity()))
                         <li><a href="{{ route('site.checkout.customer-shipping') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
                         @endif
                         @if(Cart::getTotalQuantity() > 0)
@@ -30,7 +32,7 @@
                                 <li><a href="{{ route('site.customer.account', base64_encode($customer_id)) }}" style="color: #000;"><i class="fa fa-user"></i>&nbsp; My Account</a></li>
                                 <div class="divider"></div>
                                 <li>
-                                    <form id="customer-logout-form" action="{{ route('site.customer.logout') }}" method="POST" style="display: none;">
+                                    <form id="customer-logout-form" action="{{ request()->is('/') ? route('site.customer.logout') : route('site.checkout.logout') }}" method="POST" style="display: none;">
                                         @csrf
 
                                     </form>
@@ -111,14 +113,20 @@
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        <form action="{{ route('site.search.products') }}" method="post">
-                            @csrf
-
+                        <form action="{{ route('site.search.products') }}" method="get">
                             <div class="control-group">
-                                <input class="search-field" name="search" placeholder="Search here..." />
+                                <input class="search-field" name="search" id="search" onfocus="search_result_show();" onblur="search_result_hide();" placeholder="Search here..." />
                                 <button type="submit" class="search-button" ></button>
                             </div>
                         </form>
+                        <div id="search-result">
+                            {{--Page Loder...--}}
+                            <div id="search-overlay">
+                                <div class="cv-spinner">
+                                    <span class="spinner"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div><!-- /.search-area -->
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
                 </div><!-- /.top-search-holder -->

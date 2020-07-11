@@ -20,7 +20,6 @@
 <div class="col-xs-12 col-sm-12 col-md-12 homebanner-holder">
 
     <div id="showMsg"></div>
-    @includeIf('messages.show-message')
 
     @if(Cart::isEmpty())
     <div class="shopping-cart">
@@ -209,7 +208,7 @@
                     <tr>
                         <td>
                             <div class="cart-checkout-btn pull-right">
-                                <a href="{{ !Session::get('cuStOmArId') ? route('site.customer.login') : route('site.customer.register') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+                                <a href="{{ !empty(Session::get('cuStOmArId') && \Cart::getTotalQuantity()) ? route('site.checkout.customer-shipping') : route('site.customer.login') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
                                 <span class="">Checkout with multiples address!</span>
                             </div>
                         </td>

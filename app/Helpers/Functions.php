@@ -218,3 +218,16 @@ function paymentStatus() {
     ];
     return $p_status;
 }
+
+function randomRatingColor($rating) {
+    $color = [
+        0 => 'x-default',
+        1 => 'x-danger',
+        2 => 'x-warning',
+        3 => 'x-info',
+        4 => 'x-primary',
+        5 => 'x-success',
+    ];
+
+    return $color[$rating];
+}

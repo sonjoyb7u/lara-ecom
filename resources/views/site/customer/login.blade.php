@@ -46,7 +46,7 @@
                 @endif
                 @includeIf('messages.show-message')
 
-                <form class="register-form outer-top-xs" role="form" action="{{ route('site.customer.login') }}" method="post">
+                <form class="register-form outer-top-xs" role="form" action="{{ request()->is('/') ? route('site.customer.login') : route('site.checkout.login') }}" method="post">
                     @csrf
 
                     <div class="form-group">

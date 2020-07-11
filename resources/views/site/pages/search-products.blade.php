@@ -130,10 +130,20 @@
                                 <div class="col-sm-6 col-md-3 col-lg-3 wow fadeInUp">
                                     <div class="products">
                                         <div class="product">
+                                            @php($special_price = false)
+                                            @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
+                                                @php($special_price = true)
+                                            @endif
                                             <div class="product-image">
                                                 <div class="image"> <a href="{{ route('site.product-detail', $product->slug) }}"><img  src="{{ asset('uploads/images/product/images/'. $product->image) }}" alt="{{ $product->image }}"></a> </div>
                                                 <!-- /.image -->
-                                                <div class="tag new"><span>new</span></div>
+                                                @if($special_price)
+                                                <div class="special-price-percent special">
+                                                    <span>
+                                                        <span>{{ $special_price ? sprintf('%.2f', (($product->sales_price - $product->special_price) / $product->sales_price) * 100) : '' }}%<br>off</span>
+                                                    </span>
+                                                </div>
+                                                @endif
                                             </div>
                                             <!-- /.product-image -->
 
@@ -142,10 +152,6 @@
                                                 {{--                                                <div class="rating rateit-small"></div>--}}
                                                 <div class="description"></div>
                                                 <div class="product-price">
-                                                    @php($special_price = false)
-                                                    @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d'))
-                                                        @php($special_price = true)
-                                                    @endif
                                                     <span class="price">
                                                 &#2547;{{ $special_price ? $product->special_price : $product->sales_price }}
                                                 </span>

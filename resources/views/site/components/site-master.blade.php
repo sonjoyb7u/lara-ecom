@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap.min.css') }}">
     <!--PAGE-LOADER css-->
     <!-- ========================================================= -->
-    <link rel="stylesheet" href="{{ asset('assets/site/css/page-loader.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/site/custom/plugins/page-loader/page-loader.css') }}">
     <!-- Customizable CSS -->
     <link rel="stylesheet" href="{{ asset('assets/site/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/site/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/site/custom/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/owl.transitions.css') }}">
@@ -54,6 +54,7 @@
 
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
     <div class="container">
+        @includeIf('messages.show-message')
 
         <div class="row {{ request()->is('product-detail/*') ? 'single-product' : '' }}">
 {{--            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">--}}
@@ -95,7 +96,7 @@
     <script src="{{ asset('assets/site/js/jquery.rateit.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/site/js/lightbox.min.js') }}"></script>
     <script src="{{ asset('assets/site/js/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset('assets/site/custom/custom.js') }}"></script>
+    <script src="{{ asset('assets/site/custom/js/custom.js') }}"></script>
     <script src="{{ asset('assets/site/js/wow.min.js') }}"></script>
     <script src="{{ asset('assets/site/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/site/plugins/toastr/js/toastr.min.js') }}"></script>

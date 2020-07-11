@@ -1,0 +1,133 @@
+/* Search Box list css... */
+.search-area {
+    position: relative;
+}
+#search-result {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 9999;
+    border-radius: 5px;
+    margin-top: 6px;
+}
+.search-result {
+    padding: 15px;
+}
+.search-result ul>li {
+      padding: 8px;
+}
+.search-result ul>li span img{
+    margin-top: 10px;
+}
+.search-result ul>li a{
+    margin-left: 50px;
+}
+.search-result ul>li p{
+    margin-left: 100px;
+    font-weight: bold;
+}
+.search-result ul>li:hover {
+    background: #eee;
+}
+
+/* Special Price Percent (Grid) css... */
+.product .product-image .special-price-percent {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    height: 50px;
+    text-transform: uppercase;
+    top: 2%;
+    left: 5px;
+    width: 50px;
+    z-index: 100;
+    position: absolute;
+    text-align: center;
+}
+.special-price-percent span {
+    position: relative;
+    z-index: 100;
+    top: 10px;
+}
+
+/* Special Price Percent (List) css... */
+.special-price-percent-list {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    height: 50px;
+    text-transform: uppercase;
+    top: 3%;
+    left: 23px;
+    width: 50px;
+    z-index: 100;
+    position: absolute;
+    text-align: center;
+}
+.special-price-percent-list span {
+    position: relative;
+    z-index: 100;
+    top: 10px;
+}
+
+/*Customer Review Rating css...*/
+.star-1 {
+    position: relative;
+    overflow: hidden;
+    height: 36px;
+    width: 76px;
+}
+.review-rating {
+    border: 1px solid #a0a0a0;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+.review-rating span:first-child {
+    font-size: 40px;
+}
+.review-rating span:nth-child(2) {
+    font-size: 25px;
+    color: #9e9e9e;
+    line-height: 25px;
+}
+.star-2 {
+    position: relative;
+    overflow: hidden;
+    height: 36px;
+    width: 126px;
+    font-size: 22px;
+}
+.star-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.rating-avg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.star-color {
+    width: 118px;
+}
+
+/* Cart Item Quantity input css... */
+input.quantity {
+    width: 70px;
+    display: inline-block;
+    padding: 15px 10px;
+    height: 0;
+}
+.quantity-update-btn {
+    margin-top: -5px;
+    width: 60px;
+}
+
+
